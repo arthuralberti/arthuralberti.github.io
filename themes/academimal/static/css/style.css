@@ -391,6 +391,9 @@ header {
   position: fixed;
   -webkit-font-smoothing: subpixel-antialiased; }
 
+.site-identity {
+  background: #fff; }
+
 header ul {
   list-style: none;
   height: 40px;
@@ -473,7 +476,23 @@ footer {
     width: auto; }
 
   header {
+    padding-top: 126px;
     padding-right: 320px; }
+
+  .site-identity {
+    position: fixed;
+    top: 0;
+    left: 50px;
+    right: 50px;
+    z-index: 30;
+    padding: 12px 0 10px;
+    border-bottom: 1px solid #e5e5e5; }
+
+  .site-identity h1 {
+    margin-bottom: 6px; }
+
+  .site-identity p {
+    margin-bottom: 0; }
 
   .profile-photo {
     width: 270px; }
@@ -496,7 +515,10 @@ footer {
     word-wrap: break-word; }
 
   header {
-    padding: 0; }
+    padding: 126px 0 0; }
+
+  section h2 {
+    scroll-margin-top: 96px; }
 
   .profile-photo {
     width: min(270px, 100%); }
@@ -509,6 +531,12 @@ footer {
 @media print, screen and (max-width: 480px) {
   body {
     padding: 15px; }
+
+  .site-identity {
+    left: 15px;
+    right: 15px;
+    padding-left: 15px;
+    padding-right: 15px; }
 
   header ul {
     width: 99%; }
