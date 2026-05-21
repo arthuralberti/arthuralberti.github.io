@@ -383,7 +383,9 @@ img {
 .profile-photo {
   display: block;
   width: 270px;
-  height: auto; }
+  height: 270px;
+  object-fit: cover;
+  object-position: 58% 48%; }
 
 header {
   width: 270px;
