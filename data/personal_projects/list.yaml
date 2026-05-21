@@ -6,11 +6,8 @@ works:
   description: "An interactive database of economics faculty at my target PhD universities — searchable and filterable by field and institution, with each professor's research areas, current affiliation, personal website, and links to their recent papers."
   link: "https://arthuralberti.github.io/application-information.github.io/"
 
-- title: "Card Games"
-  description: "I am an avid card-game player. I play Bridge at the Associação Paulistana and King occasionally at a local club, and I am currently designing my own optimal version of Canastra / Buraco / Tranca — picking the rules that give players the right incentives."
-
-- title: "Board Games"
-  description: "I am also a board-game enthusiast. A group of friends and I meet monthly to play, with Catan, Power Grid, and Canastra among our regular favorites."
+- title: "Card & Board Games"
+  description: "I am an avid card-game player. I play Bridge at the Associação Paulistana de Bridge and King occasionally at a local club, and I am currently designing my own optimal version of Canastra / Buraco / Tranca — picking the rules that give players the right incentives. I am also passionate about board games: twice a month, a regular group of friends and I get together to play, with Catan, Power Grid, and Canastra among our favorites."
 
 - title: "Substack"
   link: "https://arthuralberti.substack.com/"
