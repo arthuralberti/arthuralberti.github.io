@@ -3,7 +3,14 @@ works:
   description: "Dashboard for organizing personal finances, tracking spending patterns, and turning transaction-level data into a clearer view of monthly budgets and financial behavior."
 
 - title: "Application Information"
-  description: "A database collecting all professors at target PhD universities, with their number of Top-5 publications, top fields, and links to their recent papers, as well as recent job market papers (JMPs)."
+  description: "An interactive database of economics faculty at my target PhD universities — searchable and filterable by field and institution, with each professor's research areas, current affiliation, personal website, and links to their recent papers."
+  link: "https://arthuralberti.github.io/application-information.github.io/"
+
+- title: "Card Games"
+  description: "I am an avid card-game player. I play Bridge at the Associação Paulistana and King occasionally at a local club, and I am currently designing my own optimal version of Canastra / Buraco / Tranca — picking the rules that give players the right incentives."
+
+- title: "Board Games"
+  description: "I am also a board-game enthusiast. A group of friends and I meet monthly to play, with Catan, Power Grid, and Canastra among our regular favorites."
 
 - title: "Substack"
   link: "https://arthuralberti.substack.com/"
