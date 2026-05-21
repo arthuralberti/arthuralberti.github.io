@@ -520,8 +520,11 @@ footer {
   header > hr:first-of-type {
     display: none; }
 
+  section {
+    border-top: 0; }
+
   section h2 {
-    scroll-margin-top: 134px; }
+    scroll-margin-top: 116px; }
 
   .profile-photo {
     width: min(270px, 100%); }
