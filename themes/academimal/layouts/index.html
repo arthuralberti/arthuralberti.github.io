@@ -133,7 +133,7 @@
 {{ range .works }}
 {{ if .description }}
 <h3 style="margin:20px 0 5px;">{{ if .link }}<a href="{{ .link }}" target="_blank" rel="noopener">{{ .title }}</a>{{ else }}{{ .title }}{{ end }}</h3>
-<p style="margin:0 0 5px;">{{ .description }}</p>
+<p style="margin:0 0 5px;">{{ .description | safeHTML }}</p>
 {{ end }}
 {{ end }}
 {{ end }}

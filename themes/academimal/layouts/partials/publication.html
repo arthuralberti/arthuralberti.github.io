@@ -2,9 +2,9 @@
 
 {{ with .context.coauthors }}<p style="margin:0 0 5px;">with {{ . }}</p>{{ end }}
 
-{{ with .context.note }}<p style="margin:0 0 5px;">{{ . }}</p>{{ end }}
 {{ with .context.book }}<p style="margin:0 0 5px;"><em>{{ . }}</em></p>{{ end }}
 {{ with .context.presented }}<p style="margin:0 0 5px;">Presented: {{ . }}</p>{{ end }}
+{{ with .context.note }}<p style="margin:0 0 5px;">{{ . }}</p>{{ end }}
 {{ $pid := .pid }}
 {{ with .context.abstract }}<p style="margin:0 0 5px;"><a href="javascript:toggle({{ $pid }})">Abstract<span id="pubabslink_{{ $pid }}"></span></a><span id="pubabs_{{ $pid }}" style="display:none;"> (&ndash;): {{ . }}</span></p>{{ end }}
 {{ with .context.keywords }}<p style="margin:0 0 5px;"><strong>Keywords:</strong> {{ . }}</p>{{ end }}
