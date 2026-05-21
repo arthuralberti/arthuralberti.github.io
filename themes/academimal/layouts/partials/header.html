@@ -20,13 +20,6 @@
                 <!-- end short bio -->
 
 
-                {{ with .Site.Params.email }}
-                <p class="contactinfo">
-                <a href="mailto:{{ . }}">{{ . }}</a>
-                </p>
-                {{ end }}
-
-
                 <hr/>
 
                 {{ partial "sidebar.html" . }}

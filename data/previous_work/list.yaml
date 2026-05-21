@@ -1,6 +1,5 @@
 works:
 - title: "The Impact of Poverty on Mortality During the First Wave of the Pandemic"
   book: "Undergraduate Thesis, Insper"
-  pdflink: "/pdf/undergraduate-thesis_ArthurAlberti.pdf"
   abstract: >
       This study aims to provide evidence that the per capita income of a specific microregion influenced mortality rates during the 2020 pandemic. We utilized national mortality data at the microregional level in Brazil, examining periods before, during, and after the peak of the initial wave of the COVID-19 pandemic. It is hypothesized that microregions situated in the lower spectrum of the per capita income distribution will exhibit higher excess mortality compared to their counterparts in the upper spectrum. This observation remains consistent even after accounting for factors such as the population aged above 70, infrastructure variables, unemployment rates, and fixed state effects.
