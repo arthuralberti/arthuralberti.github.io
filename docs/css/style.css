@@ -515,10 +515,13 @@ footer {
     word-wrap: break-word; }
 
   header {
-    padding: 126px 0 0; }
+    padding: 108px 0 0; }
+
+  header > hr:first-of-type {
+    display: none; }
 
   section h2 {
-    scroll-margin-top: 96px; }
+    scroll-margin-top: 134px; }
 
   .profile-photo {
     width: min(270px, 100%); }
