@@ -129,14 +129,19 @@
 {{ with hugo.Data.personal_projects }}
 <hr>
 <h2 id="personal">Personal</h2>
-<div class="profile-actions personal-action-row">
+{{ range . }}
+{{ range .works }}
+{{ if not .link }}
+<h3 style="margin:20px 0 5px;">{{ .title }}</h3>
+{{ with .description }}<p style="margin:0 0 5px;">{{ . }}</p>{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
+<div class="profile-actions action-row">
 {{ range . }}
 {{ range .works }}
 {{ if .link }}
-  <button class="button-2 personal-button" role="button" onclick="window.open('{{ .link }}')" style="font: 13.5px Noto Sans"><strong>{{ .title }}</strong></button>
-{{ else }}
-<h3 style="margin:20px 0 5px;">{{ .title }}</h3>
-{{ with .description }}<p style="margin:0 0 5px;">{{ . }}</p>{{ end }}
+  <button class="button-2" role="button" onclick="window.open('{{ .link }}')" style="font: 13.5px Noto Sans"><strong>{{ .title }}</strong></button>
 {{ end }}
 {{ end }}
 {{ end }}
