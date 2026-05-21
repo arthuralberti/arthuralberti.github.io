@@ -1,0 +1,3 @@
+I am an economist based in São Paulo, Brazil. I hold a Master's degree in Economic Theory from the University of São Paulo, and I currently work as a Research Assistant for Claudio Ferraz and Caroline Le Pennec on *Promises, Policies, and Accountability*.
+
+My research interests lie at the intersection of political economy, public policy, and development economics, with a focus on how local institutions and political incentives shape policy implementation. I received my bachelor's degree in economics from Insper and studied as a visiting undergraduate student at the University of California, Berkeley.

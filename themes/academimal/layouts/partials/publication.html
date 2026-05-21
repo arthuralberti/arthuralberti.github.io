@@ -1,0 +1,17 @@
+<h3 style="margin:20px 0 5px;">{{ with .context.pdflink }}<a href="{{ . }}" target="blank">{{ end }}{{ .context.title }}{{ with .context.pdflink }}</a>{{ end }}</h3>
+
+{{ with .context.coauthors }}<p style="margin:0 0 5px;">(with {{ . }})</p>{{ end }}
+
+{{ with .context.note }}<p style="margin:0 0 5px;">{{ . }}</p>{{ end }}
+{{ with .context.book }}<p style="margin:0 0 5px;"><em>{{ . }}</em></p>{{ end }}
+{{ with .context.presented }}<p style="margin:0 0 5px;">Presented: {{ . }}</p>{{ end }}
+{{ $pid := .pid }}
+{{ with .context.abstract }}<p style="margin:0 0 5px;"><a href="javascript:toggle({{ $pid }})">Abstract<span id="pubabslink_{{ $pid }}"></span></a><span id="pubabs_{{ $pid }}" style="display:none;"> (&ndash;): {{ . }}</span></p>{{ end }}
+{{ with .context.keywords }}<p style="margin:0 0 5px;"><strong>Keywords:</strong> {{ . }}</p>{{ end }}
+{{ with .context.jel }}<p style="margin:0 0 5px;"><strong>JEL Classifications:</strong> {{ . }}</p>{{ end }}
+
+{{ with .context.links }}
+{{ range . }}
+<p style="margin:0 0 5px;"><a href="{{ .url }}" target="_blank">{{ .text }}</a>{{ with .note }}: {{ . }}{{ end }}</p>
+{{ end }}
+{{ end }}

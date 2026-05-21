@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ .Site.Title }} | {{ .Title }}</title>
+        <link rel="stylesheet" href="{{ "/css/style.css" | relURL }}">
+        <link rel=“icon” href=”/favicon.ico” type=“image/x-icon”>
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v1">
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <h1 style="font-size:250%;">{{ .Site.Title }}</h1>
+
+                <!-- begin short bio -->
+                <p>{{ .Site.Params.shortbioline1 }}<br>
+                {{ .Site.Params.shortbioline2 }}</p>
+                <!-- end short bio -->
+
+
+                {{ with .Site.Params.email }}
+                <p class="contactinfo">
+                <a href="mailto:{{ . }}">{{ . }}</a>
+                </p>
+                {{ end }}
+
+
+                <hr/>
+
+                {{ partial "sidebar.html" . }}
+
+                <hr/>
+
+                <!-- begin photo -->
+                {{ with .Site.Params.logo }}
+                <img class="profile-photo" src="{{ . | relURL }}" alt="{{ $.Site.Title }}" />
+                {{ end }}
+                <!-- end photo -->
+                <br><br>
+
+            </header>

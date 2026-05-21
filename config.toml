@@ -1,0 +1,20 @@
+relativeURLs = true
+title = "Arthur Alberti"
+theme = "academimal"
+sectionPagesMenu = "main"
+defaultContentLanguage = "en"
+
+[params]
+    shortbioline1 = "Master's in Economic Theory,"
+    shortbioline2 = "University of São Paulo (USP)"
+    email = "arthur.alberti@hotmail.com"
+    phone = "+55 11 93618-6863"
+    logo = "profile_ArthurAlberti.jpg"
+    cv = "pdf/CV_ArthurAlberti.pdf"
+    researchstatement = "pdf/research-statement_ArthurAlberti.pdf"
+    github = "https://github.com/arthuralberti"
+    linkedin = "https://www.linkedin.com/in/arthuralberti/"
+    twitter = "https://x.com/ArthurAlberti"
+    instagram = "https://www.instagram.com/arthuralberti/"
+    substack = "https://arthuralberti.substack.com/"
+    goodreads = "https://www.goodreads.com/user/show/128148581-arthur-alberti"

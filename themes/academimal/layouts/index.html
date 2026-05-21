@@ -1,0 +1,152 @@
+{{ define "main" -}}
+{{ with .GetPage "/sections/aboutme.md" }}
+<h2 id="bio">Bio</h2>
+<div>{{ .Content }}</div>
+<div class="profile-actions action-row">
+  <button class="button-2" role="button" onclick="window.open('{{ $.Site.Params.cv | relURL }}')" style="font: 13.5px Noto Sans"><strong>Curriculum Vitae</strong></button>
+  {{ with $.Site.Params.researchstatement }}
+    {{ if fileExists (printf "static/%s" .) }}
+      <button class="button-2" role="button" onclick="window.open('{{ . | relURL }}')" style="font: 13.5px Noto Sans"><strong>Research Statement</strong></button>
+    {{ else }}
+      <button class="button-2 button-disabled" role="button" disabled style="font: 13.5px Noto Sans"><strong>Research Statement</strong></button>
+    {{ end }}
+  {{ end }}
+</div>
+{{ end }}
+
+<hr>
+<h2 id="contact">Contact</h2>
+<div class="contact-block">
+  {{ with .Site.Params.email }}
+  <p>Email: <a href="mailto:{{ . }}">{{ . }}</a></p>
+  {{ end }}
+  {{ with .Site.Params.phone }}
+  <p>Phone: {{ . }}</p>
+  {{ end }}
+  <div class="profile-actions action-row">
+    {{ with .Site.Params.github }}<button class="button-2" role="button" onclick="window.open('{{ . }}')" style="font: 13.5px Noto Sans"><strong>GitHub</strong></button>{{ end }}
+    {{ with .Site.Params.linkedin }}<button class="button-2" role="button" onclick="window.open('{{ . }}')" style="font: 13.5px Noto Sans"><strong>LinkedIn</strong></button>{{ end }}
+    {{ with .Site.Params.twitter }}<button class="button-2" role="button" onclick="window.open('{{ . }}')" style="font: 13.5px Noto Sans"><strong>Twitter / X</strong></button>{{ end }}
+    {{ with .Site.Params.instagram }}<button class="button-2" role="button" onclick="window.open('{{ . }}')" style="font: 13.5px Noto Sans"><strong>Instagram</strong></button>{{ end }}
+  </div>
+</div>
+
+<style type="text/css">
+  .button-2 {
+    background-color: rgba(51, 51, 51, 0.05);
+    border-radius: 8px;
+    border-width: 0;
+    color: #333333;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Adobe Caslon Pro", "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16.5px;
+    font-weight: 500;
+    line-height: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 10px 12px;
+    text-align: center;
+    transition: all 200ms;
+    vertical-align: baseline;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+
+  .button-disabled {
+    cursor: default;
+    opacity: 0.55;
+  }
+
+  .profile-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .action-row {
+    margin-top: 12px;
+  }
+
+  .personal-action-row {
+    margin-top: 20px;
+  }
+
+</style>
+
+
+{{ $scratch := newScratch }}
+{{ $scratch.Set "pubcnt" 0 }}
+
+{{ with hugo.Data.publications }}
+<hr>
+<h2 id="publications">Publications</h2>
+{{ range . }}
+{{ range .works }}
+{{ partial "publication.html" (dict "context" . "pid" ($scratch.Get "pubcnt")) }}
+{{ $scratch.Add "pubcnt" 1 }}
+{{ end }}
+{{ end }}
+{{ end }}
+
+
+{{ with hugo.Data.working_papers }}
+<hr>
+<h2 id="workingpapers">Working Papers</h2>
+{{ range . }}
+{{ range .works }}
+{{ partial "publication.html" (dict "context" . "pid" ($scratch.Get "pubcnt")) }}
+{{ $scratch.Add "pubcnt" 1 }}
+{{ end }}
+{{ end }}
+{{ end }}
+
+{{ with hugo.Data.work_in_progress }}
+<hr>
+<h2 id="workinprogress">Selected Work in Progress</h2>
+{{ range . }}
+{{ range .works }}
+{{ partial "publication.html" (dict "context" . "pid" ($scratch.Get "pubcnt")) }}
+{{ $scratch.Add "pubcnt" 1 }}
+{{ end }}
+{{ end }}
+{{ end }}
+
+{{ with hugo.Data.previous_work }}
+<hr>
+<h2 id="previouswork">Previous Work</h2>
+{{ range . }}
+{{ range .works }}
+{{ partial "publication.html" (dict "context" . "pid" ($scratch.Get "pubcnt")) }}
+{{ $scratch.Add "pubcnt" 1 }}
+{{ end }}
+{{ end }}
+{{ end }}
+
+{{ with hugo.Data.personal_projects }}
+<hr>
+<h2 id="personal">Personal</h2>
+<div class="profile-actions personal-action-row">
+{{ range . }}
+{{ range .works }}
+{{ if .link }}
+  <button class="button-2 personal-button" role="button" onclick="window.open('{{ .link }}')" style="font: 13.5px Noto Sans"><strong>{{ .title }}</strong></button>
+{{ else }}
+<h3 style="margin:20px 0 5px;">{{ .title }}</h3>
+{{ with .description }}<p style="margin:0 0 5px;">{{ . }}</p>{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
+</div>
+{{ end }}
+
+{{ with .GetPage "/sections/attribution.md" }}
+<hr>
+{{ .Content }}
+{{ end }}
+
+{{ .Content }}
+{{- end }}

@@ -1,0 +1,17 @@
+<p class="contactinfo"><a href="{{ "#bio" | relURL }}" style="letter-spacing:.175em; font-size:12px">BIO</a></p>
+<p class="contactinfo"><a href="{{ "#contact" | relURL }}" style="letter-spacing:.175em; font-size:12px">CONTACT</a></p>
+{{ with hugo.Data.publications }}
+<p class="contactinfo"><a href="{{ "#publications" | relURL }}" style="letter-spacing:.175em; font-size:12px">PUBLICATIONS</a></p>
+{{ end }}
+{{ with hugo.Data.working_papers }}
+<p class="contactinfo"><a href="{{ "#workingpapers" | relURL }}" style="letter-spacing:.175em; font-size:12px">WORKING PAPERS</a></p>
+{{ end }}
+{{ with hugo.Data.work_in_progress }}
+<p class="contactinfo"><a href="{{ "#workinprogress" | relURL }}" style="letter-spacing:.175em; font-size:12px">SELECTED WORK IN PROGRESS</a></p>
+{{ end }}
+{{ with hugo.Data.previous_work }}
+<p class="contactinfo"><a href="{{ "#previouswork" | relURL }}" style="letter-spacing:.175em; font-size:12px">PREVIOUS WORK</a></p>
+{{ end }}
+{{ with hugo.Data.personal_projects }}
+<p class="contactinfo"><a href="{{ "#personal" | relURL }}" style="letter-spacing:.175em; font-size:12px">PERSONAL</a></p>
+{{ end }}
