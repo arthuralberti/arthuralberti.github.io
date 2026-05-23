@@ -10,7 +10,7 @@ defaultContentLanguage = "en"
     email = "arthur.alberti@hotmail.com"
     phone = "+55 11 93618-6863"
     # Swap this file name to try another image kept in static/.
-    logo = "profile_ArthurAlberti_2.jpeg"
+    logo = "profile_ArthurAlberti_3.jpeg"
     cv = "pdf/CV_ArthurAlberti.pdf"
     researchstatement = "pdf/research-statement_ArthurAlberti.pdf"
     github = "https://github.com/arthuralberti"

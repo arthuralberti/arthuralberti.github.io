@@ -47,7 +47,7 @@
 
                 
                 
-                <img class="profile-photo" src="./profile_ArthurAlberti_2.jpeg" alt="Arthur Alberti" />
+                <img class="profile-photo" src="./profile_ArthurAlberti_3.jpeg" alt="Arthur Alberti" />
                 
                 
                 <br><br>
@@ -61,7 +61,7 @@
 <p>My research interests lie at the intersection of political economy, public policy, and development economics, with a focus on how local institutions and political incentives shape policy implementation. I received my bachelor&rsquo;s degree in economics from Insper and studied as a visiting undergraduate student at the University of California, Berkeley.</p>
 </div>
 <div class="profile-actions action-row">
-  <button class="button-2" role="button" onclick="window.open('\/pdf\/CV_ArthurAlberti.pdf')" style="font: 13.5px Noto Sans"><strong>Curriculum Vitae</strong></button>
+  <button class="button-2" role="button" onclick="openExternal('\/pdf\/CV_ArthurAlberti.pdf')" style="font: 13.5px Noto Sans"><strong>Curriculum Vitae</strong></button>
   
     
       <button class="button-2 button-disabled" role="button" disabled style="font: 13.5px Noto Sans"><strong>Research Statement</strong></button>
@@ -80,10 +80,10 @@
   <p>Phone: &#43;55 11 93618-6863</p>
   
   <div class="profile-actions action-row">
-    <button class="button-2" role="button" onclick="window.open('https:\/\/github.com\/arthuralberti')" style="font: 13.5px Noto Sans"><strong>GitHub</strong></button>
-    <button class="button-2" role="button" onclick="window.open('https:\/\/www.linkedin.com\/in\/arthuralberti\/')" style="font: 13.5px Noto Sans"><strong>LinkedIn</strong></button>
-    <button class="button-2" role="button" onclick="window.open('https:\/\/x.com\/ArthurAlberti')" style="font: 13.5px Noto Sans"><strong>Twitter / X</strong></button>
-    <button class="button-2" role="button" onclick="window.open('https:\/\/www.instagram.com\/arthuralberti\/')" style="font: 13.5px Noto Sans"><strong>Instagram</strong></button>
+    <button class="button-2" role="button" onclick="openExternal('https:\/\/github.com\/arthuralberti')" style="font: 13.5px Noto Sans"><strong>GitHub</strong></button>
+    <button class="button-2" role="button" onclick="openExternal('https:\/\/www.linkedin.com\/in\/arthuralberti\/')" style="font: 13.5px Noto Sans"><strong>LinkedIn</strong></button>
+    <button class="button-2" role="button" onclick="openExternal('https:\/\/x.com\/ArthurAlberti')" style="font: 13.5px Noto Sans"><strong>Twitter / X</strong></button>
+    <button class="button-2" role="button" onclick="openExternal('https:\/\/www.instagram.com\/arthuralberti\/')" style="font: 13.5px Noto Sans"><strong>Instagram</strong></button>
   </div>
 </div>
 
@@ -242,7 +242,7 @@
 
 
 
-<h3 style="margin:20px 0 5px;"><a href="https://arthuralberti.github.io/application-information.github.io/" target="_blank" rel="noopener">Faculty Explorer</a></h3>
+<h3 style="margin:20px 0 5px;"><a href="https://faculty-explorer.pages.dev/" target="_blank" rel="noopener noreferrer">Faculty Explorer</a></h3>
 <p style="margin:0 0 5px;">An interactive database of economics faculty at my target universities — searchable and filterable by field and institution, with each professor's research areas, current affiliation, personal website, and links to their recent papers.</p>
 
 
@@ -273,11 +273,11 @@
 
 
 
-  <button class="button-2" role="button" onclick="window.open('https:\/\/arthuralberti.substack.com\/')" style="font: 13.5px Noto Sans"><strong>Substack</strong></button>
+  <button class="button-2" role="button" onclick="openExternal('https:\/\/arthuralberti.substack.com\/')" style="font: 13.5px Noto Sans"><strong>Substack</strong></button>
 
 
 
-  <button class="button-2" role="button" onclick="window.open('https:\/\/www.goodreads.com\/user\/show\/128148581-arthur-alberti')" style="font: 13.5px Noto Sans"><strong>Goodreads</strong></button>
+  <button class="button-2" role="button" onclick="openExternal('https:\/\/www.goodreads.com\/user\/show\/128148581-arthur-alberti')" style="font: 13.5px Noto Sans"><strong>Goodreads</strong></button>
 
 
 
@@ -297,6 +297,24 @@
     </div>
     <script src="./js/scale.fix.js"></script>
     <script>
+		function openExternal(url) {
+			window.open(url, "_blank", "noopener,noreferrer");
+		}
+
+		document.querySelectorAll("a[href]").forEach(function(link) {
+			var href = link.getAttribute("href") || "";
+			if (
+				href.startsWith("#") ||
+				href.startsWith("./#") ||
+				href.startsWith("mailto:") ||
+				href.startsWith("javascript:")
+			) {
+				return;
+			}
+			link.target = "_blank";
+			link.rel = "noopener noreferrer";
+		});
+
 		function toggle(pid) {
             objid = "pubabs_" + pid.toString();
             linkid = "pubabslink_" + pid.toString();

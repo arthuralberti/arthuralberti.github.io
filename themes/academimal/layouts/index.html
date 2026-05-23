@@ -3,10 +3,10 @@
 <h2 id="bio">Bio</h2>
 <div>{{ .Content }}</div>
 <div class="profile-actions action-row">
-  <button class="button-2" role="button" onclick="window.open('{{ $.Site.Params.cv | relURL }}')" style="font: 13.5px Noto Sans"><strong>Curriculum Vitae</strong></button>
+  <button class="button-2" role="button" onclick="openExternal('{{ $.Site.Params.cv | relURL }}')" style="font: 13.5px Noto Sans"><strong>Curriculum Vitae</strong></button>
   {{ with $.Site.Params.researchstatement }}
     {{ if fileExists (printf "static/%s" .) }}
-      <button class="button-2" role="button" onclick="window.open('{{ . | relURL }}')" style="font: 13.5px Noto Sans"><strong>Research Statement</strong></button>
+      <button class="button-2" role="button" onclick="openExternal('{{ . | relURL }}')" style="font: 13.5px Noto Sans"><strong>Research Statement</strong></button>
     {{ else }}
       <button class="button-2 button-disabled" role="button" disabled style="font: 13.5px Noto Sans"><strong>Research Statement</strong></button>
     {{ end }}
@@ -24,10 +24,10 @@
   <p>Phone: {{ . }}</p>
   {{ end }}
   <div class="profile-actions action-row">
-    {{ with .Site.Params.github }}<button class="button-2" role="button" onclick="window.open('{{ . }}')" style="font: 13.5px Noto Sans"><strong>GitHub</strong></button>{{ end }}
-    {{ with .Site.Params.linkedin }}<button class="button-2" role="button" onclick="window.open('{{ . }}')" style="font: 13.5px Noto Sans"><strong>LinkedIn</strong></button>{{ end }}
-    {{ with .Site.Params.twitter }}<button class="button-2" role="button" onclick="window.open('{{ . }}')" style="font: 13.5px Noto Sans"><strong>Twitter / X</strong></button>{{ end }}
-    {{ with .Site.Params.instagram }}<button class="button-2" role="button" onclick="window.open('{{ . }}')" style="font: 13.5px Noto Sans"><strong>Instagram</strong></button>{{ end }}
+    {{ with .Site.Params.github }}<button class="button-2" role="button" onclick="openExternal('{{ . }}')" style="font: 13.5px Noto Sans"><strong>GitHub</strong></button>{{ end }}
+    {{ with .Site.Params.linkedin }}<button class="button-2" role="button" onclick="openExternal('{{ . }}')" style="font: 13.5px Noto Sans"><strong>LinkedIn</strong></button>{{ end }}
+    {{ with .Site.Params.twitter }}<button class="button-2" role="button" onclick="openExternal('{{ . }}')" style="font: 13.5px Noto Sans"><strong>Twitter / X</strong></button>{{ end }}
+    {{ with .Site.Params.instagram }}<button class="button-2" role="button" onclick="openExternal('{{ . }}')" style="font: 13.5px Noto Sans"><strong>Instagram</strong></button>{{ end }}
   </div>
 </div>
 
@@ -132,7 +132,7 @@
 {{ range . }}
 {{ range .works }}
 {{ if .description }}
-<h3 style="margin:20px 0 5px;">{{ if .link }}<a href="{{ .link }}" target="_blank" rel="noopener">{{ .title }}</a>{{ else }}{{ .title }}{{ end }}</h3>
+<h3 style="margin:20px 0 5px;">{{ if .link }}<a href="{{ .link }}" target="_blank" rel="noopener noreferrer">{{ .title }}</a>{{ else }}{{ .title }}{{ end }}</h3>
 <p style="margin:0 0 5px;">{{ .description | safeHTML }}</p>
 {{ end }}
 {{ end }}
@@ -141,7 +141,7 @@
 {{ range . }}
 {{ range .works }}
 {{ if and .link (not .description) }}
-  <button class="button-2" role="button" onclick="window.open('{{ .link }}')" style="font: 13.5px Noto Sans"><strong>{{ .title }}</strong></button>
+  <button class="button-2" role="button" onclick="openExternal('{{ .link }}')" style="font: 13.5px Noto Sans"><strong>{{ .title }}</strong></button>
 {{ end }}
 {{ end }}
 {{ end }}
@@ -154,4 +154,23 @@
 {{ end }}
 
 {{ .Content }}
+<script>
+  function openExternal(url) {
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  document.querySelectorAll("a[href]").forEach(function(link) {
+    var href = link.getAttribute("href") || "";
+    if (
+      href.startsWith("#") ||
+      href.startsWith("./#") ||
+      href.startsWith("mailto:") ||
+      href.startsWith("javascript:")
+    ) {
+      return;
+    }
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+  });
+</script>
 {{- end }}
