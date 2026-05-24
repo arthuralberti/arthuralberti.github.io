@@ -21,7 +21,7 @@
           <p class="favorite-paper-venue">{{ $paper.venue }}</p>
           <div class="favorite-paper-actions">
             <a class="favorite-paper-button" href="javascript:toggle({{ $index }})">Abstract<span id="pubabslink_{{ $index }}"></span></a>
-            <a class="favorite-paper-button quiet" href="{{ $paper.paper_url }}" target="_blank" rel="noopener noreferrer">DOI</a>
+            <a class="favorite-paper-button quiet" href="{{ $paper.paper_url }}" target="_blank" rel="noopener noreferrer">Paper</a>
             {{ if fileExists $pdfPath }}
               <a class="favorite-paper-button pdf" href="{{ printf "favorite-papers/pdfs/%s.pdf" $paper.slug | relURL }}" target="_blank" rel="noopener noreferrer">PDF</a>
             {{ end }}
