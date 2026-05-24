@@ -9,24 +9,15 @@
 
   <div class="favorite-papers-list" id="paper-list">
     {{ range $index, $paper := $papers }}
-      {{ $pdfPath := printf "static/favorite-papers/pdfs/%s.pdf" $paper.slug }}
       <article class="favorite-paper">
         <div class="favorite-paper-index">{{ add $index 1 }}</div>
         <div class="favorite-paper-body">
           <div class="favorite-paper-meta">
             <span>{{ $paper.year }}</span>
           </div>
-          <h3>{{ $paper.title }}</h3>
+          <h3><a href="{{ $paper.paper_url }}" target="_blank" rel="noopener noreferrer">{{ $paper.title }}</a></h3>
           <p class="favorite-paper-authors">{{ $paper.authors }}</p>
           <p class="favorite-paper-venue">{{ $paper.venue }}</p>
-          <div class="favorite-paper-actions">
-            <a class="favorite-paper-button" href="javascript:toggle({{ $index }})">Abstract<span id="pubabslink_{{ $index }}"></span></a>
-            <a class="favorite-paper-button quiet" href="{{ $paper.paper_url }}" target="_blank" rel="noopener noreferrer">Paper</a>
-            {{ if fileExists $pdfPath }}
-              <a class="favorite-paper-button pdf" href="{{ printf "favorite-papers/pdfs/%s.pdf" $paper.slug | relURL }}" target="_blank" rel="noopener noreferrer">PDF</a>
-            {{ end }}
-          </div>
-          <p class="favorite-paper-note" id="pubabs_{{ $index }}" style="display:none;">{{ $paper.note }}</p>
         </div>
       </article>
     {{ end }}
@@ -46,8 +37,7 @@
 
   .favorite-papers-kicker,
   .favorite-paper-meta,
-  .favorite-paper-venue,
-  .favorite-paper-actions {
+  .favorite-paper-venue {
     font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
@@ -119,6 +109,15 @@
     margin: 0 0 6px;
   }
 
+  .favorite-paper h3 a {
+    color: #222;
+  }
+
+  .favorite-paper h3 a:hover,
+  .favorite-paper h3 a:focus {
+    color: #267CB9;
+  }
+
   .favorite-paper-authors {
     color: #333;
     font-size: 14px;
@@ -129,58 +128,6 @@
     color: #777;
     font-size: 12px;
     margin: 0 0 9px;
-  }
-
-  .favorite-paper-note {
-    color: #555;
-    margin: 10px 0 0;
-  }
-
-  .favorite-paper-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-  }
-
-  .favorite-paper-button {
-    background: #267cb9;
-    border: 1px solid #267cb9;
-    border-radius: 8px;
-    color: #fff;
-    display: inline-flex;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1;
-    padding: 8px 10px;
-  }
-
-  .favorite-paper-button:hover,
-  .favorite-paper-button:focus {
-    background: #045b89;
-    border-color: #045b89;
-    color: #fff;
-  }
-
-  .favorite-paper-button.quiet {
-    background: #fff;
-    color: #267cb9;
-  }
-
-  .favorite-paper-button.quiet:hover,
-  .favorite-paper-button.quiet:focus {
-    background: #eef7fc;
-    color: #045b89;
-  }
-
-  .favorite-paper-button.pdf {
-    background: #816a35;
-    border-color: #816a35;
-  }
-
-  .favorite-paper-button.pdf:hover,
-  .favorite-paper-button.pdf:focus {
-    background: #5c4a20;
-    border-color: #5c4a20;
   }
 
   @media print, screen and (max-width: 720px) {
