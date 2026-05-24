@@ -1,5 +1,5 @@
 {{ define "main" -}}
-{{ $papers := site.Data.favorite_papers.list.papers }}
+{{ $papers := sort site.Data.favorite_papers.list.papers "year" "desc" }}
 <div class="favorite-papers-page">
   <div class="favorite-papers-heading">
     <p class="favorite-papers-kicker">Reading list</p>
@@ -7,30 +7,14 @@
     <p class="favorite-papers-intro">A compact shelf of papers I keep returning to: political economy, growth, history, labor, macro, market design, and the craft of applied economics.</p>
   </div>
 
-  <div class="favorite-papers-toolbar" aria-label="Favorite papers controls">
-    <label class="favorite-papers-search">
-      <span>Search</span>
-      <input id="paper-search" type="search" autocomplete="off" placeholder="Title, author, topic">
-    </label>
-    <label class="favorite-papers-filter">
-      <span>Topic</span>
-      <select id="paper-topic">
-        <option value="">All topics</option>
-      </select>
-    </label>
-  </div>
-
-  <div class="favorite-papers-count" id="paper-count">{{ len $papers }} papers</div>
-
   <div class="favorite-papers-list" id="paper-list">
     {{ range $index, $paper := $papers }}
       {{ $pdfPath := printf "static/favorite-papers/pdfs/%s.pdf" $paper.slug }}
-      <article class="favorite-paper" data-topic="{{ $paper.topic }}" data-search="{{ lower (printf "%s %s %s %s %s" $paper.title $paper.authors $paper.year $paper.venue $paper.topic) }}">
+      <article class="favorite-paper">
         <div class="favorite-paper-index">{{ add $index 1 }}</div>
         <div class="favorite-paper-body">
           <div class="favorite-paper-meta">
             <span>{{ $paper.year }}</span>
-            <span>{{ $paper.topic }}</span>
           </div>
           <h3>{{ $paper.title }}</h3>
           <p class="favorite-paper-authors">{{ $paper.authors }}</p>
@@ -43,8 +27,6 @@
             {{ end }}
             {{ if fileExists $pdfPath }}
               <a class="favorite-paper-button pdf" href="{{ printf "favorite-papers/pdfs/%s.pdf" $paper.slug | relURL }}" target="_blank" rel="noopener noreferrer">PDF</a>
-            {{ else }}
-              <span class="favorite-paper-button pending" title="Add this PDF to the local favorite papers folder and run the sync script.">PDF pending</span>
             {{ end }}
           </div>
         </div>
@@ -65,11 +47,9 @@
   }
 
   .favorite-papers-kicker,
-  .favorite-papers-count,
   .favorite-paper-meta,
   .favorite-paper-venue,
-  .favorite-paper-actions,
-  .favorite-papers-toolbar label span {
+  .favorite-paper-actions {
     font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
@@ -92,52 +72,6 @@
     line-height: 1.55;
     margin: 0;
     max-width: 660px;
-  }
-
-  .favorite-papers-toolbar {
-    align-items: end;
-    display: grid;
-    gap: 10px;
-    grid-template-columns: minmax(0, 1fr) 210px;
-    margin: 0 0 12px;
-  }
-
-  .favorite-papers-toolbar label {
-    display: grid;
-    gap: 5px;
-    min-width: 0;
-  }
-
-  .favorite-papers-toolbar label span {
-    color: #555;
-    font-size: 12px;
-    font-weight: 700;
-  }
-
-  .favorite-papers-toolbar input,
-  .favorite-papers-toolbar select {
-    background: #fff;
-    border: 1px solid #d8d8d8;
-    border-radius: 8px;
-    box-sizing: border-box;
-    color: #333;
-    font: 14px "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    height: 40px;
-    outline: none;
-    padding: 8px 10px;
-    width: 100%;
-  }
-
-  .favorite-papers-toolbar input:focus,
-  .favorite-papers-toolbar select:focus {
-    border-color: #267cb9;
-    box-shadow: 0 0 0 3px rgba(38, 124, 185, 0.12);
-  }
-
-  .favorite-papers-count {
-    color: #777;
-    font-size: 12px;
-    margin: 0 0 12px;
   }
 
   .favorite-papers-list {
@@ -177,16 +111,8 @@
   .favorite-paper-meta {
     color: #777;
     display: flex;
-    flex-wrap: wrap;
     font-size: 12px;
-    gap: 8px;
     margin-bottom: 5px;
-  }
-
-  .favorite-paper-meta span + span::before {
-    color: #bbb;
-    content: "/";
-    padding-right: 8px;
   }
 
   .favorite-paper h3 {
@@ -259,17 +185,7 @@
     border-color: #5c4a20;
   }
 
-  .favorite-paper-button.pending {
-    background: #f4f4f4;
-    border-color: #dfdfdf;
-    color: #777;
-  }
-
   @media print, screen and (max-width: 720px) {
-    .favorite-papers-toolbar {
-      grid-template-columns: 1fr;
-    }
-
     .favorite-paper {
       grid-template-columns: 1fr;
     }
@@ -281,46 +197,4 @@
   }
 </style>
 
-<script>
-  (function() {
-    var searchInput = document.getElementById("paper-search");
-    var topicSelect = document.getElementById("paper-topic");
-    var count = document.getElementById("paper-count");
-    var papers = Array.prototype.slice.call(document.querySelectorAll(".favorite-paper"));
-
-    var topics = papers
-      .map(function(paper) { return paper.getAttribute("data-topic"); })
-      .filter(Boolean)
-      .filter(function(topic, index, array) { return array.indexOf(topic) === index; })
-      .sort();
-
-    topics.forEach(function(topic) {
-      var option = document.createElement("option");
-      option.value = topic;
-      option.textContent = topic;
-      topicSelect.appendChild(option);
-    });
-
-    function applyFilters() {
-      var query = (searchInput.value || "").trim().toLowerCase();
-      var topic = topicSelect.value;
-      var shown = 0;
-
-      papers.forEach(function(paper) {
-        var matchesQuery = !query || paper.getAttribute("data-search").indexOf(query) !== -1;
-        var matchesTopic = !topic || paper.getAttribute("data-topic") === topic;
-        var visible = matchesQuery && matchesTopic;
-        paper.hidden = !visible;
-        if (visible) {
-          shown += 1;
-        }
-      });
-
-      count.textContent = shown + (shown === 1 ? " paper" : " papers");
-    }
-
-    searchInput.addEventListener("input", applyFilters);
-    topicSelect.addEventListener("change", applyFilters);
-  })();
-</script>
 {{- end }}

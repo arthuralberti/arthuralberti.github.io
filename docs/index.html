@@ -248,7 +248,7 @@
 
 
 
-<h3 style="margin:20px 0 5px;"><a href="https://arthuralberti.github.io/favorite-papers/" target="_blank" rel="noopener noreferrer">Favorite Papers</a></h3>
+<h3 style="margin:20px 0 5px;"><a href="favorite-papers/">Favorite Papers</a></h3>
 <p style="margin:0 0 5px;">A curated list of papers I especially like, with brief notes on why I find them useful, elegant, or worth revisiting.</p>
 
 
@@ -312,6 +312,14 @@
       href.startsWith("mailto:") ||
       href.startsWith("javascript:")
     ) {
+      return;
+    }
+    try {
+      var url = new URL(href, window.location.href);
+      if (url.origin === window.location.origin) {
+        return;
+      }
+    } catch (error) {
       return;
     }
     link.target = "_blank";

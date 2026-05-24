@@ -132,7 +132,7 @@
 {{ range . }}
 {{ range .works }}
 {{ if .description }}
-<h3 style="margin:20px 0 5px;">{{ if .link }}<a href="{{ .link }}" target="_blank" rel="noopener noreferrer">{{ .title }}</a>{{ else }}{{ .title }}{{ end }}</h3>
+<h3 style="margin:20px 0 5px;">{{ if .link }}{{ $isExternal := or (hasPrefix .link "http://") (hasPrefix .link "https://") }}<a href="{{ .link }}"{{ if $isExternal }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .title }}</a>{{ else }}{{ .title }}{{ end }}</h3>
 <p style="margin:0 0 5px;">{{ .description | safeHTML }}</p>
 {{ end }}
 {{ end }}
@@ -167,6 +167,14 @@
       href.startsWith("mailto:") ||
       href.startsWith("javascript:")
     ) {
+      return;
+    }
+    try {
+      var url = new URL(href, window.location.href);
+      if (url.origin === window.location.origin) {
+        return;
+      }
+    } catch (error) {
       return;
     }
     link.target = "_blank";
