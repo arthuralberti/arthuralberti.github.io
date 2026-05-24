@@ -6,9 +6,11 @@ works:
   description: "An interactive database of economics faculty at my target universities — searchable and filterable by field and institution, with each professor's research areas, current affiliation, personal website, and links to their recent papers."
   link: "https://faculty-explorer.pages.dev/"
 
-- title: "Restaurants"
-  description: "I love trying new restaurants and keeping track of places I want to visit, revisit, or recommend. I organize this through Google Maps lists, now available through an interactive map."
-  link: "https://arthuralberti.github.io/restaurant-mapping/"
+# Temporarily inactive. Keep this block here so the restaurant map can be
+# re-enabled later without recreating the subsection.
+# - title: "Restaurants"
+#   description: "I love trying new restaurants and keeping track of places I want to visit, revisit, or recommend. I organize this through Google Maps lists, now available through an interactive map."
+#   link: "https://arthuralberti.github.io/restaurant-mapping/"
 
 - title: "Favorite Papers"
   description: "A curated list of papers I especially like, with brief notes on why I find them useful, elegant, or worth revisiting."
