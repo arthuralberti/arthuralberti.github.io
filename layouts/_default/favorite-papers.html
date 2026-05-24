@@ -1,0 +1,326 @@
+{{ define "main" -}}
+{{ $papers := site.Data.favorite_papers.list.papers }}
+<div class="favorite-papers-page">
+  <div class="favorite-papers-heading">
+    <p class="favorite-papers-kicker">Reading list</p>
+    <h2>Favorite Papers</h2>
+    <p class="favorite-papers-intro">A compact shelf of papers I keep returning to: political economy, growth, history, labor, macro, market design, and the craft of applied economics.</p>
+  </div>
+
+  <div class="favorite-papers-toolbar" aria-label="Favorite papers controls">
+    <label class="favorite-papers-search">
+      <span>Search</span>
+      <input id="paper-search" type="search" autocomplete="off" placeholder="Title, author, topic">
+    </label>
+    <label class="favorite-papers-filter">
+      <span>Topic</span>
+      <select id="paper-topic">
+        <option value="">All topics</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="favorite-papers-count" id="paper-count">{{ len $papers }} papers</div>
+
+  <div class="favorite-papers-list" id="paper-list">
+    {{ range $index, $paper := $papers }}
+      {{ $pdfPath := printf "static/favorite-papers/pdfs/%s.pdf" $paper.slug }}
+      <article class="favorite-paper" data-topic="{{ $paper.topic }}" data-search="{{ lower (printf "%s %s %s %s %s" $paper.title $paper.authors $paper.year $paper.venue $paper.topic) }}">
+        <div class="favorite-paper-index">{{ add $index 1 }}</div>
+        <div class="favorite-paper-body">
+          <div class="favorite-paper-meta">
+            <span>{{ $paper.year }}</span>
+            <span>{{ $paper.topic }}</span>
+          </div>
+          <h3>{{ $paper.title }}</h3>
+          <p class="favorite-paper-authors">{{ $paper.authors }}</p>
+          <p class="favorite-paper-venue">{{ $paper.venue }}</p>
+          <p class="favorite-paper-note">{{ $paper.note }}</p>
+          <div class="favorite-paper-actions">
+            <a class="favorite-paper-button" href="{{ $paper.paper_url }}" target="_blank" rel="noopener noreferrer">Paper</a>
+            {{ with $paper.doi }}
+              <a class="favorite-paper-button quiet" href="https://doi.org/{{ . }}" target="_blank" rel="noopener noreferrer">DOI</a>
+            {{ end }}
+            {{ if fileExists $pdfPath }}
+              <a class="favorite-paper-button pdf" href="{{ printf "favorite-papers/pdfs/%s.pdf" $paper.slug | relURL }}" target="_blank" rel="noopener noreferrer">PDF</a>
+            {{ else }}
+              <span class="favorite-paper-button pending" title="Add this PDF to the local favorite papers folder and run the sync script.">PDF pending</span>
+            {{ end }}
+          </div>
+        </div>
+      </article>
+    {{ end }}
+  </div>
+</div>
+
+<style>
+  .favorite-papers-page {
+    color: #474747;
+  }
+
+  .favorite-papers-heading {
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+  }
+
+  .favorite-papers-kicker,
+  .favorite-papers-count,
+  .favorite-paper-meta,
+  .favorite-paper-venue,
+  .favorite-paper-actions,
+  .favorite-papers-toolbar label span {
+    font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  .favorite-papers-kicker {
+    color: #816a35;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+  }
+
+  .favorite-papers-heading h2 {
+    margin-bottom: 10px;
+  }
+
+  .favorite-papers-intro {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.55;
+    margin: 0;
+    max-width: 660px;
+  }
+
+  .favorite-papers-toolbar {
+    align-items: end;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: minmax(0, 1fr) 210px;
+    margin: 0 0 12px;
+  }
+
+  .favorite-papers-toolbar label {
+    display: grid;
+    gap: 5px;
+    min-width: 0;
+  }
+
+  .favorite-papers-toolbar label span {
+    color: #555;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .favorite-papers-toolbar input,
+  .favorite-papers-toolbar select {
+    background: #fff;
+    border: 1px solid #d8d8d8;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #333;
+    font: 14px "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height: 40px;
+    outline: none;
+    padding: 8px 10px;
+    width: 100%;
+  }
+
+  .favorite-papers-toolbar input:focus,
+  .favorite-papers-toolbar select:focus {
+    border-color: #267cb9;
+    box-shadow: 0 0 0 3px rgba(38, 124, 185, 0.12);
+  }
+
+  .favorite-papers-count {
+    color: #777;
+    font-size: 12px;
+    margin: 0 0 12px;
+  }
+
+  .favorite-papers-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .favorite-paper {
+    border: 1px solid #e3e3e3;
+    border-radius: 8px;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 36px minmax(0, 1fr);
+    padding: 14px;
+  }
+
+  .favorite-paper[hidden] {
+    display: none;
+  }
+
+  .favorite-paper-index {
+    align-items: center;
+    background: #f1efe9;
+    border-radius: 8px;
+    color: #68592e;
+    display: flex;
+    font: 700 12px "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height: 32px;
+    justify-content: center;
+    width: 32px;
+  }
+
+  .favorite-paper-body {
+    min-width: 0;
+  }
+
+  .favorite-paper-meta {
+    color: #777;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 12px;
+    gap: 8px;
+    margin-bottom: 5px;
+  }
+
+  .favorite-paper-meta span + span::before {
+    color: #bbb;
+    content: "/";
+    padding-right: 8px;
+  }
+
+  .favorite-paper h3 {
+    font-size: 20px;
+    line-height: 1.18;
+    margin: 0 0 6px;
+  }
+
+  .favorite-paper-authors {
+    color: #333;
+    font-size: 14px;
+    margin: 0 0 3px;
+  }
+
+  .favorite-paper-venue {
+    color: #777;
+    font-size: 12px;
+    margin: 0 0 9px;
+  }
+
+  .favorite-paper-note {
+    color: #555;
+    margin: 0 0 11px;
+  }
+
+  .favorite-paper-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .favorite-paper-button {
+    background: #267cb9;
+    border: 1px solid #267cb9;
+    border-radius: 8px;
+    color: #fff;
+    display: inline-flex;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 8px 10px;
+  }
+
+  .favorite-paper-button:hover,
+  .favorite-paper-button:focus {
+    background: #045b89;
+    border-color: #045b89;
+    color: #fff;
+  }
+
+  .favorite-paper-button.quiet {
+    background: #fff;
+    color: #267cb9;
+  }
+
+  .favorite-paper-button.quiet:hover,
+  .favorite-paper-button.quiet:focus {
+    background: #eef7fc;
+    color: #045b89;
+  }
+
+  .favorite-paper-button.pdf {
+    background: #816a35;
+    border-color: #816a35;
+  }
+
+  .favorite-paper-button.pdf:hover,
+  .favorite-paper-button.pdf:focus {
+    background: #5c4a20;
+    border-color: #5c4a20;
+  }
+
+  .favorite-paper-button.pending {
+    background: #f4f4f4;
+    border-color: #dfdfdf;
+    color: #777;
+  }
+
+  @media print, screen and (max-width: 720px) {
+    .favorite-papers-toolbar {
+      grid-template-columns: 1fr;
+    }
+
+    .favorite-paper {
+      grid-template-columns: 1fr;
+    }
+
+    .favorite-paper-index {
+      height: 28px;
+      width: 28px;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    var searchInput = document.getElementById("paper-search");
+    var topicSelect = document.getElementById("paper-topic");
+    var count = document.getElementById("paper-count");
+    var papers = Array.prototype.slice.call(document.querySelectorAll(".favorite-paper"));
+
+    var topics = papers
+      .map(function(paper) { return paper.getAttribute("data-topic"); })
+      .filter(Boolean)
+      .filter(function(topic, index, array) { return array.indexOf(topic) === index; })
+      .sort();
+
+    topics.forEach(function(topic) {
+      var option = document.createElement("option");
+      option.value = topic;
+      option.textContent = topic;
+      topicSelect.appendChild(option);
+    });
+
+    function applyFilters() {
+      var query = (searchInput.value || "").trim().toLowerCase();
+      var topic = topicSelect.value;
+      var shown = 0;
+
+      papers.forEach(function(paper) {
+        var matchesQuery = !query || paper.getAttribute("data-search").indexOf(query) !== -1;
+        var matchesTopic = !topic || paper.getAttribute("data-topic") === topic;
+        var visible = matchesQuery && matchesTopic;
+        paper.hidden = !visible;
+        if (visible) {
+          shown += 1;
+        }
+      });
+
+      count.textContent = shown + (shown === 1 ? " paper" : " papers");
+    }
+
+    searchInput.addEventListener("input", applyFilters);
+    topicSelect.addEventListener("change", applyFilters);
+  })();
+</script>
+{{- end }}

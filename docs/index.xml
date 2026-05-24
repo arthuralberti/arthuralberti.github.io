@@ -21,5 +21,12 @@
       <guid>/sections/attribution/</guid>
       <description>&lt;p&gt;&lt;em&gt;Latest updated May 2026. Inspired by &lt;a href=&#34;https://gautam-rao.com/&#34;&gt;Gautam Rao&amp;rsquo;s website&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;</description>
     </item>
+    <item>
+      <title>Favorite Papers</title>
+      <link>/favorite-papers/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/favorite-papers/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

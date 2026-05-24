@@ -28,6 +28,7 @@
 
                 <p class="contactinfo"><a href="./#bio" style="letter-spacing:.175em; font-size:12px">BIO</a></p>
 <p class="contactinfo"><a href="./#contact" style="letter-spacing:.175em; font-size:12px">CONTACT</a></p>
+<p class="contactinfo"><a href="./favorite-papers/" style="letter-spacing:.175em; font-size:12px">FAVORITE PAPERS</a></p>
 
 
 <p class="contactinfo"><a href="./#workingpapers" style="letter-spacing:.175em; font-size:12px">WORKING PAPERS</a></p>
@@ -247,15 +248,7 @@
 
 
 
-<!-- Temporarily inactive. Keep this block here so the restaurant map can be
-re-enabled later without recreating the subsection.
-<h3 style="margin:20px 0 5px;"><a href="https://arthuralberti.github.io/restaurant-mapping/" target="_blank" rel="noopener noreferrer">Restaurants</a></h3>
-<p style="margin:0 0 5px;">I love trying new restaurants and keeping track of places I want to visit, revisit, or recommend. I organize this through Google Maps lists, now available through an interactive map.</p>
--->
-
-
-
-<h3 style="margin:20px 0 5px;">Favorite Papers</h3>
+<h3 style="margin:20px 0 5px;"><a href="favorite-papers/" target="_blank" rel="noopener noreferrer">Favorite Papers</a></h3>
 <p style="margin:0 0 5px;">A curated list of papers I especially like, with brief notes on why I find them useful, elegant, or worth revisiting.</p>
 
 
@@ -286,6 +279,8 @@ re-enabled later without recreating the subsection.
 
 
 
+
+
   <button class="button-2" role="button" onclick="openExternal('https:\/\/arthuralberti.substack.com\/')" style="font: 13.5px Noto Sans"><strong>Substack</strong></button>
 
 
@@ -304,30 +299,31 @@ re-enabled later without recreating the subsection.
 
 
 
+<script>
+  function openExternal(url) {
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  document.querySelectorAll("a[href]").forEach(function(link) {
+    var href = link.getAttribute("href") || "";
+    if (
+      href.startsWith("#") ||
+      href.startsWith("./#") ||
+      href.startsWith("mailto:") ||
+      href.startsWith("javascript:")
+    ) {
+      return;
+    }
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+  });
+</script>
 </section>
       <footer>
       </footer>
     </div>
     <script src="./js/scale.fix.js"></script>
     <script>
-		function openExternal(url) {
-			window.open(url, "_blank", "noopener,noreferrer");
-		}
-
-		document.querySelectorAll("a[href]").forEach(function(link) {
-			var href = link.getAttribute("href") || "";
-			if (
-				href.startsWith("#") ||
-				href.startsWith("./#") ||
-				href.startsWith("mailto:") ||
-				href.startsWith("javascript:")
-			) {
-				return;
-			}
-			link.target = "_blank";
-			link.rel = "noopener noreferrer";
-		});
-
 		function toggle(pid) {
             objid = "pubabs_" + pid.toString();
             linkid = "pubabslink_" + pid.toString();
@@ -345,3 +341,4 @@ re-enabled later without recreating the subsection.
 	</script>
   </body>
 </html>
+
