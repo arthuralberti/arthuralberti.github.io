@@ -6,7 +6,7 @@ papers:
     year: "2015"
     venue: "Econometrica"
     doi: "10.3982/ECTA11520"
-    paper_url: "https://doi.org/10.3982/ECTA11520"
+    paper_url: "https://www.econometricsociety.org/doi/10.3982/ECTA11520"
     note: "Brazil's electronic voting rollout becomes a clean way to study de facto enfranchisement, public spending, and infant health."
   - slug: finan-schechter-vote-buying
     title: "Vote-Buying and Reciprocity"
@@ -14,7 +14,7 @@ papers:
     year: "2012"
     venue: "Econometrica"
     doi: "10.3982/ECTA9035"
-    paper_url: "https://doi.org/10.3982/ECTA9035"
+    paper_url: "https://www.econometricsociety.org/doi/10.3982/ECTA9035"
     note: "Connects vote buying to an internalized reciprocity norm, using survey evidence and an experimental measure of reciprocal preferences."
   - slug: shi-money-and-prices
     title: "Money and Prices: A Model of Search and Bargaining"
@@ -45,8 +45,8 @@ papers:
     authors: "Sascha O. Becker, Jared Rubin, and Ludger Woessmann"
     year: "2024"
     venue: "Journal of Economic Literature"
-    doi: ""
-    paper_url: "https://ideas.repec.org/p/iza/izadps/dp16494.html"
+    doi: "10.1257/jel.20231666"
+    paper_url: "https://www.aeaweb.org/articles?id=10.1257/jel.20231666"
     note: "A broad synthesis of how religion can shape physical capital, human capital, labor, technology, institutions, and long-run growth."
   - slug: akerlof-yellen-fairness-unemployment
     title: "Fairness and Unemployment"
@@ -54,16 +54,8 @@ papers:
     year: "1988"
     venue: "American Economic Review"
     doi: ""
-    paper_url: "https://econpapers.repec.org/article/aeaaecrev/v_3a78_3ay_3a1988_3ai_3a2_3ap_3a44-49.htm"
+    paper_url: "https://www.jstor.org/stable/1818095"
     note: "A short, sharp efficiency-wage argument for why fairness norms can sustain unemployment."
-  - slug: romer-more-able-workers
-    title: "Why Do Firms Prefer More Able Workers?"
-    authors: "David Romer"
-    year: "1992"
-    venue: "Unpublished manuscript"
-    doi: ""
-    paper_url: "https://econfaculty.gmu.edu/bcaplan/ableworkers.pdf"
-    note: "A compact theory note on worker ability, wages, and why firms may value more able workers beyond a simple marginal-product story."
   - slug: aghion-falling-growth-rising-rents
     title: "A Theory of Falling Growth and Rising Rents"
     authors: "Philippe Aghion, Antonin Bergeaud, Timo Boppart, Peter J. Klenow, and Huiyu Li"
@@ -86,7 +78,7 @@ papers:
     year: "1994"
     venue: "American Economic Review"
     doi: ""
-    paper_url: "https://davidcard.berkeley.edu/papers/min-wage-ff-nj.pdf"
+    paper_url: "https://www.jstor.org/stable/2118030"
     note: "The classic fast-food difference-in-differences study behind a major turn in empirical minimum-wage research."
   - slug: baqaee-farhi-productivity-misallocation
     title: "Productivity and Misallocation in General Equilibrium"
@@ -118,7 +110,7 @@ papers:
     year: "2017"
     venue: "American Economic Review"
     doi: "10.1257/aer.p20171153"
-    paper_url: "https://doi.org/10.1257/aer.p20171153"
+    paper_url: "https://www.aeaweb.org/articles?id=10.1257/aer.p20171153"
     note: "Argues that economists should care about implementation details, feedback, and policy plumbing as part of serious design."
   - slug: roth-economist-as-engineer
     title: "The Economist as Engineer: Game Theory, Experimentation, and Computation as Tools for Design Economics"
@@ -142,7 +134,7 @@ papers:
     year: "2017"
     venue: "American Economic Journal: Applied Economics"
     doi: "10.1257/app.20150532"
-    paper_url: "https://doi.org/10.1257/app.20150532"
+    paper_url: "https://www.aeaweb.org/articles?id=10.1257/app.20150532"
     note: "Documents how shocks to human capital can persist over long horizons and remain tied to development outcomes."
   - slug: greif-maghribi-traders
     title: "Reputation and Coalitions in Medieval Trade: Evidence on the Maghribi Traders"
