@@ -144,3 +144,11 @@ papers:
     doi: "10.1017/S0022050700009475"
     paper_url: "https://doi.org/10.1017/S0022050700009475"
     note: "This paper uses evidence on Maghribi traders to study how reputation and coalition-based enforcement supported long-distance trade in the medieval Mediterranean. It shows how repeated relationships, information sharing, and collective punishment could sustain agency relations when formal legal enforcement was limited."
+  - slug: hayek-use-of-knowledge
+    title: "The Use of Knowledge in Society"
+    authors: "Friedrich A. Hayek"
+    year: "1945"
+    venue: "American Economic Review"
+    doi: ""
+    paper_url: "https://www.aeaweb.org/aer/top20/35.4.519-530.pdf"
+    note: "This paper argues that the central economic problem is how society uses knowledge dispersed across many individuals, much of it local, contextual, and difficult to aggregate. Hayek's price-system argument makes markets valuable not only as incentive mechanisms, but as institutions for communicating information and coordinating plans under decentralization."
