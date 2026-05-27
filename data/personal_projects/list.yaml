@@ -1,11 +1,4 @@
 works:
-- title: "Personal Finances Dashboard"
-  description: "Dashboard for organizing personal finances, tracking spending patterns, and turning transaction-level data into a clearer view of monthly budgets and financial behavior."
-
-- title: "Faculty Explorer"
-  description: "An interactive database of economics faculty at my target universities — searchable and filterable by field and institution, with each professor's research areas, current affiliation, personal website, and links to their recent papers."
-  link: "https://faculty-explorer.pages.dev/"
-
 # Temporarily inactive. Keep this block here so the restaurant map can be
 # re-enabled later without recreating the subsection.
 # - title: "Restaurants"
@@ -13,7 +6,7 @@ works:
 #   link: "https://arthuralberti.github.io/restaurant-mapping/"
 
 - title: "Favorite Papers"
-  description: "A curated list of papers I especially like, with brief notes on why I find them useful, elegant, or worth revisiting."
+  description: "A curated list of papers I like for different reasons: some are among the best papers ever written, some became deeply influential, and others have a special place in how they helped me see economics more clearly."
   link: "favorite-papers/"
 
 - title: "Card & Board Games"
