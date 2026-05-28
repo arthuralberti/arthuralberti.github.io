@@ -1,4 +1,4 @@
-updated: "2026-05-24"
+updated: "2026-05-27"
 papers:
   - slug: fujiwara-voting-technology
     title: "Voting Technology, Political Responsiveness, and Infant Health: Evidence from Brazil"
@@ -32,6 +32,14 @@ papers:
     doi: "10.1016/0167-2231(93)90009-L"
     paper_url: "https://doi.org/10.1016/0167-2231(93)90009-L"
     note: "This paper compares discretionary monetary policy with policy rules and proposes a simple interest-rate rule that describes how the federal funds rate can respond to inflation and real activity. It evaluates the practical performance of such rules across historical episodes and argues that systematic policy can improve macroeconomic outcomes."
+  - slug: scotchmer-shoulders-of-giants
+    title: "Standing on the Shoulders of Giants: Cumulative Research and the Patent Law"
+    authors: "Suzanne Scotchmer"
+    year: "1991"
+    venue: "Journal of Economic Perspectives"
+    doi: "10.1257/jep.5.1.29"
+    paper_url: "https://www.aeaweb.org/articles?id=10.1257/jep.5.1.29"
+    note: "This paper studies cumulative innovation and the patent-law problem created when later discoveries build on earlier ones. Scotchmer shows why rewarding only isolated inventions misses the externalities created by foundational research, and examines how patent protection and cooperative agreements can preserve incentives across sequential innovations."
   - slug: engerman-sokoloff-factor-endowments
     title: "Institutions, Factor Endowments, and Paths of Development in the New World"
     authors: "Kenneth L. Sokoloff and Stanley L. Engerman"
