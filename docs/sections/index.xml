@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sections on Arthur Alberti</title>
-    <link>/sections/</link>
+    <link>https://arthuralberti.github.io/sections/</link>
     <description>Recent content in Sections on Arthur Alberti</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="/sections/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://arthuralberti.github.io/sections/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>/sections/aboutme/</link>
+      <link>https://arthuralberti.github.io/sections/aboutme/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/sections/aboutme/</guid>
+      <guid>https://arthuralberti.github.io/sections/aboutme/</guid>
       <description>&lt;p&gt;I am an economist based in São Paulo, Brazil, and hold a Master&amp;rsquo;s degree in Economic Theory from the University of São Paulo. I also received my bachelor&amp;rsquo;s degree in economics from Insper and studied as a visiting undergraduate student at the University of California, Berkeley.&lt;/p&gt;&#xA;&lt;p&gt;My research interests lie at the intersection of political economy, public policy, and development economics, with a focus on how local institutions and political incentives shape policy implementation. I also work as a Research Assistant for &lt;a href=&#34;https://sites.google.com/site/claudferraz/home&#34;&gt;Claudio Ferraz&lt;/a&gt; and &lt;a href=&#34;https://sites.google.com/berkeley.edu/clpennec&#34;&gt;Caroline Le Pennec&lt;/a&gt; on &lt;em&gt;Promises, Policies, and Accountability&lt;/em&gt;.&lt;/p&gt;</description>
     </item>
     <item>
       <title></title>
-      <link>/sections/attribution/</link>
+      <link>https://arthuralberti.github.io/sections/attribution/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/sections/attribution/</guid>
+      <guid>https://arthuralberti.github.io/sections/attribution/</guid>
       <description>&lt;p&gt;&lt;em&gt;Latest updated May 2026. Inspired by &lt;a href=&#34;https://gautam-rao.com/&#34;&gt;Gautam Rao&amp;rsquo;s website&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;</description>
     </item>
   </channel>

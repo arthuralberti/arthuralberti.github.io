@@ -1,10 +1,12 @@
-relativeURLs = true
+baseURL = "https://arthuralberti.github.io/"
+relativeURLs = false
 title = "Arthur Alberti"
 theme = "academimal"
 sectionPagesMenu = "main"
 defaultContentLanguage = "en"
 
 [params]
+    description = "Arthur Alberti is an economist based in São Paulo, Brazil, with research interests in political economy, public policy, and development economics."
     shortbioline1 = "Master's in Economic Theory,"
     shortbioline2 = "University of São Paulo (USP)"
     email = "arthur.alberti@hotmail.com"

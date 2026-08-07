@@ -2,18 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/sections/aboutme/</loc>
+    <loc>https://arthuralberti.github.io/sections/aboutme/</loc>
   </url><url>
-    <loc>/sections/attribution/</loc>
+    <loc>https://arthuralberti.github.io/sections/attribution/</loc>
   </url><url>
-    <loc>/categories/</loc>
+    <loc>https://arthuralberti.github.io/categories/</loc>
   </url><url>
-    <loc>/favorite-papers/</loc>
+    <loc>https://arthuralberti.github.io/favorite-papers/</loc>
   </url><url>
-    <loc>/</loc>
+    <loc>https://arthuralberti.github.io/</loc>
   </url><url>
-    <loc>/sections/</loc>
+    <loc>https://arthuralberti.github.io/sections/</loc>
   </url><url>
-    <loc>/tags/</loc>
+    <loc>https://arthuralberti.github.io/tags/</loc>
   </url>
 </urlset>
