@@ -48,6 +48,19 @@
   src: url("../fonts/Noto-Sans-700italic/Noto-Sans-700italic.eot");
   src: url("../fonts/Noto-Sans-700italic/Noto-Sans-700italic.eot?#iefix") format("embedded-opentype"), local("Noto Sans Bold Italic"), local("Noto-Sans-700italic"), url("../fonts/Noto-Sans-700italic/Noto-Sans-700italic.woff2") format("woff2"), url("../fonts/Noto-Sans-700italic/Noto-Sans-700italic.woff") format("woff"), url("../fonts/Noto-Sans-700italic/Noto-Sans-700italic.ttf") format("truetype"), url("../fonts/Noto-Sans-700italic/Noto-Sans-700italic.svg#NotoSans") format("svg"); }
 
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/Montserrat/Montserrat-Latin.woff2") format("woff2"); }
+@font-face {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/Montserrat/Montserrat-Latin-Italic.woff2") format("woff2"); }
+
 .highlight table td {
   padding: 5px; }
 
@@ -276,7 +289,7 @@ h1, h3, h4, h5, h6 {
 body {
   background-color: #fff;
   padding: 50px;
-  font: 14px/1.5 "Century Gothic", CenturyGothic, "URW Gothic", "Avant Garde", "Questrial", "Trebuchet MS", sans-serif;
+  font: 14px/1.5 "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #727272;
   font-weight: 400; }
 
