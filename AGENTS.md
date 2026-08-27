@@ -77,10 +77,17 @@ Workspace-level skills live in `../skills/`. This project should use shared
 skills for syncing public CV/papers/projects from the shared application
 materials and for checking Hugo output before publishing.
 
+Every task that changes or reviews Personal Page content, data, templates,
+styles, fonts, links, images, public assets, or generated output must use
+`../skills/personal-page-standards/SKILL.md`. Its normative design contract is
+`../0-guidelines/standards/personal-page-design.md`.
+
 ## Build
 
 - Local preview: `hugo server`
 - GitHub Pages build output: `hugo --destination docs`
+- Standards audit:
+  `python3 ../skills/personal-page-standards/scripts/audit_personal_page.py`
 
 ## Good Future Skills
 
