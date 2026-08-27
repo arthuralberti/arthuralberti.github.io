@@ -1,6 +1,10 @@
 <h3 style="margin:20px 0 5px;">{{ with .context.pdflink }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer" type="application/pdf">{{ end }}{{ .context.title }}{{ with .context.pdflink }}</a>{{ end }}</h3>
 
+{{ with .context.coauthor_links }}
+<p style="margin:0 0 5px;">with {{ range $index, $author := . }}{{ if $index }} and {{ end }}<a href="{{ $author.url }}" target="_blank" rel="noopener noreferrer">{{ $author.name }}</a>{{ end }}</p>
+{{ else }}
 {{ with .context.coauthors }}<p style="margin:0 0 5px;">with {{ . }}</p>{{ end }}
+{{ end }}
 
 {{ with .context.book }}<p style="margin:0 0 5px;"><em>{{ . }}</em></p>{{ end }}
 {{ with .context.presented }}<p style="margin:0 0 5px;">Presented: {{ . }}</p>{{ end }}

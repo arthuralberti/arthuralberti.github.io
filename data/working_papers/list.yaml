@@ -8,7 +8,11 @@ works:
       Centralized welfare programs are designed to limit local discretion, yet their implementation often depends on municipal bureaucracies. We study whether local politicians can obtain electoral returns from a federally designed cash transfer when the remaining discretion lies in registration. In Brazil's Bolsa Família, eligibility rules, benefit values, and payments are set nationally, while municipal welfare offices register eligible households. We exploit a 2009 reform that changed the formula assigning municipal beneficiary quotas, generating differential authorized expansion across municipalities for reasons unrelated to local politics. In the 2,105 municipalities where the 2008 incumbent mayor sought reelection in 2012, the reform increased realized enrollment and improved incumbent performance. A one-standard-deviation quota shock raised incumbent vote share by about one percentage point in reduced form; instrumenting enrollment with the quota shock, an additional 1,000 beneficiary families raised vote share by approximately one percentage point. The return is conditional on local implementation capacity. The identifying first stage and electoral response are concentrated in municipalities with a pre-existing CRAS welfare office and, within those municipalities, where the incoming mayor replaced the inherited front-line manager. The shock did not cause manager turnover or new CRAS openings. Nor do substitute managers appear to be partisan loyalists: they are not selected through prior affiliation with the mayor's party or coalition, and they do not subsequently realign with it. Instead, they later run for local office at roughly twice the rate of stayers, consistent with the managerial post becoming a platform for local political careers. Centralized rules and payment flows therefore do not depoliticize transfers whose last mile remains locally administered; program design travels only as far as local capacity carries it.
 
 - title: "Media as Political Currency"
-  coauthors: "Alexsandros Cavgias (Ghent) and Luís Meloni (USP)"
+  coauthor_links:
+    - name: "Alexsandros Cavgias"
+      url: "https://sites.google.com/view/alexsandroscavgias/home?authuser=0"
+    - name: "Luís Meloni"
+      url: "https://luismeloni.com/"
   pdflink: "/pdf/media-as-political-currency.pdf"
   presented: "LACEA Annual Meeting (2025); Brazilian Econometric Society (2025)"
   note: "Current version: April 6, 2026"
