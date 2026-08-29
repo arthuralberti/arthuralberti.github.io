@@ -1,4 +1,4 @@
-updated: "2026-05-27"
+updated: "2026-08-28"
 papers:
   - slug: fujiwara-voting-technology
     title: "Voting Technology, Political Responsiveness, and Infant Health: Evidence from Brazil"
@@ -192,6 +192,14 @@ papers:
     doi: "10.1257/aer.101.4.1274"
     paper_url: "https://www.aeaweb.org/articles?id=10.1257/aer.101.4.1274"
     note: "This paper uses Brazilian municipal audit reports to show that reelection incentives reduce corruption. Mayors who can run again misappropriate fewer resources than term-limited mayors, especially where voters have less access to information and judicial punishment is less likely."
+  - slug: ferraz-finan-exposing-corrupt-politicians
+    title: "Exposing Corrupt Politicians: The Effects of Brazil's Publicly Released Audits on Electoral Outcomes"
+    authors: "Claudio Ferraz and Frederico Finan"
+    year: "2008"
+    venue: "Quarterly Journal of Economics"
+    doi: "10.1162/qjec.2008.123.2.703"
+    paper_url: "https://academic.oup.com/qje/article-abstract/123/2/703/1930865"
+    note: "This paper exploits the timing of publicly released municipal audit reports in Brazil to show how information about corruption changes electoral outcomes. Voters punish incumbents associated with more reported corruption and reward those with cleaner records, with stronger effects where local radio helps disseminate the findings."
   - slug: feddersen-pesendorfer-swing-voters-curse
     title: "The Swing Voter's Curse"
     authors: "Timothy J. Feddersen and Wolfgang Pesendorfer"

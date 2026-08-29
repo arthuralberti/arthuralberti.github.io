@@ -61,8 +61,16 @@ published from generated static output.
 
 ## Automatic Publishing
 
+- Before every Personal Page build, run
+  `python3 scripts/sync_public_documents.py` from the mini-project root. This
+  refreshes only the explicitly approved public CV and paper PDFs from their
+  canonical sources under `../0-documents/application/`, preserving stable
+  public filenames. Do not add another document to the sync allowlist without
+  Arthur's explicit approval.
 - Every completed Personal Page change must be built and verified locally with
   `hugo --destination docs`.
+- After the build, run `python3 scripts/sync_public_documents.py --check` and
+  require zero drift between the canonical and public copies.
 - After a successful build, commit the source and generated `docs/` changes and
   push the commit to `origin/main` during the same task so the public site is
   updated.
