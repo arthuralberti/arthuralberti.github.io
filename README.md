@@ -27,6 +27,11 @@ The public CV and working-paper PDFs are generated copies of the canonical
 documents under `../0-documents/application/`. Before every build, synchronize
 them while keeping their public filenames stable:
 
+First refresh the selected Benefits manuscript using the source and variant
+record in `../0-guidelines/standards/personal-page-design.md`. The current
+selection is the short version, stored as
+`../0-documents/application/writing-sample/who-benefits-from-benefits-short.pdf`.
+
 ```sh
 python3 scripts/sync_public_documents.py
 hugo --destination docs

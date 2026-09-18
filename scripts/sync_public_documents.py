@@ -38,7 +38,7 @@ PUBLIC_DOCUMENTS = (
         / "0-documents"
         / "application"
         / "writing-sample"
-        / "masters-thesis-who-benefits-from-benefits.pdf",
+        / "who-benefits-from-benefits-short.pdf",
         SITE_ROOT / "static" / "pdf" / "who-benefits-from-benefits.pdf",
     ),
 )
