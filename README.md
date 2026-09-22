@@ -27,6 +27,10 @@ The public CV and working-paper PDFs are generated copies of the canonical
 documents under `../0-documents/application/`. Before every build, synchronize
 them while keeping their public filenames stable:
 
+The current canonical source for *Media as Political Currency* is
+`../0-documents/application/writing-sample/media_as_political_currency_2026.pdf`;
+the public URL remains `/pdf/media-as-political-currency.pdf`.
+
 First refresh the selected Benefits manuscript using the source and variant
 record in `../0-guidelines/standards/personal-page-design.md`. The current
 selection is the short version, stored as

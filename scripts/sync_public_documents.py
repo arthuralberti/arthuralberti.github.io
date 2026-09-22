@@ -29,7 +29,7 @@ PUBLIC_DOCUMENTS = (
         / "0-documents"
         / "application"
         / "writing-sample"
-        / "media-as-political-currency.pdf",
+        / "media_as_political_currency_2026.pdf",
         SITE_ROOT / "static" / "pdf" / "media-as-political-currency.pdf",
     ),
     (

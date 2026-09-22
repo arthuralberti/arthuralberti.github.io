@@ -9,6 +9,9 @@
 {{ with .context.book }}<p style="margin:0 0 5px;"><em>{{ . }}</em></p>{{ end }}
 {{ with .context.presented }}<p style="margin:0 0 5px;">Presented at: {{ . }}</p>{{ end }}
 {{ with .context.stage }}<p style="margin:0 0 5px;">Stage: {{ . }}</p>{{ end }}
+{{ with .context.media_coverage }}
+<p style="margin:0 0 5px;">Media Coverage: {{ range $index, $item := . }}{{ if $index }}; {{ end }}<a href="{{ $item.url }}" target="_blank" rel="noopener noreferrer">{{ $item.title }}</a>{{ with $item.outlet }} ({{ . }}{{ with $item.year }}, {{ . }}{{ end }}){{ end }}{{ end }}</p>
+{{ end }}
 {{ with .context.note }}<p style="margin:0 0 5px;">{{ . }}</p>{{ end }}
 {{ $pid := .pid }}
 {{ with .context.abstract }}<p style="margin:0 0 5px;"><a href="javascript:toggle({{ $pid }})">Abstract<span id="pubabslink_{{ $pid }}"></span></a><span id="pubabs_{{ $pid }}" style="display:none;"> (&ndash;): {{ . }}</span></p>{{ end }}
