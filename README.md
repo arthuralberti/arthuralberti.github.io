@@ -31,6 +31,12 @@ The current canonical source for *Media as Political Currency* is
 `../0-documents/application/writing-sample/media_as_political_currency_2026.pdf`;
 the public URL remains `/pdf/media-as-political-currency.pdf`.
 
+The synchronization script uses `pdftotext` to extract the `Abstract` section
+from the current Benefits and Media PDFs and writes
+`data/generated_paper_abstracts.json`. The homepage reads those generated
+abstracts through each paper's `abstract_key`; do not maintain duplicate manual
+abstracts in `data/working_papers/list.yaml`.
+
 First refresh the selected Benefits manuscript using the source and variant
 record in `../0-guidelines/standards/personal-page-design.md`. The current
 selection is the short version, stored as

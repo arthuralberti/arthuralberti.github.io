@@ -14,7 +14,11 @@
 {{ end }}
 {{ with .context.note }}<p style="margin:0 0 5px;">{{ . }}</p>{{ end }}
 {{ $pid := .pid }}
-{{ with .context.abstract }}<p style="margin:0 0 5px;"><a href="javascript:toggle({{ $pid }})">Abstract<span id="pubabslink_{{ $pid }}"></span></a><span id="pubabs_{{ $pid }}" style="display:none;"> (&ndash;): {{ . }}</span></p>{{ end }}
+{{ $abstract := .context.abstract }}
+{{ with .context.abstract_key }}
+{{ with index hugo.Data.generated_paper_abstracts . }}{{ $abstract = .abstract }}{{ end }}
+{{ end }}
+{{ with $abstract }}<p style="margin:0 0 5px;"><a href="javascript:toggle({{ $pid }})">Abstract<span id="pubabslink_{{ $pid }}"></span></a><span id="pubabs_{{ $pid }}" style="display:none;"> (&ndash;): {{ . }}</span></p>{{ end }}
 {{ with .context.keywords }}<p style="margin:0 0 5px;"><strong>Keywords:</strong> {{ . }}</p>{{ end }}
 {{ with .context.jel }}<p style="margin:0 0 5px;"><strong>JEL Classifications:</strong> {{ . }}</p>{{ end }}
 

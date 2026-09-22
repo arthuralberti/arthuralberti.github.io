@@ -5,7 +5,10 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
+import re
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -43,6 +46,20 @@ PUBLIC_DOCUMENTS = (
     ),
 )
 
+GENERATED_ABSTRACTS = SITE_ROOT / "data" / "generated_paper_abstracts.json"
+ABSTRACT_DOCUMENTS = {
+    "who-benefits-from-benefits": WORKSPACE_ROOT
+    / "0-documents"
+    / "application"
+    / "writing-sample"
+    / "who-benefits-from-benefits-short.pdf",
+    "media-as-political-currency": WORKSPACE_ROOT
+    / "0-documents"
+    / "application"
+    / "writing-sample"
+    / "media_as_political_currency_2026.pdf",
+}
+
 
 def digest(path: Path) -> str:
     hasher = hashlib.sha256()
@@ -60,6 +77,67 @@ def validate_pdf(path: Path) -> None:
     with path.open("rb") as stream:
         if stream.read(5) != b"%PDF-":
             raise ValueError(f"Canonical file is not a PDF: {path}")
+
+
+def extract_abstract(path: Path) -> str:
+    """Extract and normalize the Abstract section from the opening PDF pages."""
+    try:
+        result = subprocess.run(
+            [
+                "pdftotext",
+                "-f",
+                "1",
+                "-l",
+                "3",
+                "-layout",
+                str(path),
+                "-",
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except FileNotFoundError as error:
+        raise RuntimeError(
+            "pdftotext is required to synchronize paper abstracts."
+        ) from error
+    except subprocess.CalledProcessError as error:
+        raise RuntimeError(f"Could not extract text from {path}") from error
+
+    match = re.search(
+        r"(?ms)^\s*Abstract\s*$\n(?P<body>.*?)(?=^\s*Keywords\s*:)",
+        result.stdout,
+    )
+    if not match:
+        raise ValueError(f"Could not locate Abstract and Keywords in {path}")
+
+    abstract = match.group("body")
+    abstract = re.sub(r"(?<=\w)-\s*\n\s*(?=\w)", "", abstract)
+    abstract = " ".join(abstract.split())
+    for ligature, replacement in {
+        "ﬀ": "ff",
+        "ﬁ": "fi",
+        "ﬂ": "fl",
+        "ﬃ": "ffi",
+        "ﬄ": "ffl",
+    }.items():
+        abstract = abstract.replace(ligature, replacement)
+
+    if len(abstract) < 100:
+        raise ValueError(f"Extracted abstract is unexpectedly short: {path}")
+    return abstract
+
+
+def render_abstract_data() -> str:
+    data = {}
+    for key, source in ABSTRACT_DOCUMENTS.items():
+        validate_pdf(source)
+        data[key] = {
+            "source_filename": source.name,
+            "source_sha256": digest(source),
+            "abstract": extract_abstract(source),
+        }
+    return json.dumps(data, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
 
 
 def main() -> int:
@@ -89,6 +167,21 @@ def main() -> int:
         if digest(source) != digest(destination):
             raise RuntimeError(f"Copy verification failed: {destination}")
         print(f"SYNCED: {label}")
+
+    rendered_abstracts = render_abstract_data()
+    abstracts_in_sync = (
+        GENERATED_ABSTRACTS.is_file()
+        and GENERATED_ABSTRACTS.read_text(encoding="utf-8") == rendered_abstracts
+    )
+    if abstracts_in_sync:
+        print("OK: Paper abstracts")
+    elif args.check:
+        print("DRIFT: Paper abstracts")
+        drifted = True
+    else:
+        GENERATED_ABSTRACTS.parent.mkdir(parents=True, exist_ok=True)
+        GENERATED_ABSTRACTS.write_text(rendered_abstracts, encoding="utf-8")
+        print("SYNCED: Paper abstracts")
 
     return 1 if args.check and drifted else 0
 
