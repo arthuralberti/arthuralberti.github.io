@@ -8,6 +8,7 @@
 
 {{ with .context.book }}<p style="margin:0 0 5px;"><em>{{ . }}</em></p>{{ end }}
 {{ with .context.presented }}<p style="margin:0 0 5px;">Presented at: {{ . }}</p>{{ end }}
+{{ with .context.accepted_for_presentation }}<p style="margin:0 0 5px;">Accepted for presentation at: {{ . }}</p>{{ end }}
 {{ with .context.stage }}<p style="margin:0 0 5px;">Stage: {{ . }}</p>{{ end }}
 {{ with .context.media_coverage }}
 <p style="margin:0 0 5px;">Media Coverage: {{ range $index, $item := . }}{{ if $index }}; {{ end }}<a href="{{ $item.url }}" target="_blank" rel="noopener noreferrer">{{ $item.title }}</a>{{ with $item.outlet }} ({{ . }}{{ with $item.year }}, {{ . }}{{ end }}){{ end }}{{ end }}</p>
