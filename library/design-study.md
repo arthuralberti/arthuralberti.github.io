@@ -2,11 +2,13 @@
 
 Arthur requested alternative object-based category selectors inspired by Hairline and Anatomy, plus a consistent, more realistic book model without fabric texture. The comparison lives at `/library/design-study/`; the current `/library/` page and shelf asset are preserved. No concept is selected as the final product.
 
-## Three selector concepts
+## Five selector concepts
 
 1. Wall library: six stacked compartments in one architectural object.
 2. Reading cabinet: six compartments in a two-column cabinet.
 3. Floating shelves: six open plates on two supporting uprights.
+4. Stepped library: three ascending pairs of compartments, forming a staircase.
+5. Archive trays: six staggered shallow trays with flat volumes, shown as an exploded perspective stack.
 
 Each has six labeled categories: Read, Reading, To read, Owned, Wishlist, All. Hover/focus reveals a name; clicking, touching, Enter, or Space selects it and displays the sample below. Reading/ownership/wishlist have no fabricated records. The six sample titles, primary authors, reading flags, and colors are taken from the current public catalog; the sample is not the complete collection.
 
@@ -23,4 +25,4 @@ References checked October 11: [Hairline](https://github.com/lucasmarkes/hairlin
 
 ## Validation
 
-Browser checks passed at 320, 390, 768, and 1440 pixels: all 18 concept/category selections per viewport, correct sample filtering and unknown-state messages, keyboard selection, no horizontal overflow, identical title sizes, no overflowing cover titles, and rotated spine bounds of 184 × 26 compared with upright 26 × 184. Desktop/mobile figures and cover-grid screenshots were inspected. Hugo built successfully; the shared site audit returned zero errors and its two existing warnings. The current Library layout and bookshelf source were not changed. Real device testing and final catalog-wide typography/artwork remain future validation.
+Browser checks passed at 320, 390, 768, and 1440 pixels: all 30 concept/category selections per viewport, correct sample filtering and unknown-state messages, keyboard selection, no horizontal overflow, identical title sizes, no overflowing cover titles, and rotated spine bounds of 184 × 26 compared with upright 26 × 184. All 30 pointer targets also passed at 390 pixels; moving SVG artwork does not intercept the fixed hit areas. Desktop/mobile figures and cover-grid screenshots were inspected. Hugo built successfully; the shared site audit returned zero errors and its two existing warnings. The current Library now links prominently to this comparison; the bookshelf source is unchanged. Real device testing and final catalog-wide typography/artwork remain future validation.

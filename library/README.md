@@ -1,6 +1,6 @@
 # Library integration
 
-Comparison page: [Library design study](https://arthuralberti.github.io/library/design-study/), with three object-based selectors and a six-book standardized cover/spine pilot. See [the design contract and validation](design-study.md). This parallel study does not replace the current Library.
+Comparison page: [Library design study](https://arthuralberti.github.io/library/design-study/), with five object-based selectors and a six-book standardized cover/spine pilot. See [the design contract and validation](design-study.md). A prominent link above the Library filters opens the comparison. This parallel study does not replace the current Library.
 
 Published route: `/library/`, linked from the homepage's Personal section alongside Favorite Papers. The Hugo page keeps the site's navigation and introductory typography; its category buttons use the Contact button format, outside a same-origin shelf iframe. The frame is vertically scrollable with hidden scrollbars and a white background. The inner shelf has no header, instructions, category navigation, or footer.
 

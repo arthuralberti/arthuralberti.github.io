@@ -65,9 +65,7 @@ with sync_playwright() as pw:
             def close_detail():
                 page.wait_for_timeout(550)
                 close = frame.locator(".detail-overlay:target .close-detail")
-                box = close.bounding_box()
-                assert box
-                page.mouse.click(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2)
+                close.click()
                 page.wait_for_timeout(300)
                 assert frame.locator(".detail-overlay:target").count() == 0
 
