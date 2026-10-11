@@ -1,0 +1,43 @@
+{{ define "main" -}}
+<div class="library-page">
+  <div class="library-heading">
+    <p class="library-kicker">Personal bookshelf</p>
+    <h2>Library</h2>
+    <p>I hope to build a personal library that brings together books on economics, physics, philosophy, and the many other subjects that make me curious. This virtual bookshelf collects books I have read and books I would like to explore.</p>
+    <a class="library-fullscreen" href="{{ "library/books.html" | relURL }}" target="_blank" rel="noopener noreferrer">Open the bookshelf in a full window</a>
+  </div>
+  <iframe class="library-shelf" src="{{ "library/books.html" | relURL }}" title="The Library — interactive bookshelf"></iframe>
+</div>
+<style>
+  .library-heading {
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+  }
+  .library-kicker {
+    color: #816a35;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+  }
+  .library-heading h2 { margin-bottom: 10px; }
+  .library-heading > p:not(.library-kicker) {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.55;
+    margin: 0 0 12px;
+    max-width: 660px;
+  }
+  .library-fullscreen { font-size: 13px; }
+  .library-shelf {
+    border: 0;
+    display: block;
+    height: 800px;
+    width: 100%;
+  }
+  @media (max-width: 720px) {
+    .library-shelf { height: 75vh; min-height: 500px; }
+  }
+</style>
+{{- end }}

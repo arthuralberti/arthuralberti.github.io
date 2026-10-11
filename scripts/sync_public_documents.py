@@ -32,7 +32,7 @@ PUBLIC_DOCUMENTS = (
         / "0-documents"
         / "application"
         / "writing-sample"
-        / "media_as_political_currency_2026.pdf",
+        / "media-as-political-currency-2026.pdf",
         SITE_ROOT / "static" / "pdf" / "media-as-political-currency.pdf",
     ),
     (
@@ -57,7 +57,7 @@ ABSTRACT_DOCUMENTS = {
     / "0-documents"
     / "application"
     / "writing-sample"
-    / "media_as_political_currency_2026.pdf",
+    / "media-as-political-currency-2026.pdf",
 }
 
 

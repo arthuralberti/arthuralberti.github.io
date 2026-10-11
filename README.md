@@ -1,5 +1,7 @@
 # Arthur Alberti Personal Page
 
+The [Library](https://arthuralberti.github.io/library/) is linked from Personal and uses the site's page shell, like Favorite Papers. Its byte-preserved Books v6 prototype lives in `static/library/books.html`; see [integration and checks](library/README.md).
+
 Hugo version of Arthur Alberti's personal academic page, inspired by Gautam
 Rao's website.
 
@@ -28,7 +30,7 @@ documents under `../0-documents/application/`. Before every build, synchronize
 them while keeping their public filenames stable:
 
 The current canonical source for *Media as Political Currency* is
-`../0-documents/application/writing-sample/media_as_political_currency_2026.pdf`;
+`../0-documents/application/writing-sample/media-as-political-currency-2026.pdf`;
 the public URL remains `/pdf/media-as-political-currency.pdf`.
 
 The synchronization script uses `pdftotext` to extract the `Abstract` section
