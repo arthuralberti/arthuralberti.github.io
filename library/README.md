@@ -8,6 +8,8 @@ The prototype contains 120 Goodreads-derived books (92 read, 28 to read). Page-b
 
 Native radio/CSS selection and fragment-based details remain the book interaction. External filters set the iframe's radio state, reset book selection, and return it to the top. Without JavaScript, those external controls are hidden and the default Read shelf remains browsable. Stable first/second-click hit targets do not move with the artwork. Hidden view-state radios are removed from the keyboard tab order; book selection and detail links retain native keyboard controls and visible focus.
 
+The iframe URL includes a content-derived SHA-256 version query. GitHub Pages caches assets independently; changing shelf contents therefore changes the iframe URL automatically, preventing a newly loaded outer page from reusing an earlier shelf. The canonical standalone path stays `/library/books.html`.
+
 ## Motion references — checked October 11, 2026
 
 [Anatomy](https://github.com/wheresryan22/anatomy) uses articulated objects and calm physical movement; [Hairline](https://github.com/lucasmarkes/hairline), particularly Riffle, uses a selected object with subtle neighboring responses. Our original CSS adapts those ideas as slower eased pulls, small neighboring book tilts, and a restrained cover rotation when details open. Reduced-motion preference removes transitions and cover animation. Neither package nor skill was installed, and no repository code or assets were copied. Book-cover standardization and broader artwork redesign remain future work.

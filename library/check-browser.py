@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Check the served Library integration with Playwright Chromium emulation."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
@@ -29,6 +30,9 @@ with sync_playwright() as pw:
             assert response and response.status == 200
             page.locator("iframe.library-shelf").wait_for()
             frame = page.frames[1]
+            source = Path(__file__).resolve().parents[1] / "static/library/books.html"
+            version = hashlib.sha256(source.read_bytes()).hexdigest()[:12]
+            assert frame.url.endswith("?v=" + version), "Shelf URL must track its current content"
             frame.locator(".collection.read label.book-first").first.wait_for()
             assert frame.locator(".detail-overlay").count() == 120
             assert frame.locator('.app > header, .view-nav, .section-intro, .interaction-caption, .page-foot').count() == 0

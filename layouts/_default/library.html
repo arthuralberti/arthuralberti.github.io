@@ -12,7 +12,8 @@
     <button class="button-2" data-view="wishlist" aria-pressed="false"><strong>Wishlist</strong></button>
     <button class="button-2" data-view="all" aria-pressed="false"><strong>All · 120</strong></button>
   </div>
-  <iframe class="library-shelf" src="{{ "library/books.html" | relURL }}" title="The Library — interactive bookshelf"></iframe>
+{{ $shelfVersion := substr (crypto.SHA256 (readFile "static/library/books.html")) 0 12 }}
+  <iframe class="library-shelf" src="{{ printf "library/books.html?v=%s" $shelfVersion | relURL }}" title="The Library — interactive bookshelf"></iframe>
 </div>
 <noscript><style>.library-filters { display: none; }</style></noscript>
 <script>
