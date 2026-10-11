@@ -4,11 +4,58 @@
     <p class="library-kicker">Personal bookshelf</p>
     <h2>Library</h2>
     <p>I hope to build a personal library that brings together books on economics, physics, philosophy, and the many other subjects that make me curious. This virtual bookshelf collects books I have read and books I would like to explore.</p>
-    <a class="library-fullscreen" href="{{ "library/books.html" | relURL }}" target="_blank" rel="noopener noreferrer">Open the bookshelf in a full window</a>
+  </div>
+  <div class="library-filters" role="group" aria-label="Bookshelf views">
+    <button class="button-2" data-view="read" aria-pressed="true"><strong>Read · 92</strong></button>
+    <button class="button-2" data-view="toread" aria-pressed="false"><strong>To read · 28</strong></button>
+    <button class="button-2" data-view="owned" aria-pressed="false"><strong>Owned</strong></button>
+    <button class="button-2" data-view="wishlist" aria-pressed="false"><strong>Wishlist</strong></button>
+    <button class="button-2" data-view="all" aria-pressed="false"><strong>All · 120</strong></button>
   </div>
   <iframe class="library-shelf" src="{{ "library/books.html" | relURL }}" title="The Library — interactive bookshelf"></iframe>
 </div>
+<noscript><style>.library-filters { display: none; }</style></noscript>
+<script>
+  (() => {
+    const shelf = document.querySelector('.library-shelf');
+    const buttons = document.querySelectorAll('.library-filters button');
+    buttons.forEach(button => button.addEventListener('click', () => {
+      const document = shelf.contentDocument;
+      const radio = document && document.getElementById('view-' + button.dataset.view);
+      if (!radio) return;
+      radio.checked = true;
+      document.querySelectorAll('.book-radio:checked').forEach(book => { book.checked = false; });
+      shelf.contentWindow.location.hash = 'top';
+      shelf.contentWindow.scrollTo({ top: 0, behavior: 'instant' });
+      buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    }));
+  })();
+</script>
 <style>
+  .library-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+  .library-filters .button-2 {
+    background-color: rgba(51, 51, 51, 0.05);
+    border-radius: 8px;
+    border-width: 0;
+    color: #333333;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    line-height: normal;
+    margin: 0;
+    padding: 10px 12px;
+    text-align: center;
+    transition: all 200ms;
+    vertical-align: baseline;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  .library-filters .button-2[aria-pressed="true"] { outline: 1px solid #aaa; outline-offset: -1px; }
+  .library-filters .button-2:focus-visible { outline: 2px solid #267CB9; outline-offset: 3px; }
   .library-heading {
     border-bottom: 1px solid #e5e5e5;
     margin-bottom: 18px;
@@ -29,7 +76,6 @@
     margin: 0 0 12px;
     max-width: 660px;
   }
-  .library-fullscreen { font-size: 13px; }
   .library-shelf {
     border: 0;
     display: block;

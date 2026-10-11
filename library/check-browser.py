@@ -31,8 +31,16 @@ with sync_playwright() as pw:
             frame = page.frames[1]
             frame.locator(".collection.read label.book-first").first.wait_for()
             assert frame.locator(".detail-overlay").count() == 120
+            assert frame.locator('.app > header, .view-nav, .section-intro, .interaction-caption, .page-foot').count() == 0
+            assert frame.evaluate("getComputedStyle(document.body).backgroundColor") == "rgb(255, 255, 255)"
+            assert frame.evaluate("getComputedStyle(document.documentElement).scrollbarWidth") == "none"
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
             assert frame.evaluate("document.documentElement.scrollWidth <= innerWidth")
+            page.locator('iframe.library-shelf').scroll_into_view_if_needed()
+            frame.evaluate('window.scrollTo(0, 400)')
+            page.wait_for_timeout(100)
+            assert frame.evaluate('window.scrollY') > 0
+            frame.evaluate('window.scrollTo(0, 0)')
             if scripts and width in (390, 1440):
                 page.screenshot(path=str(args.artifacts / f"library-{width}.png"), full_page=True)
 
@@ -66,14 +74,18 @@ with sync_playwright() as pw:
                 page.screenshot(path=str(args.artifacts / f"library-detail-{width}.png"), full_page=True)
             close_detail()
             assert frame.locator(".detail-overlay:target").count() == 0
-            frame.locator('label[for="view-toread"]').click()
-            assert frame.locator(".collection.toread").is_visible()
-            select_and_open(".collection.toread .stacked label.book-first")
+            if scripts:
+                page.locator('.library-filters button[data-view="toread"]').click()
+                assert frame.locator(".collection.toread").is_visible()
+            select_and_open(f".collection.{'toread' if scripts else 'read'} .stacked label.book-first")
             close_detail()
             assert frame.locator(".detail-overlay:target").count() == 0
-            for view in ("owned", "wishlist", "all", "read"):
-                frame.locator(f'label[for="view-{view}"]').click()
-                assert frame.locator(f".collection.{view}").is_visible()
+            if scripts:
+                for view in ("owned", "wishlist", "all", "read"):
+                    button = page.locator(f'.library-filters button[data-view="{view}"]')
+                    button.click()
+                    assert button.get_attribute('aria-pressed') == 'true'
+                    assert frame.locator(f".collection.{view}").is_visible()
             page.goto(args.base_url + "/")
             page.locator('h3 a[href="library/"]').click()
             assert page.url.endswith("/library/")
