@@ -20,10 +20,10 @@
                 <div class="site-identity">
                 <h1 style="font-size:250%;">{{ .Site.Title }}</h1>
 
-                <!-- begin short bio -->
+<!-- begin short bio -->
                 <p>{{ .Site.Params.shortbioline1 }}<br>
                 {{ .Site.Params.shortbioline2 }}</p>
-                <!-- end short bio -->
+<!-- end short bio -->
                 </div>
 
 
@@ -33,11 +33,11 @@
 
                 <hr/>
 
-                <!-- begin photo -->
-                {{ with .Site.Params.logo }}
+<!-- begin photo -->
+{{ with .Site.Params.logo }}
                 <img class="profile-photo" src="{{ . | relURL }}" alt="{{ $.Site.Title }}" />
-                {{ end }}
-                <!-- end photo -->
+{{ end }}
+<!-- end photo -->
                 <br><br>
 
             </header>
