@@ -1,0 +1,40 @@
+{
+  "books": [
+    {
+      "title": "Religion for Atheists",
+      "author": "Alain de Botton",
+      "read": true,
+      "color": "#58716c"
+    },
+    {
+      "title": "Quantum: Einstein, Bohr and the Great Debate About the Nature of Reality",
+      "author": "Manjit Kumar",
+      "read": true,
+      "color": "#6b5948"
+    },
+    {
+      "title": "The Book of Why",
+      "author": "Judea Pearl",
+      "read": true,
+      "color": "#4a6b53"
+    },
+    {
+      "title": "Flash Boys",
+      "author": "Michael Lewis",
+      "read": true,
+      "color": "#58716c"
+    },
+    {
+      "title": "The Grabbing Hand",
+      "author": "Andrei Shleifer",
+      "read": false,
+      "color": "#4a6b53"
+    },
+    {
+      "title": "The Blind Watchmaker",
+      "author": "Richard Dawkins",
+      "read": false,
+      "color": "#58716c"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # Library integration
 
+Comparison page: [Library design study](https://arthuralberti.github.io/library/design-study/), with three object-based selectors and a six-book standardized cover/spine pilot. See [the design contract and validation](design-study.md). This parallel study does not replace the current Library.
+
 Published route: `/library/`, linked from the homepage's Personal section alongside Favorite Papers. The Hugo page keeps the site's navigation and introductory typography; its category buttons use the Contact button format, outside a same-origin shelf iframe. The frame is vertically scrollable with hidden scrollbars and a white background. The inner shelf has no header, instructions, category navigation, or footer.
 
 Source: Arthur's `The_Library_Codex_Handoff_2026-10-11.zip`, provided October 11, 2026. `static/library/books.html` derives from `the_library_codex_handoff/index.html`; the initial publication preserved its bytes, while Arthur subsequently requested the minimal UI changes described above. Hugo copies the current source into `docs/library/books.html`. The archive's history, reconstructed CSV/JSON, reference screenshots, and operational instructions are not public assets. The original imported HTML remains in Git history and the supplied archive. The handoff's future roadmap is not part of this integration.
