@@ -6,8 +6,7 @@
   <div class="rotating-library" data-rotating-library></div>
   <div class="library-collection">
     <button class="catalog-back" type="button" aria-label="Return to bookshelf">↶</button>
-{{ $shelfVersion := substr (crypto.SHA256 (readFile "static/library/books.html")) 0 12 }}
-    <iframe class="library-shelf" src="{{ printf "library/books.html?v=%s" $shelfVersion | relURL }}" title="The Library — interactive bookshelf"></iframe>
+    {{ partial "realistic-bookshelf.html" . }}
   </div>
   <div class="favorite-papers-list favorite-books-list" id="book-list">
 {{ range $index, $book := hugo.Data.books.books }}
@@ -26,7 +25,7 @@
 </div>
 {{ partial "collection-objects-assets.html" . }}
 {{ partial "collection-list-styles.html" . }}
-<noscript><style>.catalog-back { display: none; }</style></noscript>
+<noscript><style>.catalog-back,.rotating-library { display: none; }</style></noscript>
 <style>
   .library-heading {
     border-bottom: 1px solid #e5e5e5;
@@ -40,11 +39,7 @@
     line-height: 1.55;
     margin: 0 0 12px;
   }
-  .library-shelf { border: 0; display: block; height: 800px; width: 100%; }
   .favorite-book h3 { color: #222; }
   .book-review { margin: 8px 0 0; font-size: 14px; line-height: 1.6; white-space: pre-line; }
-  @media (max-width: 720px) {
-    .library-shelf { height: 75vh; min-height: 500px; }
-  }
 </style>
 {{- end }}

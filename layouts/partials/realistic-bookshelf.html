@@ -1,0 +1,35 @@
+{{- $books := hugo.Data.books.books -}}
+<div class="library-shelf realistic-library" data-realistic-library role="region" aria-label="Bookshelf">
+  <div class="wood-cabinet">
+{{ range $row := seq 0 7 }}
+    <div class="wood-row" data-shelf-row="{{ $row }}">
+      <div class="shelf-books">
+{{ range $book := first 12 (after (mul $row 15) $books) }}
+        <div class="upright-book">{{ partial "book-volume.html" (dict "book" $book "stack" false) }}</div>
+{{ end }}
+        <div class="horizontal-books">
+{{ range $book := first 3 (after (add (mul $row 15) 12) $books) }}
+          {{ partial "book-volume.html" (dict "book" $book "stack" true) }}
+{{ end }}
+        </div>
+      </div>
+    </div>
+{{ end }}
+  </div>
+  <section class="book-reading-room" id="book-reading-room" aria-labelledby="reading-book-title" hidden>
+    <button class="reading-close" type="button" aria-label="Return book to shelf">×</button>
+    <div class="reading-book-stage" aria-hidden="true"></div>
+    <div class="reading-book-copy">
+      <h3 id="reading-book-title" tabindex="-1"></h3>
+      <p class="reading-book-author"></p>
+      <p class="reading-book-year" hidden></p>
+      <p class="reading-book-rating" hidden></p>
+      <p class="reading-book-review" hidden></p>
+    </div>
+  </section>
+</div>
+<script type="application/json" id="book-catalog-data">{{ $books | jsonify | safeJS }}</script>
+{{ $styleVersion := substr (crypto.SHA256 (readFile "static/library/realistic.css")) 0 12 }}
+{{ $scriptVersion := substr (crypto.SHA256 (readFile "static/library/realistic.js")) 0 12 }}
+<link rel="stylesheet" href="{{ printf "library/realistic.css?v=%s" $styleVersion | relURL }}">
+<script type="module" src="{{ printf "library/realistic.js?v=%s" $scriptVersion | relURL }}"></script>

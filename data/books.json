@@ -7,7 +7,9 @@
       "author": "Alain de Botton",
       "year": null,
       "rating": 3,
-      "review": null
+      "review": null,
+      "cloth": "#58716c",
+      "foil": "#f4e8d8"
     },
     {
       "id": 1,
@@ -15,7 +17,9 @@
       "author": "Ransom Riggs",
       "year": null,
       "rating": 3,
-      "review": null
+      "review": null,
+      "cloth": "#34353f",
+      "foil": "#f4ead9"
     },
     {
       "id": 2,
@@ -23,7 +27,9 @@
       "author": "Manjit Kumar",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#6b5948",
+      "foil": "#f6ecdd"
     },
     {
       "id": 3,
@@ -31,7 +37,9 @@
       "author": "Leonard Mlodinow",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#34353f",
+      "foil": "#f4ead9"
     },
     {
       "id": 4,
@@ -39,7 +47,9 @@
       "author": "Carlo Rovelli",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#58716c",
+      "foil": "#f4e8d8"
     },
     {
       "id": 5,
@@ -47,7 +57,9 @@
       "author": "Judea Pearl",
       "year": null,
       "rating": 3,
-      "review": null
+      "review": null,
+      "cloth": "#4a6b53",
+      "foil": "#f7eddc"
     },
     {
       "id": 6,
@@ -55,7 +67,9 @@
       "author": "Sally Rooney",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#34353f",
+      "foil": "#f4ead9"
     },
     {
       "id": 7,
@@ -63,7 +77,9 @@
       "author": "Frank Herbert",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#58716c",
+      "foil": "#f4e8d8"
     },
     {
       "id": 8,
@@ -71,7 +87,9 @@
       "author": "Alexander C. Karp",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#58716c",
+      "foil": "#f4e8d8"
     },
     {
       "id": 9,
@@ -79,7 +97,9 @@
       "author": "Michael Lewis",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#58716c",
+      "foil": "#f4e8d8"
     },
     {
       "id": 10,
@@ -87,7 +107,9 @@
       "author": "Michael Lewis",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#58716c",
+      "foil": "#f4e8d8"
     },
     {
       "id": 11,
@@ -95,7 +117,9 @@
       "author": "Lewis Carroll",
       "year": null,
       "rating": 3,
-      "review": null
+      "review": null,
+      "cloth": "#a07732",
+      "foil": "#fff3df"
     },
     {
       "id": 12,
@@ -103,7 +127,9 @@
       "author": "Michel Alcoforado",
       "year": null,
       "rating": 3,
-      "review": null
+      "review": null,
+      "cloth": "#58716c",
+      "foil": "#f4e8d8"
     },
     {
       "id": 13,
@@ -111,7 +137,9 @@
       "author": "Kenneth O. Stanley",
       "year": null,
       "rating": 2,
-      "review": null
+      "review": null,
+      "cloth": "#7e6760",
+      "foil": "#f8eddf"
     },
     {
       "id": 14,
@@ -119,7 +147,9 @@
       "author": "Richard Sennett",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#203f5b",
+      "foil": "#f4e9dc"
     },
     {
       "id": 15,
@@ -127,7 +157,9 @@
       "author": "John Kay",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#8c3f33",
+      "foil": "#f7ebde"
     },
     {
       "id": 16,
@@ -135,7 +167,9 @@
       "author": "Edward L. Glaeser",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#7e6760",
+      "foil": "#f8eddf"
     },
     {
       "id": 17,
@@ -143,7 +177,9 @@
       "author": "Laura Carvalho",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#34353f",
+      "foil": "#f4ead9"
     },
     {
       "id": 18,
@@ -151,7 +187,9 @@
       "author": "Alain de Botton",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#b06242",
+      "foil": "#fff0df"
     },
     {
       "id": 19,
@@ -159,7 +197,9 @@
       "author": "Alain de Botton",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#6b5948",
+      "foil": "#f6ecdd"
     },
     {
       "id": 20,
@@ -167,7 +207,9 @@
       "author": "Ciro Gomes",
       "year": null,
       "rating": 2,
-      "review": null
+      "review": null,
+      "cloth": "#58716c",
+      "foil": "#f4e8d8"
     },
     {
       "id": 21,
@@ -175,7 +217,9 @@
       "author": "Alain de Botton",
       "year": null,
       "rating": 3,
-      "review": null
+      "review": null,
+      "cloth": "#3f4f55",
+      "foil": "#f4eadb"
     },
     {
       "id": 22,
@@ -183,7 +227,9 @@
       "author": "Michael França",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#143842",
+      "foil": "#f2e8d8"
     },
     {
       "id": 23,
@@ -191,7 +237,9 @@
       "author": "Thomas Piketty",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#8c3f33",
+      "foil": "#f7ebde"
     },
     {
       "id": 24,
@@ -199,7 +247,9 @@
       "author": "Ezra Klein",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#4a6b53",
+      "foil": "#f7eddc"
     },
     {
       "id": 25,
@@ -207,7 +257,9 @@
       "author": "William Poundstone",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#6b5948",
+      "foil": "#f6ecdd"
     },
     {
       "id": 26,
@@ -215,7 +267,9 @@
       "author": "Freeman Dyson",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#7e6760",
+      "foil": "#f8eddf"
     },
     {
       "id": 27,
@@ -223,7 +277,9 @@
       "author": "Michael Lewis",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#6b5948",
+      "foil": "#f6ecdd"
     },
     {
       "id": 28,
@@ -231,7 +287,9 @@
       "author": "Richard P. Feynman",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#a07732",
+      "foil": "#fff3df"
     },
     {
       "id": 29,
@@ -239,7 +297,9 @@
       "author": "Xavier de Maistre",
       "year": null,
       "rating": 3,
-      "review": null
+      "review": null,
+      "cloth": "#5e4d6a",
+      "foil": "#f5e9db"
     },
     {
       "id": 30,
@@ -247,7 +307,9 @@
       "author": "George A. Akerlof",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#5e4d6a",
+      "foil": "#f5e9db"
     },
     {
       "id": 31,
@@ -255,7 +317,9 @@
       "author": "Joel Waldfogel",
       "year": null,
       "rating": 3,
-      "review": null
+      "review": null,
+      "cloth": "#34353f",
+      "foil": "#f4ead9"
     },
     {
       "id": 32,
@@ -263,7 +327,9 @@
       "author": "Antoine de Saint-Exupéry",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#4a6b53",
+      "foil": "#f7eddc"
     },
     {
       "id": 33,
@@ -271,7 +337,9 @@
       "author": "Jeff Speck",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#a07732",
+      "foil": "#fff3df"
     },
     {
       "id": 34,
@@ -279,7 +347,9 @@
       "author": "Barack Obama",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#b06242",
+      "foil": "#fff0df"
     },
     {
       "id": 35,
@@ -287,7 +357,9 @@
       "author": "F. Scott Fitzgerald",
       "year": null,
       "rating": 3,
-      "review": null
+      "review": null,
+      "cloth": "#203f5b",
+      "foil": "#f4e9dc"
     },
     {
       "id": 36,
@@ -295,7 +367,9 @@
       "author": "Thomas C. Schelling",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#a07732",
+      "foil": "#fff3df"
     },
     {
       "id": 37,
@@ -303,7 +377,9 @@
       "author": "J. Bradford DeLong",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#7e6760",
+      "foil": "#f8eddf"
     },
     {
       "id": 38,
@@ -311,7 +387,9 @@
       "author": "Fernando Henrique Cardoso",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#a07732",
+      "foil": "#fff3df"
     },
     {
       "id": 39,
@@ -319,7 +397,9 @@
       "author": "Steven E. Landsburg",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#58716c",
+      "foil": "#f4e8d8"
     },
     {
       "id": 40,
@@ -327,7 +407,9 @@
       "author": "Peter Singer",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#b06242",
+      "foil": "#fff0df"
     },
     {
       "id": 41,
@@ -335,7 +417,9 @@
       "author": "Ryan Holiday",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#a07732",
+      "foil": "#fff3df"
     },
     {
       "id": 42,
@@ -343,7 +427,9 @@
       "author": "Antoine de Saint-Exupéry",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#4a6b53",
+      "foil": "#f7eddc"
     },
     {
       "id": 43,
@@ -351,7 +437,9 @@
       "author": "Oded Galor",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#3f4f55",
+      "foil": "#f4eadb"
     },
     {
       "id": 44,
@@ -359,7 +447,9 @@
       "author": "Sally Rooney",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#3f4f55",
+      "foil": "#f4eadb"
     },
     {
       "id": 45,
@@ -367,7 +457,9 @@
       "author": "Tabata Amaral",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#6b5948",
+      "foil": "#f6ecdd"
     },
     {
       "id": 46,
@@ -375,7 +467,9 @@
       "author": "Peter H. Lindert",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#3f4f55",
+      "foil": "#f4eadb"
     },
     {
       "id": 47,
@@ -383,7 +477,9 @@
       "author": "Tim Harford",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#203f5b",
+      "foil": "#f4e9dc"
     },
     {
       "id": 48,
@@ -391,7 +487,9 @@
       "author": "Olivier J. Blanchard",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#b06242",
+      "foil": "#fff0df"
     },
     {
       "id": 49,
@@ -399,7 +497,9 @@
       "author": "Pedro Fernando Nery",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#203f5b",
+      "foil": "#f4e9dc"
     },
     {
       "id": 50,
@@ -407,7 +507,9 @@
       "author": "Hans Rosling",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#6b5948",
+      "foil": "#f6ecdd"
     },
     {
       "id": 51,
@@ -415,7 +517,9 @@
       "author": "Emmanuel Saez",
       "year": null,
       "rating": 3,
-      "review": null
+      "review": null,
+      "cloth": "#3f4f55",
+      "foil": "#f4eadb"
     },
     {
       "id": 52,
@@ -423,7 +527,9 @@
       "author": "Rutger Bregman",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#6b5948",
+      "foil": "#f6ecdd"
     },
     {
       "id": 53,
@@ -431,7 +537,9 @@
       "author": "Tim Harford",
       "year": null,
       "rating": 3,
-      "review": null
+      "review": null,
+      "cloth": "#7e6760",
+      "foil": "#f8eddf"
     },
     {
       "id": 54,
@@ -439,7 +547,9 @@
       "author": "Michael J. Sandel",
       "year": null,
       "rating": 3,
-      "review": null
+      "review": null,
+      "cloth": "#34353f",
+      "foil": "#f4ead9"
     },
     {
       "id": 55,
@@ -447,7 +557,9 @@
       "author": "Gustavo Franco",
       "year": null,
       "rating": 2,
-      "review": null
+      "review": null,
+      "cloth": "#6b5948",
+      "foil": "#f6ecdd"
     },
     {
       "id": 56,
@@ -455,7 +567,9 @@
       "author": "Mark Lilla",
       "year": null,
       "rating": 2,
-      "review": null
+      "review": null,
+      "cloth": "#3f4f55",
+      "foil": "#f4eadb"
     },
     {
       "id": 57,
@@ -463,7 +577,9 @@
       "author": "Steven D. Levitt",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#8c3f33",
+      "foil": "#f7ebde"
     },
     {
       "id": 58,
@@ -471,7 +587,9 @@
       "author": "Thomas Traumann",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#203f5b",
+      "foil": "#f4e9dc"
     },
     {
       "id": 59,
@@ -479,7 +597,9 @@
       "author": "Darrell Huff",
       "year": null,
       "rating": 3,
-      "review": null
+      "review": null,
+      "cloth": "#8c3f33",
+      "foil": "#f7ebde"
     },
     {
       "id": 60,
@@ -487,7 +607,9 @@
       "author": "Angus Deaton",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#34353f",
+      "foil": "#f4ead9"
     },
     {
       "id": 61,
@@ -495,7 +617,9 @@
       "author": "Richard P. Feynman",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#7e6760",
+      "foil": "#f8eddf"
     },
     {
       "id": 62,
@@ -503,7 +627,9 @@
       "author": "Michael J. Sandel",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#5e4d6a",
+      "foil": "#f5e9db"
     },
     {
       "id": 63,
@@ -511,7 +637,9 @@
       "author": "Steven D. Levitt",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#34353f",
+      "foil": "#f4ead9"
     },
     {
       "id": 64,
@@ -519,7 +647,9 @@
       "author": "Steven D. Levitt",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#143842",
+      "foil": "#f2e8d8"
     },
     {
       "id": 65,
@@ -527,7 +657,9 @@
       "author": "Marcos Lisboa",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#3f4f55",
+      "foil": "#f4eadb"
     },
     {
       "id": 66,
@@ -535,7 +667,9 @@
       "author": "David Halpern",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#5e4d6a",
+      "foil": "#f5e9db"
     },
     {
       "id": 67,
@@ -543,7 +677,9 @@
       "author": "Mariana Mazzucato",
       "year": null,
       "rating": 3,
-      "review": null
+      "review": null,
+      "cloth": "#203f5b",
+      "foil": "#f4e9dc"
     },
     {
       "id": 68,
@@ -551,7 +687,9 @@
       "author": "Tim Harford",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#a07732",
+      "foil": "#fff3df"
     },
     {
       "id": 69,
@@ -559,7 +697,9 @@
       "author": "Ken Robinson",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#143842",
+      "foil": "#f2e8d8"
     },
     {
       "id": 70,
@@ -567,7 +707,9 @@
       "author": "Richard P. Feynman",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#5e4d6a",
+      "foil": "#f5e9db"
     },
     {
       "id": 71,
@@ -575,7 +717,9 @@
       "author": "C.S. Lewis",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#5e4d6a",
+      "foil": "#f5e9db"
     },
     {
       "id": 72,
@@ -583,7 +727,9 @@
       "author": "C.S. Lewis",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#4a6b53",
+      "foil": "#f7eddc"
     },
     {
       "id": 73,
@@ -591,7 +737,9 @@
       "author": "Dani Rodrik",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#34353f",
+      "foil": "#f4ead9"
     },
     {
       "id": 74,
@@ -599,7 +747,9 @@
       "author": "Rutger Bregman",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#203f5b",
+      "foil": "#f4e9dc"
     },
     {
       "id": 75,
@@ -607,7 +757,9 @@
       "author": "Michael Lewis",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#6b5948",
+      "foil": "#f6ecdd"
     },
     {
       "id": 76,
@@ -615,7 +767,9 @@
       "author": "Benjamín Labatut",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#b06242",
+      "foil": "#fff0df"
     },
     {
       "id": 77,
@@ -623,7 +777,9 @@
       "author": "Sally Rooney",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#8c3f33",
+      "foil": "#f7ebde"
     },
     {
       "id": 78,
@@ -631,7 +787,9 @@
       "author": "Richard P. Feynman",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#143842",
+      "foil": "#f2e8d8"
     },
     {
       "id": 79,
@@ -639,7 +797,9 @@
       "author": "Abhijit V. Banerjee",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#6b5948",
+      "foil": "#f6ecdd"
     },
     {
       "id": 80,
@@ -647,7 +807,9 @@
       "author": "George A. Akerlof",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#8c3f33",
+      "foil": "#f7ebde"
     },
     {
       "id": 81,
@@ -655,7 +817,9 @@
       "author": "Frank Herbert",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#34353f",
+      "foil": "#f4ead9"
     },
     {
       "id": 82,
@@ -663,7 +827,9 @@
       "author": "David Halpern",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#4a6b53",
+      "foil": "#f7eddc"
     },
     {
       "id": 83,
@@ -671,7 +837,9 @@
       "author": "Tim Harford",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#203f5b",
+      "foil": "#f4e9dc"
     },
     {
       "id": 84,
@@ -679,7 +847,9 @@
       "author": "Abhijit V. Banerjee",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#a07732",
+      "foil": "#fff3df"
     },
     {
       "id": 85,
@@ -687,7 +857,9 @@
       "author": "Flávio Augusto da Silva",
       "year": null,
       "rating": 3,
-      "review": null
+      "review": null,
+      "cloth": "#203f5b",
+      "foil": "#f4e9dc"
     },
     {
       "id": 86,
@@ -695,7 +867,9 @@
       "author": "Jonathan Haidt",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#143842",
+      "foil": "#f2e8d8"
     },
     {
       "id": 87,
@@ -703,7 +877,9 @@
       "author": "Malcolm Gladwell",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#58716c",
+      "foil": "#f4e8d8"
     },
     {
       "id": 88,
@@ -711,7 +887,9 @@
       "author": "Steven E. Landsburg",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#a07732",
+      "foil": "#fff3df"
     },
     {
       "id": 89,
@@ -719,7 +897,9 @@
       "author": "Tim Harford",
       "year": null,
       "rating": 5,
-      "review": null
+      "review": null,
+      "cloth": "#203f5b",
+      "foil": "#f4e9dc"
     },
     {
       "id": 90,
@@ -727,7 +907,9 @@
       "author": "Richard H. Thaler",
       "year": null,
       "rating": 4,
-      "review": null
+      "review": null,
+      "cloth": "#b06242",
+      "foil": "#fff0df"
     },
     {
       "id": 91,
@@ -735,7 +917,9 @@
       "author": "Steven D. Levitt",
       "year": null,
       "rating": 3,
-      "review": null
+      "review": null,
+      "cloth": "#5e4d6a",
+      "foil": "#f5e9db"
     },
     {
       "id": 92,
@@ -743,7 +927,9 @@
       "author": "Christopher Hitchens",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#143842",
+      "foil": "#f2e8d8"
     },
     {
       "id": 93,
@@ -751,7 +937,9 @@
       "author": "William MacAskill",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#b06242",
+      "foil": "#fff0df"
     },
     {
       "id": 94,
@@ -759,7 +947,9 @@
       "author": "Jonathan Safran Foer",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#34353f",
+      "foil": "#f4ead9"
     },
     {
       "id": 95,
@@ -767,7 +957,9 @@
       "author": "Daniel C. Dennett",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#203f5b",
+      "foil": "#f4e9dc"
     },
     {
       "id": 96,
@@ -775,7 +967,9 @@
       "author": "Lawrence M. Krauss",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#34353f",
+      "foil": "#f4ead9"
     },
     {
       "id": 97,
@@ -783,7 +977,9 @@
       "author": "Daniel C. Dennett",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#3f4f55",
+      "foil": "#f4eadb"
     },
     {
       "id": 98,
@@ -791,7 +987,9 @@
       "author": "Karl Popper",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#143842",
+      "foil": "#f2e8d8"
     },
     {
       "id": 99,
@@ -799,7 +997,9 @@
       "author": "Nick Bostrom",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#a07732",
+      "foil": "#fff3df"
     },
     {
       "id": 100,
@@ -807,7 +1007,9 @@
       "author": "Siddhartha Mukherjee",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#8c3f33",
+      "foil": "#f7ebde"
     },
     {
       "id": 101,
@@ -815,7 +1017,9 @@
       "author": "Christopher Hitchens",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#5e4d6a",
+      "foil": "#f5e9db"
     },
     {
       "id": 102,
@@ -823,7 +1027,9 @@
       "author": "Daniel C. Dennett",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#58716c",
+      "foil": "#f4e8d8"
     },
     {
       "id": 103,
@@ -831,7 +1037,9 @@
       "author": "Richard Dawkins",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#203f5b",
+      "foil": "#f4e9dc"
     },
     {
       "id": 104,
@@ -839,7 +1047,9 @@
       "author": "Niall Ferguson",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#4a6b53",
+      "foil": "#f7eddc"
     },
     {
       "id": 105,
@@ -847,7 +1057,9 @@
       "author": "Naomi Klein",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#4a6b53",
+      "foil": "#f7eddc"
     },
     {
       "id": 106,
@@ -855,7 +1067,9 @@
       "author": "Henry Hazlitt",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#5e4d6a",
+      "foil": "#f5e9db"
     },
     {
       "id": 107,
@@ -863,7 +1077,9 @@
       "author": "John Maynard Keynes",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#3f4f55",
+      "foil": "#f4eadb"
     },
     {
       "id": 108,
@@ -871,7 +1087,9 @@
       "author": "Adam Smith",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#7e6760",
+      "foil": "#f8eddf"
     },
     {
       "id": 109,
@@ -879,7 +1097,9 @@
       "author": "Sendhil Mullainathan",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#5e4d6a",
+      "foil": "#f5e9db"
     },
     {
       "id": 110,
@@ -887,7 +1107,9 @@
       "author": "Gary Klein",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#7e6760",
+      "foil": "#f8eddf"
     },
     {
       "id": 111,
@@ -895,7 +1117,9 @@
       "author": "Jared Diamond",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#203f5b",
+      "foil": "#f4e9dc"
     },
     {
       "id": 112,
@@ -903,7 +1127,9 @@
       "author": "Chip Heath",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#6b5948",
+      "foil": "#f6ecdd"
     },
     {
       "id": 113,
@@ -911,7 +1137,9 @@
       "author": "Barry Schwartz",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#4a6b53",
+      "foil": "#f7eddc"
     },
     {
       "id": 114,
@@ -919,7 +1147,9 @@
       "author": "Susan Cain",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#143842",
+      "foil": "#f2e8d8"
     },
     {
       "id": 115,
@@ -927,7 +1157,9 @@
       "author": "Bernie Sanders",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#5e4d6a",
+      "foil": "#f5e9db"
     },
     {
       "id": 116,
@@ -935,7 +1167,9 @@
       "author": "C. Thi Nguyen",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#b06242",
+      "foil": "#fff0df"
     },
     {
       "id": 117,
@@ -943,7 +1177,9 @@
       "author": "Andrei Shleifer",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#4a6b53",
+      "foil": "#f7eddc"
     },
     {
       "id": 118,
@@ -951,7 +1187,9 @@
       "author": "Francis Fukuyama",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#a07732",
+      "foil": "#fff3df"
     },
     {
       "id": 119,
@@ -959,7 +1197,9 @@
       "author": "Richard Dawkins",
       "year": null,
       "rating": null,
-      "review": null
+      "review": null,
+      "cloth": "#58716c",
+      "foil": "#f4e8d8"
     }
   ]
 }

@@ -1,0 +1,71 @@
+/* Physical materials and deliberate motion are confined to the Library object. */
+.realistic-library{position:relative;width:100%;overflow:visible;margin:0 0 28px;color:#333}
+.wood-cabinet{position:relative;padding:12px 14px 0;background:#65442b url('wood-grain.svg') center/800px 240px;border-radius:3px;box-shadow:inset 1px 1px 0 #b88a5c,inset -2px 0 3px #301c12,0 5px 12px #24170e22}
+.wood-cabinet::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#fff2,transparent 12px,transparent calc(100% - 12px),#0005);border-radius:inherit}
+.wood-row{position:relative;padding:0 8px 20px;background:linear-gradient(108deg,#68482f33,#1b100a99),url('wood-grain.svg') center/800px 240px;box-shadow:inset 0 10px 15px #180d0a99,inset 6px 0 9px #190d0870,inset -6px 0 9px #190d0870}
+.wood-row::after{content:"";position:absolute;left:-3px;right:-3px;bottom:0;height:20px;background:linear-gradient(#ad82542b,#0000 4px,#29170f66 17px),url('wood-grain.svg') center/800px 140px;border-top:2px solid #9b704a;border-bottom:2px solid #342014;box-shadow:0 5px 9px #1a0d0980;z-index:3;pointer-events:none}
+.shelf-books{display:grid;grid-template-columns:repeat(12,minmax(0,1fr)) minmax(66px,2.3fr);height:182px;align-items:end;gap:0;padding:0 0 1px}
+.upright-book{display:flex;justify-content:center;align-items:end;min-width:0;height:100%;perspective:1200px}
+.book-button{--cover-w:105px;position:relative;display:block;width:100%;height:var(--h);border:0;padding:0;outline:none;color:var(--foil);text-decoration:none;touch-action:pan-y;-webkit-tap-highlight-color:transparent;z-index:1}
+.book-button::after{content:"";position:absolute;bottom:-2px;left:50%;width:min(calc(var(--d) + 4px),100%);transform:translateX(-50%);height:5px;border-radius:50%;background:#0b0705aa;filter:blur(3px);pointer-events:none}
+.book-button:focus-visible{outline:2px solid #dec198;outline-offset:5px;border-radius:2px;z-index:4}
+.book-volume{position:absolute;left:50%;top:0;width:var(--cover-w);height:var(--h);display:block;transform:translateX(-50%) rotateY(88deg) rotateZ(var(--lean,0deg));transform-style:preserve-3d;transition:transform .32s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+.book-volume>span{position:absolute;display:block;transform-style:preserve-3d}
+.book-cover-front,.book-cover-back{inset:0;border-radius:2px 5px 4px 1px;background:var(--cloth);border:1px solid #130e0b80;box-sizing:border-box}
+.book-cover-front{transform:translateZ(calc(var(--d) / 2));transform-origin:left center;transition:transform .52s cubic-bezier(.2,.65,.15,1);z-index:2}
+.book-cover-back{transform:rotateY(180deg) translateZ(calc(var(--d) / 2))}
+.cover-outside,.cover-inside{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px 12px;box-sizing:border-box;backface-visibility:hidden;border-radius:inherit;background:linear-gradient(100deg,#0004,#fff1 12%,transparent 20%,#0002),repeating-linear-gradient(0deg,#ffffff06 0 1px,#0000 1px 3px),var(--cloth);box-shadow:inset 3px 0 3px #0005,inset 0 0 0 6px var(--cloth),inset 0 0 0 7px #ddd3}
+.cover-inside{transform:rotateY(180deg);background:#d5c3a3;box-shadow:inset -3px 0 5px #37281855}
+.cover-title{font:normal 14px/1.16 'Adobe Caslon Pro',Georgia,serif;text-align:center;color:var(--foil);text-shadow:0 1px 0 #0007;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5}
+.cover-rule{height:1px;width:24px;margin-top:12px;background:var(--foil);opacity:.6}
+.cover-author{margin-top:11px;text-align:center;color:var(--foil);font:normal 8px/1.3 Montserrat,sans-serif}
+.book-spine{top:0;bottom:0;left:calc(var(--d) / -2);width:var(--d);border-radius:3px 2px 2px 3px;transform:rotateY(-90deg);background:linear-gradient(90deg,#0c080850,#fff2 13%,transparent 32%,#0002 78%,#0006),repeating-linear-gradient(0deg,#ffffff06 0 1px,#0000 1px 3px),var(--cloth);box-shadow:inset 2px 0 1px #f9efd926,inset -1px 0 1px #080402a0,0 1px 1px #0006;overflow:hidden}
+.book-spine::before,.book-spine::after{content:"";position:absolute;left:3px;right:3px;top:9px;border-top:1px solid var(--foil);opacity:.26;box-shadow:0 3px 0 #f4e8d81a}
+.book-spine::after{top:auto;bottom:9px}
+.spine-title{position:absolute;top:14px;bottom:14px;left:50%;writing-mode:vertical-rl;transform:translateX(-50%) rotate(180deg);white-space:nowrap;text-overflow:ellipsis;overflow:hidden;font:normal 11px/1.1 'Adobe Caslon Pro',Georgia,serif;letter-spacing:.01em;color:var(--foil);text-shadow:0 1px 1px #0008}
+.book-pages{top:3px;bottom:3px;right:calc(var(--d) / -2);width:var(--d);transform:rotateY(90deg);background:repeating-linear-gradient(90deg,#ded0ad 0 1px,#f1e7cc 1px 3px);box-shadow:inset 0 0 4px #6e543e55}
+.book-page-top,.book-page-bottom{left:2px;right:2px;height:var(--d);background:repeating-linear-gradient(0deg,#e2d6bb 0 1px,#f3e9d1 1px 3px);box-shadow:inset 0 0 4px #5c432b55}
+.book-page-top{top:calc(var(--d) / -2);transform:rotateX(90deg)}
+.book-page-bottom{bottom:calc(var(--d) / -2);transform:rotateX(-90deg)}
+.book-title-page{inset:3px;transform:translateZ(calc(var(--d) / 2 - 1px));background:#f3ead4;box-shadow:inset 6px 0 7px #92735145;display:flex!important;align-items:center;justify-content:center;flex-direction:column;padding:20px 12px;box-sizing:border-box;font:normal 12px/1.2 'Adobe Caslon Pro',Georgia,serif;text-align:center;color:#40382e}
+.book-title-page .title-page-author{font:normal 7px/1.35 Montserrat,sans-serif;margin-top:12px}
+.book-title-page>span:first-child{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
+.horizontal-books{display:flex;flex-direction:column-reverse;align-items:center;justify-content:end;padding-bottom:1px;perspective:1200px;min-width:0;--stack-scale:.78}
+.stacked-book{height:calc(var(--d) * var(--stack-scale));width:min(100%,116px);margin-top:2px}
+.stacked-book .book-volume{top:50%;transform:translate(-50%,-50%) rotateZ(90deg) rotateY(90deg) scale(var(--stack-scale))}
+.book-button.is-selected .book-volume{visibility:hidden}
+.book-button.is-neighbor .book-volume{transform:translateX(-50%) rotateY(90deg) rotateZ(var(--nudge))}
+@media(hover:hover) and (pointer:fine){.book-button:hover:not(.is-selected) .book-volume{transform:translateX(-50%) translateZ(12px) rotateY(86deg) rotateZ(var(--lean,0deg))}.stacked-book:hover:not(.is-selected) .book-volume{transform:translate(-50%,-50%) translateZ(12px) rotateZ(90deg) rotateY(90deg) scale(var(--stack-scale))}.book-button:hover{z-index:4}}
+.book-reading-room{float:none;width:auto;box-sizing:border-box;position:relative;display:grid;grid-template-columns:220px minmax(0,1fr);gap:12px;padding:28px 20px 22px;background:#fff;border-bottom:1px solid #e5e5e5;color:#333;scroll-margin-top:128px}
+.book-reading-room[hidden]{display:none}
+.reading-close{position:absolute;right:0;top:2px;display:grid;place-items:center;width:44px;height:44px;border:0;background:transparent;color:#777;cursor:pointer;font:normal 28px 'Noto Sans',sans-serif;z-index:5}
+.reading-close:focus-visible{outline:2px solid #267cb9;outline-offset:1px}
+.reading-book-stage{position:relative;min-width:0;height:220px;perspective:1100px;transform-style:preserve-3d}
+.reading-book-stage>.book-volume{top:26px;transform:translateX(-50%) rotateY(-12deg) scale(1.18)}
+.reading-book-stage .book-cover-front.is-open{transform:translateZ(calc(var(--d) / 2)) rotateY(-118deg)}
+.reading-book-copy{align-self:center;min-width:0;padding-right:20px}
+.reading-book-copy h3{font-size:24px;line-height:1.15;margin:0 0 8px;color:#222}
+.reading-book-copy p{font:normal 14px/1.6 Montserrat,sans-serif;margin:0 0 7px}
+.reading-book-copy .reading-book-rating{color:#877047}
+.reading-book-review{white-space:pre-line}
+.book-flight{position:absolute;z-index:50;pointer-events:none;transform-origin:center top;perspective:1100px;transform-style:preserve-3d}
+.book-flight .book-volume{transition:none;visibility:visible!important}
+.book-flight .book-cover-front{transition:none}
+.realistic-library.is-arriving .wood-cabinet{animation:wood-arrive .6s ease-out both}
+@keyframes wood-arrive{from{opacity:.4;filter:grayscale(.9);transform:scale(.985)}to{opacity:1;filter:grayscale(0);transform:scale(1)}}
+@media(max-width:720px){.wood-cabinet{padding:10px 9px 0}.wood-row{padding-left:4px;padding-right:4px}.shelf-books{grid-template-columns:repeat(12,minmax(0,1fr)) minmax(66px,2.3fr)}.book-button{--d:calc(var(--depth) * .55)!important}.book-spine{width:var(--d)}.spine-title{font-size:9px}.horizontal-books{--stack-scale:.45}.stacked-book{--d:28px!important}.book-reading-room{grid-template-columns:1fr;gap:0;padding:20px 8px}.reading-book-stage{width:230px;max-width:100%;margin:auto;height:230px}.reading-book-copy{padding:0 12px}.reading-book-copy h3{font-size:22px}}
+@media(prefers-reduced-motion:reduce){.book-volume,.book-cover-front{transition:none}.realistic-library.is-arriving .wood-cabinet{animation:none}}
+
+/* Stable frontal spines avoid WebKit culling exactly edge-on 3D containers.
+   Full volume geometry is used for the moving and opened book. */
+.book-button>.book-volume{display:none}
+.resting-spine{position:absolute;display:block;left:50%;top:0;width:min(var(--d),90%);height:var(--h);transform:translateX(-50%) rotate(var(--lean,0deg));border-radius:3px 2px 2px 3px;background:linear-gradient(90deg,#0c080850,#fff2 13%,transparent 32%,#0002 78%,#0006),repeating-linear-gradient(0deg,#ffffff06 0 1px,#0000 1px 3px),var(--cloth);box-shadow:inset 2px 0 1px #f9efd926,inset -1px 0 1px #080402a0,0 1px 1px #0006;transition:transform .32s cubic-bezier(.2,.7,.2,1);pointer-events:none;overflow:hidden;border-top:1px solid #e1cc9c66;border-bottom:1px solid #17100ba0}
+.resting-spine::before,.resting-spine::after{content:"";position:absolute;left:3px;right:3px;top:9px;border-top:1px solid var(--foil);opacity:.26}
+.resting-spine::after{top:auto;bottom:9px}
+.stacked-book .resting-spine{width:100%;height:100%;top:0;transform:translateX(-50%);border-radius:2px 4px 4px 2px}
+.stacked-book .resting-spine .spine-title{writing-mode:horizontal-tb;top:50%;bottom:auto;left:5px;right:5px;transform:translateY(-50%);font-size:10px;line-height:1.1}
+.book-button.is-selected .resting-spine{visibility:hidden}
+.book-button.is-neighbor .resting-spine{transform:translateX(-50%) rotate(var(--nudge))}
+@media(hover:hover) and (pointer:fine){.book-button:hover:not(.is-selected) .resting-spine{transform:translateX(-50%) translateY(-3px) scale(1.025)}}
+@media(max-width:720px){.stacked-book .resting-spine .spine-title{font-size:8px}}
+@media(prefers-reduced-motion:reduce){.resting-spine{transition:none}}

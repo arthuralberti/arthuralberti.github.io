@@ -84,7 +84,6 @@ function shelfScene(parent:Element){
   }
  }
  solid(-86,-31,128,172,62,4);
- for(const x of [-74,65])solid(x,-37,-4,9,74,4);
  // A small rolling ladder is part of the fixed entrance illustration.
  for(const x of [26,48])for(let step=0;step<6;step++){
   const t0=step/6,t1=(step+1)/6,w=2;
@@ -99,10 +98,11 @@ function shelfScene(parent:Element){
  let mix=0,opening=false,stop=()=>{};
  const g=el('g',{'data-shelf':0},svg),art=el('g',{'aria-hidden':'true'},g);
  const pool=Array.from({length:solids.length*3},()=>el('path',{},art));
+ const wall=el('path',{'aria-hidden':'true',class:'shelf-side-wall'},g);
  const roof=el('path',{'aria-hidden':'true',class:'shelf-roof-cap'},g);
  const outline=el('path',{'aria-hidden':'true',class:'shelf-outline'},g);
  const target=el('path',{class:'file-target shelf-target',role:'button',tabindex:0,'aria-label':'Open the library'},g);
- const handle=el('circle',{class:'shelf-ladder-handle',r:9,tabindex:0,role:'slider','aria-label':'Move library ladder','aria-valuemin':0,'aria-valuemax':100,'aria-valuenow':70},g);
+ const handle=el('path',{class:'shelf-ladder-handle',tabindex:0,role:'slider','aria-label':'Move library ladder','aria-valuemin':0,'aria-valuemax':100,'aria-valuenow':70},g);
  let ladderOffset=0,drag:{x:number,start:number}|null=null;
  handle.addEventListener('pointerdown',(e:PointerEvent)=>{if(opening||e.button!==0)return;drag={x:point(svg,e)[0],start:ladderOffset};handle.setPointerCapture(e.pointerId);e.preventDefault();e.stopPropagation();});
  handle.addEventListener('pointermove',(e:PointerEvent)=>{if(!drag)return;ladderOffset=Math.max(-56,Math.min(24,drag.start+(point(svg,e)[0]-drag.x)/(1.38*Math.cos(rad(45)))));draw();});
@@ -136,6 +136,8 @@ function shelfScene(parent:Element){
    faces.forEach((face,i)=>{const path=pool[i];path.setAttribute('d',poly(face.v.map(v=>P(...v))));path.setAttribute('class',face.kind);path.style.display='';fragment.append(path);});
    for(let i=faces.length;i<pool.length;i++)pool[i].style.display='none';
    art.append(fragment);
+   const end=sin>=0?84:-84;
+   wall.setAttribute('d',poly([P(end,-29,8),P(end,29,8),P(end,29,128),P(end,-29,128)]));
    roof.setAttribute('d',poly([P(-86,-31,132),P(86,-31,132),P(86,31,132),P(-86,31,132)]));
    let edges=poly([P(-86,-31,132),P(86,-31,132),P(86,31,132),P(-86,31,132)]);
    for(const x of [-84,84])edges+=seg(P(x,side*29,8),P(x,side*29,128));
@@ -150,7 +152,7 @@ function shelfScene(parent:Element){
    edges+=seg(P(nearX,-34,4),P(nearX,34,4));
    outline.setAttribute('d',edges);
    target.setAttribute('d',poly(hull(corners.map(v=>P(...v)))));
-   const grip=P(37+ladderOffset,34,132);handle.setAttribute('cx',String(grip[0]));handle.setAttribute('cy',String(grip[1]));handle.setAttribute('aria-valuenow',String(Math.round((ladderOffset+56)/80*100)));
+   handle.setAttribute('d',poly([P(26+ladderOffset,31,132),P(50+ladderOffset,31,132),P(60+ladderOffset,45,0),P(36+ladderOffset,45,0)]));handle.setAttribute('aria-valuenow',String(Math.round((ladderOffset+56)/80*100)));
    g.setAttribute('data-angle',String(angle));
    s.dataset.zoom=String(mix);
  }
@@ -163,21 +165,15 @@ function shelfScene(parent:Element){
 document.querySelectorAll('[data-rotating-library]').forEach(shelfScene);
 const library=document.querySelector<HTMLElement>('.library-page');
 if(library){
- const collection=library.querySelector<HTMLElement>('.library-collection')!,frame=library.querySelector<HTMLIFrameElement>('.library-shelf')!,preview=library.querySelector<HTMLElement>('[data-rotating-library]')!;
+ const collection=library.querySelector<HTMLElement>('.library-collection')!,preview=library.querySelector<HTMLElement>('[data-rotating-library]')!;
  collection.hidden=true;
- function apply(){
-  const doc=frame.contentDocument;if(!doc)return;
-  const radio=doc.getElementById('view-all') as HTMLInputElement;if(radio)radio.checked=true;
-  doc.querySelectorAll<HTMLInputElement>('.book-radio:checked').forEach(b=>b.checked=false);
-  frame.contentWindow!.location.hash='top';frame.contentWindow!.scrollTo({top:0,behavior:'instant'});
- }
  library.addEventListener('library-category',()=>{
-  apply();preview.hidden=true;collection.hidden=false;library.classList.add('catalog-open');
+  preview.hidden=true;collection.hidden=false;library.classList.add('catalog-open');
  });
  library.addEventListener('library-reset',()=>{
   collection.hidden=true;preview.hidden=false;library.classList.remove('catalog-open');
-  preview.scrollIntoView({behavior:reduced.matches?'instant':'smooth',block:'start'});
+  library.dispatchEvent(new CustomEvent('catalog-reset'));
+  preview.scrollIntoView({behavior:reduced.matches?'auto':'smooth',block:'start'});
  });
  library.querySelector('.catalog-back')!.addEventListener('click',()=>library.dispatchEvent(new CustomEvent('library-reset')));
- frame.addEventListener('load',()=>{if(!collection.hidden)apply();});
 }

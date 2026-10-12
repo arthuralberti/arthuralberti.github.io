@@ -67,6 +67,7 @@ async function aligned(page, id) {
       assert(Number(await handle.getAttribute('aria-valuenow')) < 90, 'Hairline ladder touch drag');
       await cdp.detach();
     }
+    await handle.press('End');
     await handle.evaluate(el=>el.blur());
     await page.screenshot({ path: `${artifacts}/${name}-entrance.png` });
     const target = preview.getByRole('button', { name: 'Open the library', exact: true });
@@ -85,22 +86,83 @@ async function aligned(page, id) {
       assert(samples < 50, 'Zoom completion');
       await page.waitForTimeout(40);
     }
-    const frame = page.frameLocator('.library-shelf');
-    await frame.locator('#view-all').waitFor({ state: 'attached' });
-    assert(await frame.locator('#view-all').isChecked(), 'Complete catalog opens');
-    await page.locator('.library-collection').evaluate(el => Promise.all(el.getAnimations({ subtree: true }).map(a => a.finished)));
-    await page.locator('.library-shelf').scrollIntoViewIfNeeded();
-    assert(await frame.locator('.library-ladder').count() === 0, 'No ladder inside catalog');
-    assert(await frame.locator('.spine-author-zone').count() === 0, 'Titles only on unzoomed spines');
-    const heights = await frame.locator('.collection.all .upright .book-object').evaluateAll(nodes => nodes.map(n => n.getBoundingClientRect().height));
-    assert(Math.max(...heights) - Math.min(...heights) < 12, 'Small height variation');
-    assert(await frame.locator('.collection.all .book-stack').count() > 0, 'Horizontal stacks');
-    await page.screenshot({ path: `${artifacts}/${name}-wood-shelf.png` });
-    await frame.locator('.collection.all .book-first').first().click();
-    await frame.locator('.collection.all .book-second').first().click();
-    await frame.locator('.detail-overlay:target').waitFor({ state: 'visible' });
-    await frame.locator('.detail-overlay:target').evaluate(el => Promise.all(el.getAnimations({ subtree: true }).map(a => a.finished)));
-    await frame.locator('.detail-overlay:target .close-detail').click();
+    const catalog = page.locator('.realistic-library');
+    await catalog.waitFor({ state: 'visible' });
+    await page.waitForFunction(()=>!document.querySelector('.realistic-library').classList.contains('is-arriving'));
+    assert(await page.locator('iframe').count() === 0, 'No iframe or internal scroll');
+    assert(await catalog.locator('.book-button').count() === 120, 'All 120 shelf volumes');
+    assert(await catalog.locator('.stacked-book').count() === 24, 'Horizontal stacks');
+    assert(await catalog.locator('.library-ladder').count() === 0, 'No internal ladder');
+    assert(await page.locator('.shelf-ladder-handle').evaluate(el=>el.tagName.toLowerCase()==='path'), 'Ladder grips its rails directly');
+    assert(await preview.locator('circle').count() === 0, 'No round ladder handle');
+    assert(await page.locator('.shelf-side-wall').count() === 1, 'Solid outside side wall');
+    const nesting = await catalog.evaluate(el=>({overflow:getComputedStyle(el).overflowY,height:el.clientHeight,scroll:el.scrollHeight}));
+    assert(!['auto','scroll'].includes(nesting.overflow), 'Catalog is in normal page flow');
+    const heights = await catalog.locator('.upright-book .resting-spine').evaluateAll(nodes=>nodes.map(n=>n.getBoundingClientRect().height));
+    assert(Math.max(...heights)-Math.min(...heights)<12,'Only slight book height variation');
+    assert(await catalog.locator('.resting-spine').evaluateAll(nodes=>nodes.every(n=>getComputedStyle(n).backgroundColor!=='rgba(0, 0, 0, 0)'&&n.getBoundingClientRect().width>5)),'All resting spines have visible materials in both engines');
+    assert(await catalog.locator('.resting-spine .cover-author').count()===0,'Titles only on unzoomed spines');
+    await page.screenshot({path:`${artifacts}/${name}-wood-shelf.png`});
+    await page.locator('.wood-cabinet').screenshot({path:`${artifacts}/${name}-full-cabinet.png`});
+    const data = JSON.parse(require('fs').readFileSync(require('path').join(__dirname,'../data/books.json'),'utf8')).books;
+    const room = catalog.locator('.book-reading-room');
+    for(const index of [0,12,60,119]){
+      const book=catalog.locator(`.book-button[data-book-id="${index}"]`);
+      if(options.hasTouch)await book.tap();else await book.click();
+      await room.waitFor({state:'visible'});
+      assert(await room.locator('h3').innerText()===data[index].title,'Correct title for '+index);
+      assert(await room.locator('.reading-book-author').innerText()===data[index].author,'Correct author for '+index);
+      await page.waitForFunction(()=>document.querySelectorAll('.book-flight').length===0&&document.querySelector('.reading-book-stage .is-open'));
+      await room.locator('.book-cover-front').evaluate(el=>{getComputedStyle(el).transform;return Promise.all(el.getAnimations().map(a=>a.finished));});
+      assert(await book.getAttribute('aria-expanded')==='true','Selected shelf gap');
+      if(index===0)await page.screenshot({path:`${artifacts}/${name}-book-open.png`});
+      await room.getByRole('button',{name:'Return book to shelf'}).click();
+      await room.waitFor({state:'hidden'});
+      assert(await book.getAttribute('aria-expanded')==='false','Book returns to original slot');
+      assert(await page.locator('.book-flight').count()===0,'No detached flight after return');
+    }
+    // The wheel scrolls the document while the pointer is over the shelf.
+    await catalog.locator('.book-button').first().scrollIntoViewIfNeeded();
+    const wheelPoint=await catalog.locator('.book-button').first().boundingBox();
+    await page.mouse.move(wheelPoint.x+wheelPoint.width/2,wheelPoint.y+wheelPoint.height/2);
+    const beforeScroll=await page.evaluate(()=>scrollY);
+    if(engine===webkit&&options.isMobile)await page.evaluate(()=>scrollBy({top:420,behavior:'instant'}));
+    else await page.mouse.wheel(0,420);
+    await page.waitForFunction(y=>scrollY>y+200,beforeScroll);
+    assert(await catalog.evaluate(el=>el.scrollTop===0),'No independent catalog scrolling');
+    await page.emulateMedia({reducedMotion:'reduce'});
+    for(const book of data){
+      const button=catalog.locator(`.book-button[data-book-id="${book.id}"]`);
+      await button.scrollIntoViewIfNeeded();await button.press('Enter');
+      await room.waitFor({state:'visible'});
+      assert(await room.locator('h3').innerText()===book.title,'Preserved metadata: '+book.id);
+      assert(await room.locator('.reading-book-author').innerText()===book.author,'Preserved author: '+book.id);
+      assert(await page.locator('.book-flight').count()===0,'Reduced-motion skips flying book');
+      await room.locator('h3').press('Escape');await room.waitFor({state:'hidden'});
+    }
+    // Rapid selection must cancel the previous flight without leaving ghosts.
+    await page.emulateMedia({reducedMotion:'no-preference'});
+    await catalog.locator('.book-button').nth(0).click();
+    await catalog.locator('.book-button').nth(1).click();
+    await page.waitForFunction(()=>document.querySelectorAll('.book-flight').length===0&&document.querySelector('.reading-book-stage .is-open'));
+    assert(await room.locator('h3').innerText()===data[1].title,'Rapid selection uses newest book');
+    await room.getByRole('button',{name:'Return book to shelf'}).click();await room.waitFor({state:'hidden'});
+    // The moving volume shares document coordinates with its shelf and reading area.
+    const movingBook=catalog.locator('.book-button').first();
+    await movingBook.click();
+    const movingVolume=page.locator('.book-flight');
+    await movingVolume.waitFor({state:'attached'});
+    await movingVolume.evaluate(el=>el.getAnimations({subtree:true}).forEach(a=>a.pause()));
+    assert(await movingVolume.evaluate(el=>getComputedStyle(el).position==='absolute'),'Book flight follows document scrolling');
+    const sourceTop=await movingBook.evaluate(el=>el.getBoundingClientRect().top+scrollY);
+    assert(Math.abs(Number(await movingVolume.evaluate(el=>parseFloat(el.style.top)))-sourceTop)<2,'Flight starts at its actual slot');
+    const frozen=await movingVolume.evaluate(el=>({top:el.getBoundingClientRect().top,y:scrollY}));
+    await page.evaluate(()=>scrollBy({top:55,behavior:'instant'}));
+    const moved=await movingVolume.evaluate(el=>({top:el.getBoundingClientRect().top,y:scrollY}));
+    assert(Math.abs(moved.top-frozen.top+moved.y-frozen.y)<2,'Scrolling keeps the flight aligned');
+    await movingVolume.evaluate(el=>el.getAnimations({subtree:true}).forEach(a=>a.play()));
+    await page.waitForFunction(()=>document.querySelectorAll('.book-flight').length===0&&document.querySelector('.reading-book-stage .is-open'));
+    await room.getByRole('button',{name:'Return book to shelf'}).click();await room.waitFor({state:'hidden'});
     await page.getByRole('button', { name: 'Return to bookshelf', exact: true }).click();
     assert(await preview.isVisible(), 'Return to fixed entrance');
     assert(await stage.getAttribute('data-zoom') === '0', 'Zoom resets');
@@ -131,12 +193,13 @@ async function aligned(page, id) {
 
     const native = await browser.newPage({ ...options, javaScriptEnabled: false });
     await native.goto(base + '/library/');
-    assert(await native.frameLocator('.library-shelf').locator('#view-all').isChecked(), 'No-JS full catalog');
+    assert(await native.locator('.book-button:visible').count()===120,'No-JS complete catalog');
+    assert(await native.locator('iframe').count()===0,'No-JS page scrolling');
     assert(!await native.locator('.catalog-back').isVisible(), 'No inactive fallback control');
     assert(await native.locator('.favorite-book:visible').count() === 120, 'No-JS complete book list');
     await native.goto(base + '/favorite-papers/');
     assert(await native.locator('.favorite-paper:visible').count() === 26, 'No-JS complete paper list');
-    console.log('PASS', name, 'fixed entrance, zoom bounds, ladder drag/stops, book details, subtle heights, stacks, 26 aligned paper anchors, reduced motion and no-JS fallback');
+    console.log('PASS', name, 'solid entrance, direct ladder drag, zoom bounds, 120 physical books, page-only scroll, animated opening/return, all metadata, 26 aligned paper anchors, reduced motion and no-JS fallback');
     await browser.close();
   }
 })().catch(error => { console.error(error); process.exit(1); });
