@@ -1,6 +1,15 @@
-# Library integration
+# Collection integration
 
-## Current: architectural room — October 12, 2026
+## Current: Favorite Papers only — October 12, 2026
+
+Arthur requested removal of Library from the site. Its Personal subsection,
+sidebar entry, pages, and exclusive deployed assets are removed. Favorite
+Papers retains all 26 records, its file cabinet, and its existing shared
+`static/library/objects.js` and `objects.css` assets without changes.
+The room model sources, catalog data, and prior verification notes below are
+historical development records; they are not active pages or published assets.
+
+## Historical: architectural room — October 12, 2026
 
 The room is now a dimensioned 3D model with a fixed orthographic camera. This
 supersedes the SVG sketch, search, zoom, panning and Open book controls below.

@@ -1,6 +1,6 @@
 # Arthur Alberti Personal Page
 
-The [Library](https://arthuralberti.github.io/library/) is linked from Personal and uses the site's page shell, like Favorite Papers. An interactive isometric room displays the 120-book catalog with depth-correct book selection and details; the complete list remains available below. The original Books v6 prototype remains in `static/library/books.html`; see [integration and checks](library/README.md).
+The [Favorite Papers](https://arthuralberti.github.io/favorite-papers/) collection is linked from Personal and retains its interactive file cabinet. Library was removed on October 12, 2026 at Arthur's request. Shared Papers assets keep their existing `library/objects.*` paths; see [collection documentation](library/README.md).
 
 Hugo version of Arthur Alberti's personal academic page, inspired by Gautam
 Rao's website.
