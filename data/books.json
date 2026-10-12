@@ -1,0 +1,965 @@
+{
+  "source": "Supplied Goodreads-derived catalog, imported October 11, 2026. Publication years are absent from the supplied HTML; null means unverified.",
+  "books": [
+    {
+      "id": 0,
+      "title": "Religion for Atheists",
+      "author": "Alain de Botton",
+      "year": null,
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 1,
+      "title": "O Orfanato da Srta. Peregrine para Crianças Peculiares",
+      "author": "Ransom Riggs",
+      "year": null,
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 2,
+      "title": "Quantum: Einstein, Bohr and the Great Debate About the Nature of Reality",
+      "author": "Manjit Kumar",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 3,
+      "title": "The Drunkard's Walk",
+      "author": "Leonard Mlodinow",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 4,
+      "title": "Seven Brief Lessons on Physics",
+      "author": "Carlo Rovelli",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 5,
+      "title": "The Book of Why",
+      "author": "Judea Pearl",
+      "year": null,
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 6,
+      "title": "Normal People",
+      "author": "Sally Rooney",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 7,
+      "title": "Dune Messiah",
+      "author": "Frank Herbert",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 8,
+      "title": "The Technological Republic",
+      "author": "Alexander C. Karp",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 9,
+      "title": "Flash Boys",
+      "author": "Michael Lewis",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 10,
+      "title": "The Undoing Project",
+      "author": "Michael Lewis",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 11,
+      "title": "Aventuras de Alice no País das Maravilhas",
+      "author": "Lewis Carroll",
+      "year": null,
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 12,
+      "title": "Coisa de Rico",
+      "author": "Michel Alcoforado",
+      "year": null,
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 13,
+      "title": "Why Greatness Cannot Be Planned",
+      "author": "Kenneth O. Stanley",
+      "year": null,
+      "rating": 2,
+      "review": null
+    },
+    {
+      "id": 14,
+      "title": "The Uses of Disorder",
+      "author": "Richard Sennett",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 15,
+      "title": "Radical Uncertainty",
+      "author": "John Kay",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 16,
+      "title": "Triumph of the City",
+      "author": "Edward L. Glaeser",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 17,
+      "title": "Valsa brasileira",
+      "author": "Laura Carvalho",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 18,
+      "title": "The Course of Love",
+      "author": "Alain de Botton",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 19,
+      "title": "On Love",
+      "author": "Alain de Botton",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 20,
+      "title": "Projeto Nacional",
+      "author": "Ciro Gomes",
+      "year": null,
+      "rating": 2,
+      "review": null
+    },
+    {
+      "id": 21,
+      "title": "How Proust Can Change Your Life",
+      "author": "Alain de Botton",
+      "year": null,
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 22,
+      "title": "A loteria do nascimento",
+      "author": "Michael França",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 23,
+      "title": "Equality",
+      "author": "Thomas Piketty",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 24,
+      "title": "Abundance",
+      "author": "Ezra Klein",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 25,
+      "title": "Fortune's Formula",
+      "author": "William Poundstone",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 26,
+      "title": "The Scientist as Rebel",
+      "author": "Freeman Dyson",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 27,
+      "title": "Boomerang",
+      "author": "Michael Lewis",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 28,
+      "title": "The Meaning of It All",
+      "author": "Richard P. Feynman",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 29,
+      "title": "Viagem ao redor do meu quarto",
+      "author": "Xavier de Maistre",
+      "year": null,
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 30,
+      "title": "Animal Spirits",
+      "author": "George A. Akerlof",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 31,
+      "title": "Scroogenomics",
+      "author": "Joel Waldfogel",
+      "year": null,
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 32,
+      "title": "O Pequeno Príncipe",
+      "author": "Antoine de Saint-Exupéry",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 33,
+      "title": "Walkable City",
+      "author": "Jeff Speck",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 34,
+      "title": "The Audacity of Hope",
+      "author": "Barack Obama",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 35,
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "year": null,
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 36,
+      "title": "Micromotives and Macrobehavior",
+      "author": "Thomas C. Schelling",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 37,
+      "title": "O longo caminho para a utopia",
+      "author": "J. Bradford DeLong",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 38,
+      "title": "Crise e reinvenção da política no Brasil",
+      "author": "Fernando Henrique Cardoso",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 39,
+      "title": "More Sex Is Safer Sex",
+      "author": "Steven E. Landsburg",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 40,
+      "title": "The Most Good You Can Do",
+      "author": "Peter Singer",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 41,
+      "title": "The Daily Stoic",
+      "author": "Ryan Holiday",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 42,
+      "title": "The Little Prince & Letter to a Hostage",
+      "author": "Antoine de Saint-Exupéry",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 43,
+      "title": "A Jornada da Humanidade",
+      "author": "Oded Galor",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 44,
+      "title": "Mr Salary",
+      "author": "Sally Rooney",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 45,
+      "title": "Nosso lugar",
+      "author": "Tabata Amaral",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 46,
+      "title": "Welfare States",
+      "author": "Peter H. Lindert",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 47,
+      "title": "The Undercover Economist Strikes Back",
+      "author": "Tim Harford",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 48,
+      "title": "Combating Inequality",
+      "author": "Olivier J. Blanchard",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 49,
+      "title": "Extremos",
+      "author": "Pedro Fernando Nery",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 50,
+      "title": "Factfulness",
+      "author": "Hans Rosling",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 51,
+      "title": "The Triumph of Injustice",
+      "author": "Emmanuel Saez",
+      "year": null,
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 52,
+      "title": "Utopia for Realists",
+      "author": "Rutger Bregman",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 53,
+      "title": "Adapt",
+      "author": "Tim Harford",
+      "year": null,
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 54,
+      "title": "Contra a Perfeição",
+      "author": "Michael J. Sandel",
+      "year": null,
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 55,
+      "title": "Lições amargas",
+      "author": "Gustavo Franco",
+      "year": null,
+      "rating": 2,
+      "review": null
+    },
+    {
+      "id": 56,
+      "title": "The Once and Future Liberal",
+      "author": "Mark Lilla",
+      "year": null,
+      "rating": 2,
+      "review": null
+    },
+    {
+      "id": 57,
+      "title": "Think like a Freak",
+      "author": "Steven D. Levitt",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 58,
+      "title": "O pior emprego do mundo",
+      "author": "Thomas Traumann",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 59,
+      "title": "How to Lie with Statistics",
+      "author": "Darrell Huff",
+      "year": null,
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 60,
+      "title": "The Great Escape",
+      "author": "Angus Deaton",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 61,
+      "title": "What Do You Care What Other People Think?",
+      "author": "Richard P. Feynman",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 62,
+      "title": "O que o dinheiro não compra",
+      "author": "Michael J. Sandel",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 63,
+      "title": "Superfreakonomics",
+      "author": "Steven D. Levitt",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 64,
+      "title": "Freakonomics",
+      "author": "Steven D. Levitt",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 65,
+      "title": "O Valor das Ideias",
+      "author": "Marcos Lisboa",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 66,
+      "title": "Inside the Nudge Unit",
+      "author": "David Halpern",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 67,
+      "title": "The Entrepreneurial State",
+      "author": "Mariana Mazzucato",
+      "year": null,
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 68,
+      "title": "The Data Detective",
+      "author": "Tim Harford",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 69,
+      "title": "Creative Schools",
+      "author": "Ken Robinson",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 70,
+      "title": "The Pleasure of Finding Things Out",
+      "author": "Richard P. Feynman",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 71,
+      "title": "O leão, a feiticeira e o guarda-roupa",
+      "author": "C.S. Lewis",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 72,
+      "title": "O sobrinho do mago",
+      "author": "C.S. Lewis",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 73,
+      "title": "Economics Rules",
+      "author": "Dani Rodrik",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 74,
+      "title": "Humankind",
+      "author": "Rutger Bregman",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 75,
+      "title": "Liar's Poker",
+      "author": "Michael Lewis",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 76,
+      "title": "Quando deixamos de entender o mundo",
+      "author": "Benjamín Labatut",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 77,
+      "title": "Conversas Entre Amigos",
+      "author": "Sally Rooney",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 78,
+      "title": "Surely You're Joking, Mr. Feynman!",
+      "author": "Richard P. Feynman",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 79,
+      "title": "Good Economics for Hard Times",
+      "author": "Abhijit V. Banerjee",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 80,
+      "title": "Identity Economics",
+      "author": "George A. Akerlof",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 81,
+      "title": "Dune",
+      "author": "Frank Herbert",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 82,
+      "title": "The Hidden Wealth of Nations",
+      "author": "David Halpern",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 83,
+      "title": "The Logic of Life",
+      "author": "Tim Harford",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 84,
+      "title": "Poor Economics",
+      "author": "Abhijit V. Banerjee",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 85,
+      "title": "Ponto de Inflexão",
+      "author": "Flávio Augusto da Silva",
+      "year": null,
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 86,
+      "title": "The Righteous Mind",
+      "author": "Jonathan Haidt",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 87,
+      "title": "Outliers",
+      "author": "Malcolm Gladwell",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 88,
+      "title": "The Armchair Economist",
+      "author": "Steven E. Landsburg",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 89,
+      "title": "The Undercover Economist",
+      "author": "Tim Harford",
+      "year": null,
+      "rating": 5,
+      "review": null
+    },
+    {
+      "id": 90,
+      "title": "Nudge",
+      "author": "Richard H. Thaler",
+      "year": null,
+      "rating": 4,
+      "review": null
+    },
+    {
+      "id": 91,
+      "title": "When to Rob a Bank",
+      "author": "Steven D. Levitt",
+      "year": null,
+      "rating": 3,
+      "review": null
+    },
+    {
+      "id": 92,
+      "title": "God Is Not Great",
+      "author": "Christopher Hitchens",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 93,
+      "title": "Doing Good Better",
+      "author": "William MacAskill",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 94,
+      "title": "Eating Animals",
+      "author": "Jonathan Safran Foer",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 95,
+      "title": "Consciousness Explained",
+      "author": "Daniel C. Dennett",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 96,
+      "title": "A Universe from Nothing",
+      "author": "Lawrence M. Krauss",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 97,
+      "title": "Breaking the Spell",
+      "author": "Daniel C. Dennett",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 98,
+      "title": "The Logic of Scientific Discovery",
+      "author": "Karl Popper",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 99,
+      "title": "Superintelligence",
+      "author": "Nick Bostrom",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 100,
+      "title": "The Emperor of All Maladies",
+      "author": "Siddhartha Mukherjee",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 101,
+      "title": "Letters to a Young Contrarian",
+      "author": "Christopher Hitchens",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 102,
+      "title": "Darwin's Dangerous Idea",
+      "author": "Daniel C. Dennett",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 103,
+      "title": "The God Delusion",
+      "author": "Richard Dawkins",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 104,
+      "title": "The Ascent of Money",
+      "author": "Niall Ferguson",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 105,
+      "title": "The Shock Doctrine",
+      "author": "Naomi Klein",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 106,
+      "title": "Economics in One Lesson",
+      "author": "Henry Hazlitt",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 107,
+      "title": "General Theory of Employment, Interest, and Money",
+      "author": "John Maynard Keynes",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 108,
+      "title": "The Wealth of Nations",
+      "author": "Adam Smith",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 109,
+      "title": "Scarcity",
+      "author": "Sendhil Mullainathan",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 110,
+      "title": "Sources of Power",
+      "author": "Gary Klein",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 111,
+      "title": "Guns, Germs, and Steel",
+      "author": "Jared Diamond",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 112,
+      "title": "Made to Stick",
+      "author": "Chip Heath",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 113,
+      "title": "The Paradox of Choice",
+      "author": "Barry Schwartz",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 114,
+      "title": "Quiet",
+      "author": "Susan Cain",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 115,
+      "title": "Fight Oligarchy",
+      "author": "Bernie Sanders",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 116,
+      "title": "The Score",
+      "author": "C. Thi Nguyen",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 117,
+      "title": "The Grabbing Hand",
+      "author": "Andrei Shleifer",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 118,
+      "title": "Liberalism and Its Discontents",
+      "author": "Francis Fukuyama",
+      "year": null,
+      "rating": null,
+      "review": null
+    },
+    {
+      "id": 119,
+      "title": "The Blind Watchmaker",
+      "author": "Richard Dawkins",
+      "year": null,
+      "rating": null,
+      "review": null
+    }
+  ]
+}

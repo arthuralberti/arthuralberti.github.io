@@ -74,6 +74,10 @@ published from generated static output.
 - After a successful build, commit the source and generated `docs/` changes and
   push the commit to `origin/main` during the same task so the public site is
   updated.
+- Before every push, follow the mandatory André Staltz design comparison gate
+  in `../0-guidelines/standards/personal-page-design.md`: reread the linked post,
+  compare desktop/mobile renders with the approved references, adjust, verify,
+  and record the review before publishing.
 - This is the standing publishing workflow for this mini-project; a separate
   push confirmation is not required for ordinary, in-scope Personal Page edits.
 - Do not publish a failed or unverified build. If commit or push is blocked,

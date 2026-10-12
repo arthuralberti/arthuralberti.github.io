@@ -33,9 +33,41 @@ async function aligned(page, id) {
     await preview.scrollIntoViewIfNeeded();
     assert(await page.locator('[data-shelf]').count() === 1, 'One bookcase');
     assert(await page.locator('.shelf-plaque,.shelf-sign').count() === 0, 'No plaques');
-    assert(await page.locator('[data-shelf]').getAttribute('data-angle') === '45', 'Shared 45-degree diagonal');
+    assert(await page.locator('[data-shelf]').getAttribute('data-angle') === '-45', 'Shared 45-degree diagonal');
     await page.waitForTimeout(450);
-    assert(await page.locator('[data-shelf]').getAttribute('data-angle') === '45', 'Entrance remains fixed');
+    assert(await page.locator('[data-shelf]').getAttribute('data-angle') === '-45', 'Entrance remains fixed');
+    assert(await page.locator('.favorite-book:visible').count() === 120, 'All books always visible');
+    assert(await page.locator('.book-rating').count() === 92, 'Supplied ratings preserved');
+    assert(await page.locator('.book-review').count() === 0, 'No invented reviews');
+    const center = await preview.locator('svg').evaluate(svg => {
+      const main = svg.closest('.library-page').getBoundingClientRect(), box = svg.getBoundingClientRect();
+      return Math.abs((box.left + box.right) / 2 - (main.left + main.right) / 2);
+    });
+    assert(center < 2, 'Entrance centered in content column');
+    const handle = preview.getByRole('slider', { name: 'Move library ladder' });
+    await handle.press('Home');
+    assert(await handle.getAttribute('aria-valuenow') === '0', 'Hairline ladder left stop');
+    await handle.press('End');
+    assert(await handle.getAttribute('aria-valuenow') === '100', 'Hairline ladder right stop');
+    const grip = await handle.boundingBox();
+    await page.mouse.move(grip.x + grip.width / 2, grip.y + grip.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(grip.x - 50, grip.y + grip.height / 2, { steps: 8 });
+    await page.mouse.up();
+    assert(Number(await handle.getAttribute('aria-valuenow')) < 90, 'Hairline ladder pointer drag');
+    assert(await preview.isVisible(), 'Dragging ladder does not open catalog');
+    if (options.hasTouch && engine === chromium) {
+      await handle.press('End');
+      const touchBox = await handle.boundingBox();
+      const cdp = await page.context().newCDPSession(page);
+      const x = touchBox.x + touchBox.width / 2, y = touchBox.y + touchBox.height / 2;
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y }] });
+      for (let step = 1; step <= 10; step++) await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x - 4 * step, y }] });
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+      assert(Number(await handle.getAttribute('aria-valuenow')) < 90, 'Hairline ladder touch drag');
+      await cdp.detach();
+    }
+    await handle.evaluate(el=>el.blur());
     await page.screenshot({ path: `${artifacts}/${name}-entrance.png` });
     const target = preview.getByRole('button', { name: 'Open the library', exact: true });
     if (options.hasTouch) await target.tap(); else await target.click();
@@ -47,6 +79,7 @@ async function aligned(page, id) {
         const b = g.getBBox(), v = svg.viewBox.baseVal;
         return { x: b.x, y: b.y, right: b.x + b.width, bottom: b.y + b.height, left: v.x, top: v.y, edge: v.x + v.width, floor: v.y + v.height };
       });
+      if(bounds.right === 0 && !await preview.isVisible()) break;
       assert(bounds.x >= bounds.left - 1 && bounds.y >= bounds.top - 1 && bounds.right <= bounds.edge + 1 && bounds.bottom <= bounds.floor + 1, 'Zoom projection stays inside frame: ' + JSON.stringify(bounds));
       samples++;
       assert(samples < 50, 'Zoom completion');
@@ -57,42 +90,16 @@ async function aligned(page, id) {
     assert(await frame.locator('#view-all').isChecked(), 'Complete catalog opens');
     await page.locator('.library-collection').evaluate(el => Promise.all(el.getAnimations({ subtree: true }).map(a => a.finished)));
     await page.locator('.library-shelf').scrollIntoViewIfNeeded();
-    const handle = frame.getByRole('slider', { name: 'Move library ladder' });
-    await handle.waitFor({ state: 'visible' });
-    const before = Number(await handle.getAttribute('aria-valuenow'));
-    await handle.press('ArrowLeft');
-    assert(Number(await handle.getAttribute('aria-valuenow')) < before, 'Ladder keyboard movement');
-    await handle.press('Home');
-    assert(await handle.getAttribute('aria-valuenow') === '0', 'Left stop');
-    await handle.press('End');
-    assert(await handle.getAttribute('aria-valuenow') === '100', 'Right stop');
-    const box = await handle.boundingBox();
-    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-    await page.mouse.down();
-    await page.mouse.move(box.x - 110, box.y + box.height / 2, { steps: 12 });
-    await page.mouse.up();
-    assert(Number(await handle.getAttribute('aria-valuenow')) < 90, 'Ladder mouse drag');
-    if (options.hasTouch && engine === chromium) {
-      await handle.press('End');
-      const touchBox = await handle.boundingBox();
-      const cdp = await page.context().newCDPSession(page);
-      const x = touchBox.x + 22, y = touchBox.y + 22;
-      await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y }] });
-      for (let step = 1; step <= 10; step++) await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x - 8 * step, y }] });
-      await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
-      assert(Number(await handle.getAttribute('aria-valuenow')) < 90, 'Ladder touch drag');
-      await cdp.detach();
-    }
-
+    assert(await frame.locator('.library-ladder').count() === 0, 'No ladder inside catalog');
+    assert(await frame.locator('.spine-author-zone').count() === 0, 'Titles only on unzoomed spines');
     const heights = await frame.locator('.collection.all .upright .book-object').evaluateAll(nodes => nodes.map(n => n.getBoundingClientRect().height));
     assert(Math.max(...heights) - Math.min(...heights) < 12, 'Small height variation');
     assert(await frame.locator('.collection.all .book-stack').count() > 0, 'Horizontal stacks');
-    await page.screenshot({ path: `${artifacts}/${name}-wood-ladder.png` });
+    await page.screenshot({ path: `${artifacts}/${name}-wood-shelf.png` });
     await frame.locator('.collection.all .book-first').first().click();
     await frame.locator('.collection.all .book-second').first().click();
     await frame.locator('.detail-overlay:target').waitFor({ state: 'visible' });
     await frame.locator('.detail-overlay:target').evaluate(el => Promise.all(el.getAnimations({ subtree: true }).map(a => a.finished)));
-    assert(!await frame.locator('.library-ladder').isVisible(), 'Ladder does not cover book details');
     await frame.locator('.detail-overlay:target .close-detail').click();
     await page.getByRole('button', { name: 'Return to bookshelf', exact: true }).click();
     assert(await preview.isVisible(), 'Return to fixed entrance');
@@ -126,6 +133,7 @@ async function aligned(page, id) {
     await native.goto(base + '/library/');
     assert(await native.frameLocator('.library-shelf').locator('#view-all').isChecked(), 'No-JS full catalog');
     assert(!await native.locator('.catalog-back').isVisible(), 'No inactive fallback control');
+    assert(await native.locator('.favorite-book:visible').count() === 120, 'No-JS complete book list');
     await native.goto(base + '/favorite-papers/');
     assert(await native.locator('.favorite-paper:visible').count() === 26, 'No-JS complete paper list');
     console.log('PASS', name, 'fixed entrance, zoom bounds, ladder drag/stops, book details, subtle heights, stacks, 26 aligned paper anchors, reduced motion and no-JS fallback');

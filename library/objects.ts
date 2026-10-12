@@ -53,13 +53,13 @@ if(paperRoot){const papers:Paper[]=JSON.parse(document.querySelector('#paper-fil
 // Sort individual visible faces by camera depth; keep interaction nodes stable.
 function shelfScene(parent:Element){
  const {s,svg}=stage(parent,'Open the library');
- svg.setAttribute('viewBox','0 36 400 252');
+ svg.setAttribute('viewBox','0 12 400 300');
  s.style.cursor='pointer';
  type V3=[number,number,number];
  type Solid={v:V3[],kind:string,side:number};
  const solids:Solid[]=[];
  function solid(x:number,y:number,z:number,w:number,d:number,h:number,kind='shelf-frame',side=0){
-  if(w>12){for(let offset=0;offset<w;offset+=8)solid(x+offset,y,z,Math.min(8,w-offset),d,h,kind+' shelf-panel',side);return;}
+  if(w>12&&!kind.includes("shelf-stack")){for(let offset=0;offset<w;offset+=8)solid(x+offset,y,z,Math.min(8,w-offset),d,h,kind+' shelf-panel',side);return;}
   if(h>30){for(let offset=0;offset<h;offset+=29)solid(x,y,z+offset,w,d,Math.min(29,h-offset),kind+' shelf-panel',side);return;}
   solids.push({v:[[x,y,z],[x+w,y,z],[x+w,y+d,z],[x,y+d,z],[x,y,z+h],[x+w,y,z+h],[x+w,y+d,z+h],[x,y+d,z+h]],kind,side});
  }
@@ -70,9 +70,13 @@ function shelfScene(parent:Element){
   const z=9+row*29;solid(-80,-29,z,160,58,3);
   for(const side of [-1,1]){
    let x=-77,book=0;
+   if(row%2===0){
+    for(let layer=0;layer<4;layer++)solid(-18,side>0?4:-28,z+3+layer*3,22-layer%2,24,2.5,'shelf-book shelf-stack',side);
+   }
    while(x<75){
+    if(row%2===0&&x>-22&&x<8){x=8;continue;}
     const width=Math.min(4.6+(book*7+row*3)%5,77-x);
-    const height=19+(book*5+row*3)%7;
+    const height=21+(book+row)%3;
     const depth=21+(book+row)%4;
     solid(x,side>0?4:-(4+depth),z+3,width-.6,depth,height,'shelf-book',side);
     x+=width;book++;
@@ -98,6 +102,13 @@ function shelfScene(parent:Element){
  const roof=el('path',{'aria-hidden':'true',class:'shelf-roof-cap'},g);
  const outline=el('path',{'aria-hidden':'true',class:'shelf-outline'},g);
  const target=el('path',{class:'file-target shelf-target',role:'button',tabindex:0,'aria-label':'Open the library'},g);
+ const handle=el('circle',{class:'shelf-ladder-handle',r:9,tabindex:0,role:'slider','aria-label':'Move library ladder','aria-valuemin':0,'aria-valuemax':100,'aria-valuenow':70},g);
+ let ladderOffset=0,drag:{x:number,start:number}|null=null;
+ handle.addEventListener('pointerdown',(e:PointerEvent)=>{if(opening||e.button!==0)return;drag={x:point(svg,e)[0],start:ladderOffset};handle.setPointerCapture(e.pointerId);e.preventDefault();e.stopPropagation();});
+ handle.addEventListener('pointermove',(e:PointerEvent)=>{if(!drag)return;ladderOffset=Math.max(-56,Math.min(24,drag.start+(point(svg,e)[0]-drag.x)/(1.38*Math.cos(rad(45)))));draw();});
+ for(const event of ['pointerup','pointercancel'])handle.addEventListener(event,(e:PointerEvent)=>{drag=null;if(handle.hasPointerCapture(e.pointerId))handle.releasePointerCapture(e.pointerId);});
+ handle.addEventListener('click',(e:Event)=>e.stopPropagation());
+ handle.addEventListener('keydown',(e:KeyboardEvent)=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();e.stopPropagation();ladderOffset=e.key==='Home'?-56:e.key==='End'?24:Math.max(-56,Math.min(24,ladderOffset+(e.key==='ArrowRight'?4:-4)));draw();});
  function activate(){
   if(opening)return;opening=true;s.dataset.state='opening';
   stop=tween(0,1,v=>{mix=v;draw();},620,()=>{
@@ -109,8 +120,8 @@ function shelfScene(parent:Element){
  target.addEventListener('keydown',(e:KeyboardEvent)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
  const corners=[[-89,-37,-4],[89,-37,-4],[89,37,-4],[-89,37,-4],[-89,-37,132],[89,-37,132],[89,37,132],[-89,37,132]] as V3[];
  function draw(){
-  const angle=45*(1-mix),cos=Math.cos(rad(angle)),sin=Math.sin(rad(angle)),side=1;
-  const C=Cam(angle,.5-.4*mix,1.16+.54*mix);
+  const angle=-45*(1-mix),cos=Math.cos(rad(angle)),sin=Math.sin(rad(angle)),side=1;
+  const C=Cam(angle,.5-.4*mix,1.38+.32*mix);
   fit(C,corners,200,162);const P=proj(C);
   g.style.opacity=String(1-Math.max(0,(mix-.55)/.45));
    const depth=(p:V3)=>(p[0]*sin+p[1]*cos)*Math.sqrt(1-C.k*C.k)+p[2]*C.k;
@@ -118,7 +129,7 @@ function shelfScene(parent:Element){
    for(const box of solids){
     if(box.side&&box.side!==side)continue;
     const indices=[[4,5,6,7],side>0?[2,3,7,6]:[0,1,5,4],sin>=0?[1,2,6,5]:[0,3,7,4]];
-    indices.forEach((ids,f)=>{const v=ids.map(i=>box.v[i]);faces.push({v,kind:box.kind+(f===0?' shelf-top':f===2?' shelf-end':''),depth:v.reduce((sum,p)=>sum+depth(p),0)/4});});
+    indices.forEach((ids,f)=>{const v=ids.map(i=>box.kind.startsWith('shelf-ladder')?[box.v[i][0]+ladderOffset,box.v[i][1],box.v[i][2]] as V3:box.v[i]);faces.push({v,kind:box.kind+(f===0?' shelf-top':f===2?' shelf-end':''),depth:v.reduce((sum,p)=>sum+depth(p),0)/4});});
    }
    faces.sort((a,b)=>a.depth-b.depth);
    const fragment=document.createDocumentFragment();
@@ -139,6 +150,7 @@ function shelfScene(parent:Element){
    edges+=seg(P(nearX,-34,4),P(nearX,34,4));
    outline.setAttribute('d',edges);
    target.setAttribute('d',poly(hull(corners.map(v=>P(...v)))));
+   const grip=P(37+ladderOffset,34,132);handle.setAttribute('cx',String(grip[0]));handle.setAttribute('cy',String(grip[1]));handle.setAttribute('aria-valuenow',String(Math.round((ladderOffset+56)/80*100)));
    g.setAttribute('data-angle',String(angle));
    s.dataset.zoom=String(mix);
  }

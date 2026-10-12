@@ -2,7 +2,6 @@
 <div class="library-page">
   <div class="library-heading">
     <h2>Library</h2>
-    <p>Books I have read and books I would like to explore.</p>
   </div>
   <div class="rotating-library" data-rotating-library></div>
   <div class="library-collection">
@@ -10,8 +9,23 @@
 {{ $shelfVersion := substr (crypto.SHA256 (readFile "static/library/books.html")) 0 12 }}
     <iframe class="library-shelf" src="{{ printf "library/books.html?v=%s" $shelfVersion | relURL }}" title="The Library — interactive bookshelf"></iframe>
   </div>
+  <div class="favorite-papers-list favorite-books-list" id="book-list">
+{{ range $index, $book := hugo.Data.books.books }}
+    <article class="favorite-paper favorite-book" id="book-{{ $book.id }}" tabindex="-1">
+      <div class="favorite-paper-index">{{ add $index 1 }}</div>
+      <div class="favorite-paper-body">
+        <h3>{{ $book.title }}</h3>
+        <p class="favorite-paper-authors">{{ $book.author }}</p>
+{{ with $book.year }}<p class="favorite-paper-venue">{{ . }}</p>{{ end }}
+{{ with $book.rating }}<p class="favorite-paper-venue book-rating" aria-label="My rating: {{ . }} out of 5">{{ strings.Repeat . "★" }}{{ strings.Repeat (sub 5 .) "☆" }}</p>{{ end }}
+{{ with $book.review }}<p class="book-review">{{ . }}</p>{{ end }}
+      </div>
+    </article>
+{{ end }}
+  </div>
 </div>
 {{ partial "collection-objects-assets.html" . }}
+{{ partial "collection-list-styles.html" . }}
 <noscript><style>.catalog-back { display: none; }</style></noscript>
 <style>
   .library-heading {
@@ -27,6 +41,8 @@
     margin: 0 0 12px;
   }
   .library-shelf { border: 0; display: block; height: 800px; width: 100%; }
+  .favorite-book h3 { color: #222; }
+  .book-review { margin: 8px 0 0; font-size: 14px; line-height: 1.6; white-space: pre-line; }
   @media (max-width: 720px) {
     .library-shelf { height: 75vh; min-height: 500px; }
   }
