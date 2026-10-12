@@ -1,28 +1,27 @@
 # Library design study — October 11, 2026
 
-Arthur requested alternative object-based category selectors inspired by Hairline and Anatomy, plus a consistent, more realistic book model without fabric texture. The comparison lives at `/library/design-study/`; the current `/library/` page and shelf asset are preserved. No concept is selected as the final product.
+Arthur approved the smooth hardcover model and rejected the five initial selector drawings. Those are preserved in Git history. The current study at `/library/design-study/` has two double-sided shelf objects, also used as the actual `/library/` entrance.
 
-## Five selector concepts
+## Double-sided selectors
 
-1. Wall library: six stacked compartments in one architectural object.
-2. Reading cabinet: six compartments in a two-column cabinet.
-3. Floating shelves: six open plates on two supporting uprights.
-4. Stepped library: three ascending pairs of compartments, forming a staircase.
-5. Archive trays: six staggered shallow trays with flat volumes, shown as an exploded perspective stack.
+- First shelf: Read / Reading.
+- Second shelf: All / Wishlist.
+- Each object holds two identically sized covers facing opposite aisles. Their 50 × 75 world-unit faces preserve the 2:3 book proportion.
+- Drag to turn through a full circle; releasing settles on a face. Keyboard arrows turn by 45 degrees, and the explicit turn control rotates by 180 degrees. Enter/Space selects the visible face. Reduced motion jumps directly to explicit rotation/selection states.
+- The design study displays the six-book pilot on Read/All. The actual Library opens the existing 120-book shelf. Reading/Wishlist show honest unrecorded states, without assigning fabricated statuses to sample books.
 
-Each has six labeled categories: Read, Reading, To read, Owned, Wishlist, All. Hover/focus reveals a name; clicking, touching, Enter, or Space selects it and displays the sample below. Reading/ownership/wishlist have no fabricated records. The six sample titles, primary authors, reading flags, and colors are taken from the current public catalog; the sample is not the complete collection.
+## Approved book model
 
-## Shared book contract
+Spines are 26 × 184 CSS pixels; horizontal samples rotate the same element by +90 degrees into 184 × 26 bounds. Covers share a 2:3 proportion, artwork y=7–51%, title y=54–82%, author y=84–96%, and 14%/10% binding-aware side margins. Matte solid colors have restrained lighting, hinge, page edge and shadow; no repeating texture. A shared font size is used per viewport. Covers and captions use the main title before a colon, e.g. Quantum, preserving full edition titles in the catalog and tooltips. Covers keep author names; spines use initials and surnames/particles. Upright/rotated demonstrations contain only a centered title. Artwork remains illustrative, not an approved full-catalog set.
 
-- Spine object: 26 × 184 CSS pixels, identical for every sample. Horizontal layout uses the same element rotated +90 degrees inside a 184 × 26 container, without rescaling.
-- Cover proportion: 2:3, consistent for all samples. Artwork occupies y=7–51%; title y=54–82%; author y=84–96%. Common left/right margins are 14%/10% to accommodate the binding.
-- Smooth solid color with restrained lighting, hinge, page edge, and shadow; no repeating grain, noise, or fabric texture.
-- All covers use the same title font size within each viewport and the same author font size; fitting uses the most demanding sample rather than separate per-book typography. The long Quantum title is included deliberately. Show layout guides reveals fixed boundaries.
-- Spine uses the main title before a colon and the author's surname. Full titles and authors remain on covers and accessible tooltips; bibliographic records are not changed.
-- The six original line illustrations are design samples, not approved final book artwork or reproductions of commercial editions.
+## Favorite Papers
 
-References checked October 11: [Hairline](https://github.com/lucasmarkes/hairline) (object-based pointer/focus responses), [Anatomy](https://github.com/wheresryan22/anatomy) (articulated physical objects and calm movement). These are design inspirations; their packages, skills, code, and assets were not installed or copied. The selector is original SVG/CSS/JavaScript. Reduced motion removes transitions. The final full-catalog model and category taxonomy remain decisions for Arthur after comparing the studies.
+The existing 26 records supply every title, author, year, venue, note, and source link. Three collection boxes hold 10, 10, and 6 files; By journal groups exact recorded venues. Each file is selectable with pointer, touch, or keyboard; its identifier and detail appear immediately below its own box. The complete list remains available in a disclosure, open when JavaScript is disabled.
 
-## Validation
+## Source and provenance
 
-Browser checks passed at 320, 390, 768, and 1440 pixels: all 30 concept/category selections per viewport, correct sample filtering and unknown-state messages, keyboard selection, no horizontal overflow, identical title sizes, no overflowing cover titles, and rotated spine bounds of 184 × 26 compared with upright 26 × 184. All 30 pointer targets also passed at 390 pixels; moving SVG artwork does not intercept the fixed hit areas. Desktop/mobile figures and cover-grid screenshots were inspected. Hugo built successfully; the shared site audit returned zero errors and its two existing warnings. The current Library now links prominently to this comparison; the bookshelf source is unchanged. Real device testing and final catalog-wide typography/artwork remain future validation.
+Hairline reference checked October 11: https://github.com/lucasmarkes/hairline, revision a221785, version 0.5.0. Riffle is the diagonal tray of cards; Cabinet is a server rack. The actual Riffle tray/card geometry and orthographic projection are vendored under the MIT license; its capacity is changed from eight to ten. The licensed source and rebuild contract are in `hairline/`. Shelf modeling, rotation, catalog integration, captions and data routing are original additions. Anatomy remains a motion reference; no Anatomy code was copied. Shared compiled assets are served locally and content-versioned together.
+
+## Verification
+
+The double-sided studies and file boxes pass at 320, 390, 768, and 1440 pixels: front/reverse selection, keyboard, title simplification, title-only orientation samples, 26 accessible files and journal grouping, no horizontal overflow, JavaScript-disabled paper list, and reduced motion. All 26 actual file click targets and a pointer-drag reversal also pass. Desktop/mobile captures were inspected. The current shelf’s scroll, selection, detail close, and stacked volumes are checked separately. See README for the photo-read restriction and verified temporary-build workaround. Native iPhone Safari and final catalog-wide book typography/artwork remain future checks.

@@ -1,5 +1,5 @@
 {{ define "main" -}}
-{{ $papers := sort site.Data.favorite_papers.list.papers "year" "desc" }}
+{{ $papers := sort hugo.Data.favorite_papers.list.papers "year" "desc" }}
 <div class="favorite-papers-page">
   <div class="favorite-papers-heading">
     <p class="favorite-papers-kicker">Reading list</p>
@@ -7,9 +7,17 @@
     <p class="favorite-papers-intro">A compact shelf of papers I keep returning to: political economy, growth, history, labor, macro, market design, and the craft of applied economics.</p>
   </div>
 
+  <div class="paper-box-mode" role="group" aria-label="Paper organization">
+    <button data-mode="collection" aria-pressed="true">Collected</button>
+    <button data-mode="journal" aria-pressed="false">By journal</button>
+  </div>
+  <div class="paper-file-boxes" data-paper-files></div>
+  <script type="application/json" id="paper-files-data">{{ $papers | jsonify | safeJS }}</script>
+  <details class="paper-list-disclosure" open>
+    <summary>Browse all {{ len $papers }} papers</summary>
   <div class="favorite-papers-list" id="paper-list">
 {{ range $index, $paper := $papers }}
-      <article class="favorite-paper">
+      <article class="favorite-paper" id="paper-{{ $paper.slug }}">
         <div class="favorite-paper-index">{{ add $index 1 }}</div>
         <div class="favorite-paper-body">
           <div class="favorite-paper-meta">
@@ -22,7 +30,10 @@
       </article>
 {{ end }}
   </div>
+  </details>
+  <p class="object-source">File boxes adapted from <a href="https://github.com/lucasmarkes/hairline" target="_blank" rel="noopener noreferrer">Hairline’s Riffle</a> by Lucas Marques.</p>
 </div>
+{{ partial "collection-objects-assets.html" . }}
 
 <style>
   .favorite-papers-page {

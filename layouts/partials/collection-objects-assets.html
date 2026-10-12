@@ -1,0 +1,3 @@
+{{ $version := substr (crypto.SHA256 (printf "%s%s" (readFile "static/library/objects.js") (readFile "static/library/objects.css"))) 0 12 }}
+<link rel="stylesheet" href="{{ "library/objects.css" | relURL }}?v={{ $version }}">
+<script type="module" src="{{ "library/objects.js" | relURL }}?v={{ $version }}"></script>

@@ -2,5 +2,5 @@
 title = "Library — Design Study"
 layout = "library-study"
 url = "/library/design-study/"
-description = "Five interactive bookshelf concepts and a consistent, smooth hardcover design."
+description = "Two rotating, double-sided shelf objects and a standardized hardcover design."
 +++

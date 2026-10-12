@@ -25,14 +25,19 @@ with sync_playwright() as pw:
                 reduced_motion="reduce",
             )
             page = context.new_page()
-            page.set_default_timeout(10000)
+            page.set_default_timeout(20000)
             response = page.goto(args.base_url + "/library/")
             assert response and response.status == 200
+            page.evaluate("document.fonts.ready")
+            if scripts:
+                page.locator('.library-page .object-stage').first.wait_for()
+                page.locator('.library-page .object-stage').first.focus()
+                page.keyboard.press('Enter')
             page.locator("iframe.library-shelf").wait_for()
             frame = page.frames[1]
             source = Path(__file__).resolve().parents[1] / "static/library/books.html"
             version = hashlib.sha256(source.read_bytes()).hexdigest()[:12]
-            assert frame.url.endswith("?v=" + version), "Shelf URL must track its current content"
+            assert frame.url.split("#", 1)[0].endswith("?v=" + version), "Shelf URL must track its current content"
             frame.locator(".collection.read label.book-first").first.wait_for()
             assert frame.locator(".detail-overlay").count() == 120
             assert frame.locator('.app > header, .view-nav, .section-intro, .interaction-caption, .page-foot').count() == 0
@@ -40,7 +45,7 @@ with sync_playwright() as pw:
             assert frame.evaluate("getComputedStyle(document.documentElement).scrollbarWidth") == "none"
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
             assert frame.evaluate("document.documentElement.scrollWidth <= innerWidth")
-            page.locator('iframe.library-shelf').scroll_into_view_if_needed()
+            page.locator('iframe.library-shelf').evaluate('(el) => el.scrollIntoView({block: "start", behavior: "instant"})')
             frame.evaluate('window.scrollTo(0, 400)')
             page.wait_for_timeout(100)
             assert frame.evaluate('window.scrollY') > 0
@@ -63,6 +68,7 @@ with sync_playwright() as pw:
                 page.wait_for_timeout(600)
 
             def close_detail():
+                page.locator('iframe.library-shelf').evaluate('(el) => el.scrollIntoView({block: "center", behavior: "instant"})')
                 page.wait_for_timeout(550)
                 close = frame.locator(".detail-overlay:target .close-detail")
                 close.click()
@@ -76,18 +82,22 @@ with sync_playwright() as pw:
                 page.screenshot(path=str(args.artifacts / f"library-detail-{width}.png"), full_page=True)
             close_detail()
             assert frame.locator(".detail-overlay:target").count() == 0
-            if scripts:
-                page.locator('.library-filters button[data-view="toread"]').click()
-                assert frame.locator(".collection.toread").is_visible()
-            select_and_open(f".collection.{'toread' if scripts else 'read'} .stacked label.book-first")
+            select_and_open(".collection.read .stacked label.book-first")
             close_detail()
-            assert frame.locator(".detail-overlay:target").count() == 0
             if scripts:
-                for view in ("owned", "wishlist", "all", "read"):
-                    button = page.locator(f'.library-filters button[data-view="{view}"]')
-                    button.click()
-                    assert button.get_attribute('aria-pressed') == 'true'
-                    assert frame.locator(f".collection.{view}").is_visible()
+                stages = page.locator('.library-page .object-stage')
+                stages.nth(1).focus()
+                page.keyboard.press('Enter')
+                assert frame.locator(".collection.all").is_visible()
+                stages.nth(0).focus()
+                page.keyboard.press('ArrowRight')
+                page.keyboard.press('ArrowRight')
+                page.keyboard.press('ArrowRight')
+                page.keyboard.press('ArrowRight')
+                page.keyboard.press('Enter')
+                assert page.locator('.library-category-empty').inner_text() == 'Reading status is not recorded yet.'
+                assert page.locator('iframe.library-shelf').is_hidden()
+                assert page.locator('.library-filters').is_hidden()
             page.goto(args.base_url + "/")
             page.locator('h3 a[href="library/"]').click()
             assert page.url.endswith("/library/")

@@ -5,7 +5,11 @@
     <h2>Library</h2>
     <p>I hope to build a personal library that brings together books on economics, physics, philosophy, and the many other subjects that make me curious. This virtual bookshelf collects books I have read and books I would like to explore.</p>
   </div>
-  <p class="library-study-invitation"><a href="{{ "library/design-study/" | relURL }}">Explore five interactive bookshelf designs →</a></p>
+  <p class="library-study-invitation"><a href="{{ "library/design-study/" | relURL }}">Explore the rotating bookshelf design →</a></p>
+  <div class="rotating-library" data-rotating-library></div>
+  <div class="library-collection">
+    <h3 class="library-active-category" hidden></h3>
+    <p class="library-category-empty" hidden></p>
   <div class="library-filters" role="group" aria-label="Bookshelf views">
     <button class="button-2" data-view="read" aria-pressed="true"><strong>Read · 92</strong></button>
     <button class="button-2" data-view="toread" aria-pressed="false"><strong>To read · 28</strong></button>
@@ -15,7 +19,9 @@
   </div>
 {{ $shelfVersion := substr (crypto.SHA256 (readFile "static/library/books.html")) 0 12 }}
   <iframe class="library-shelf" src="{{ printf "library/books.html?v=%s" $shelfVersion | relURL }}" title="The Library — interactive bookshelf"></iframe>
+  </div>
 </div>
+{{ partial "collection-objects-assets.html" . }}
 <noscript><style>.library-filters { display: none; }</style></noscript>
 <script>
   (() => {
@@ -34,6 +40,7 @@
   })();
 </script>
 <style>
+  .library-collection[hidden], .library-category-empty[hidden], .library-active-category[hidden], .library-filters[hidden], .library-shelf[hidden] { display: none; }
   .library-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
   .library-filters .button-2 {
     background-color: rgba(51, 51, 51, 0.05);
