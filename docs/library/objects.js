@@ -274,7 +274,7 @@ function fileBox(parent, label, papers) {
       q.rules.setAttribute("d", p.rules);
       const w = (u, v) => P(u, q.i * G + v * Math.sin(rad(q.angle)), v * Math.cos(rad(q.angle)) + q.lift), o = w(6, H - 12), x = w(7, H - 12), y = w(6, H - 13);
       q.label.setAttribute("transform", `matrix(${x[0] - o[0]} ${x[1] - o[1]} ${y[0] - o[0]} ${y[1] - o[1]} ${o[0]} ${o[1]})`);
-      const yo = w(q.shape.t0, H + 5.5), yx = w(q.shape.t0 + 1, H + 5.5), yy = w(q.shape.t0, H + 4.5);
+      const yo = w(q.shape.t0, H + 1.7), yx = w(q.shape.t0 + 1, H + 1.7), yy = w(q.shape.t0, H + 0.7);
       q.year.setAttribute("transform", `matrix(${yx[0] - yo[0]} ${yx[1] - yo[1]} ${yy[0] - yo[0]} ${yy[1] - yo[1]} ${yo[0]} ${yo[1]})`);
       q.label.style.display = j === active ? "" : "none";
       q.head.style.display = q.rules.style.display = j === active ? "none" : "";
