@@ -3,11 +3,21 @@
   <div class="library-heading">
     <h2>Library</h2>
   </div>
-  <div class="rotating-library" data-rotating-library></div>
-  <div class="library-collection">
-    <button class="catalog-back" type="button" aria-label="Return to bookshelf">↶</button>
-    {{ partial "realistic-bookshelf.html" . }}
+  <div class="library-room" aria-label="Explore the library" hidden>
+    <div class="room-toolbar">
+      <label class="room-search"><span class="room-sr-only">Find a book by title or author</span><input type="search" placeholder="Find a book" autocomplete="off" aria-controls="room-results"></label>
+      <div class="room-zoom"><button type="button" data-room-minus aria-label="Zoom out">−</button><button type="button" data-room-reset aria-label="Reset room view">1×</button><button type="button" data-room-plus aria-label="Zoom in">+</button></div>
+    </div>
+    <div id="room-results" class="room-results" hidden></div>
+    <div class="room-viewport"></div>
+    <div class="room-selection" aria-live="polite"><span class="room-selection-label"></span><button type="button" class="button-2" data-room-open hidden>Open book</button></div>
   </div>
+  <dialog class="room-dialog" aria-labelledby="room-book-title">
+    <button type="button" class="room-close" aria-label="Close book">×</button>
+    <div class="room-cover" aria-hidden="true"><span class="room-cover-title"></span><span class="room-cover-author"></span></div>
+    <div class="room-book-details"><h3 id="room-book-title"></h3><p class="room-book-author"></p><div class="room-book-metadata"></div></div>
+  </dialog>
+  <script type="application/json" id="room-books-data">{{ hugo.Data.books.books | jsonify | safeJS }}</script>
   <div class="favorite-papers-list favorite-books-list" id="book-list">
 {{ range $index, $book := hugo.Data.books.books }}
     <article class="favorite-paper favorite-book" id="book-{{ $book.id }}" tabindex="-1">
@@ -24,9 +34,10 @@
 {{ end }}
   </div>
 </div>
-{{ partial "collection-objects-assets.html" . }}
+{{ $roomVersion := substr (crypto.SHA256 (printf "%s%s" (readFile "static/library/room.js") (readFile "static/library/room.css"))) 0 12 }}
+<link rel="stylesheet" href="{{ "library/room.css" | relURL }}?v={{ $roomVersion }}">
+<script type="module" src="{{ "library/room.js" | relURL }}?v={{ $roomVersion }}"></script>
 {{ partial "collection-list-styles.html" . }}
-<noscript><style>.catalog-back,.rotating-library { display: none; }</style></noscript>
 <style>
   .library-heading {
     border-bottom: 1px solid #e5e5e5;

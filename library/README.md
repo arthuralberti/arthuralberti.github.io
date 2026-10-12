@@ -1,5 +1,40 @@
 # Library integration
 
+## Current: isometric room — October 12, 2026
+
+The Library now opens directly into an original SVG room: a continuous curved
+shelving wall, a low curved island, a rounded desk, lounge chair and ottoman,
+and two simplified plants. Fine outlines and flat fills follow Arthur's
+approved concept; there are no textures, visible lamps, top-cap joints, or
+frontal-shelf transition. Earlier implementations below are historical.
+
+`static/library/room.js` draws the room and places all 120 existing catalog
+records once (100 on the wall, 20 in the island). `room.css` supplies responsive
+controls, selection and the accessible book dialog. `layouts/_default/library.html`
+embeds the canonical catalog and preserves the complete server-rendered list.
+No raster concept image is published. Papers keeps its existing Hairline module.
+
+Hover identifies a volume and gently pulls it out; desktop click or keyboard
+Enter opens its metadata. On touch, tap selects and the Open book control opens
+the dialog. Escape closes it. Search matches title/author without accent or case
+sensitivity. Zoom controls retain the isometric camera; dragging pans only when
+magnified, leaving normal touch page scrolling available at 1×. Reset restores
+the full room. Reduced motion removes the pull transition. Without JavaScript,
+the complete book list remains available.
+
+Physical ownership and original reading dates remain unverified. Placement uses
+catalog order and does not assert reading status, purchase status, or an exact
+1,000-volume architectural capacity. Only supplied metadata appears in details.
+The existing date importer remains the path for confirmed Goodreads dates.
+
+Run `node library/check-room.cjs` with Playwright available, `ROOM_BASE_URL`
+(default `http://127.0.0.1:8770`) and optional `ROOM_ARTIFACTS` (default
+`/tmp/library-room-review`). This replaces the old entrance-specific browser
+suite for the current Library while also checking the Papers destination.
+
+## Historical implementations
+
+
 The October 12 gesture correction gives the Hairline ladder its full useful travel and renders its motion as a separate affine SVG layer, throttled to animation frames. The stationary cabinet is not rebuilt during dragging. Pointer release, cancellation, capture loss, window blur and viewport changes end the gesture; vertical touch panning remains enabled on the ladder itself. Favorite Papers prints the highlighted file's full title in its projected face at a common 6-world-unit size, wrapping by measured width; the publication year is always printed in the alternating top tab. Object clicks have no blue focus border or touch highlight. Keyboard navigation still selects the file and its title.
 
 Book cards and the reading area support a verified `read_month` display value (English month and year). The available imported HTML/JSON has no reading dates; the original CSV/ZIP was not found among available workspace sources. No date is reconstructed from ratings or publication years. Populate only from Arthur's original CSV once its location is supplied. Current book order is the supplied catalog order, not verified reading chronology. Run `python3 scripts/import_goodreads_dates.py /authorized/path/goodreads_export.csv` to preview exact title/author matches, then `--apply` to save verified `read_date` and English `read_month` fields and stably order by completion date ascending. Undated records stay last in their supplied relative order. Ambiguous or conflicting dates stop the import; no bibliographic fields or IDs are replaced. The private CSV is never copied into the public site.
