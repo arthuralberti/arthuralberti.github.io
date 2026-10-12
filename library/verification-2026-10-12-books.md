@@ -28,3 +28,7 @@ The Hugo build and approved-document synchronization checks pass. The standards 
 ## Optional next design study
 
 Arthur proposed an Anatomy-inspired opening into partitions: journals for papers and categories for books. [Anatomy's upstream README](https://github.com/wheresryan22/anatomy), checked October 12, describes interactive isometric objects and an exploded assembly example. A suitable future interpretation is a short, reversible, click-triggered separation of the existing object into compartments, preserving the complete list and keeping idle motion disabled. Journals already have source metadata; book categories require an explicit taxonomy and verified assignments. This version does not introduce partitions or change the approved Papers interaction.
+
+## Follow-up: remove visible Papers credit
+
+Arthur requested removal of the visible “File boxes adapted from…” paragraph. Removed that paragraph only; the source MIT license and attribution remain intact. Reread Staltz's post live before publication and compared desktop Chromium and iPhone-emulated WebKit renders with the approved Papers reference: all 26 cards remain, with unchanged typography and interactions, and no credit below the list. The build, public-document sync and standards audit pass (zero errors, one existing coauthor warning). Arthur requested suggestions before any realistic zoom-shelf redesign; this follow-up does not change that shelf.
