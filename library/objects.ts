@@ -1,5 +1,5 @@
 /* Hairline-derived drawing geometry. See hairline/LICENSE and hairline/README.md. */
-import {Cam,proj,rad,rings,prism,facing,poly,seg,r2,type Vec2} from './hairline/core/iso';
+import {Cam,proj,fit,rad,hull,poly,seg,type Vec2} from './hairline/core/iso';
 import {scene,tray,card,pose,N,W,H,G,REST,LIFT} from './hairline/figures/riffle-geometry';
 const NS='http://www.w3.org/2000/svg';
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -8,79 +8,164 @@ function html(tag:string,cls:string,parent:Element,text?:string){const n=documen
 function stage(parent:Element,label:string){const s=html('div','object-stage',parent);s.tabIndex=0;s.setAttribute('role','group');s.setAttribute('aria-label',label);const svg=el('svg',{viewBox:'0 0 400 320',role:'group','aria-label':label},s);return {s,svg};}
 function point(svg:SVGSVGElement,e:PointerEvent):Vec2 {const m=svg.getScreenCTM();if(!m)return [0,0];const p=new DOMPoint(e.clientX,e.clientY).matrixTransform(m.inverse());return [p.x,p.y];}
 function paths(parent:Element,items:[string,string][]){for(const [d,cls] of items)el('path',{d,class:cls},parent);}
-function tween(from:number,to:number,draw:(v:number)=>void,duration=600){if(reduced.matches){draw(to);return ()=>{};}let frame=0;const start=performance.now();function step(t:number){const f=Math.min(1,(t-start)/duration);draw(from+(to-from)*(1-Math.pow(1-f,3)));if(f<1)frame=requestAnimationFrame(step);}frame=requestAnimationFrame(step);return ()=>cancelAnimationFrame(frame);}
+function tween(from:number,to:number,draw:(v:number)=>void,duration=600,complete=()=>{}){if(reduced.matches){draw(to);complete();return ()=>{};}let frame=0;const start=performance.now();function step(t:number){const f=Math.min(1,(t-start)/duration);draw(from+(to-from)*(1-Math.pow(1-f,3)));if(f<1)frame=requestAnimationFrame(step);else complete();}frame=requestAnimationFrame(step);return ()=>cancelAnimationFrame(frame);}
 
 // The Riffle tray, cards, tab positions, projection and lean follow Hairline's geometry.
 type Paper={slug:string,title:string,authors:string,year:string,venue:string,paper_url:string,note:string};
 function fileBox(parent:Element,label:string,papers:Paper[]){
- const box=html('section','collection-object',parent);html('p','paper-box-count',box,`${papers.length} ${papers.length===1?'paper':'papers'}`);
+ const box=html('section','collection-object',parent);
  const {s,svg}=stage(box,`${label}: use arrow keys to browse papers; Enter selects a paper`);s.style.cursor='default';
- const read=html('div','paper-file-readout',box);read.setAttribute('aria-live','polite');
+ svg.setAttribute('viewBox','0 36 400 252');
  const {P,front,outer,inner}=scene(),body=tray(P,front,outer,inner);paths(svg,body.far);
  const groups=papers.map((paper,j)=>{const i=N-papers.length+j,shape=card(i),g=el('g',{class:'folder-art'},svg);const back=el('path',{class:'sil lo'},g),face=el('path',{class:'sil'},g),head=el('path',{class:'nf'},g),rules=el('path',{class:'nf lo'},g);return {i,shape,g,back,face,head,rules,angle:REST,lift:0};});
  paths(svg,body.near);
  let active=-1,stop=()=>{};
  function draw(){groups.forEach(q=>{const p=pose(P,q.i,q.shape.t0,q.shape.shape,q.angle,q.lift);q.back.setAttribute('d',p.back);q.face.setAttribute('d',p.face);q.head.setAttribute('d',p.head);q.rules.setAttribute('d',p.rules);});}
- function select(j:number){if(j===active)return;active=j;stop();const starts=groups.map(q=>[q.angle,q.lift]);const targets=groups.map((q,k)=>[j<0?REST:k<j?-24:k>j?20:0,k===j?LIFT:0]);stop=tween(0,1,f=>{groups.forEach((q,k)=>{q.angle=starts[k][0]+(targets[k][0]-starts[k][0])*f;q.lift=starts[k][1]+(targets[k][1]-starts[k][1])*f;q.face.classList.toggle('hi',k===j);});draw();});read.replaceChildren();if(j<0){return;}const paper=papers[j];html('h4','',read,paper.title);html('p','',read,paper.authors);html('p','',read,paper.venue);const link=html('a','',read,'Open paper') as HTMLAnchorElement;link.href=paper.paper_url;link.target='_blank';link.rel='noopener noreferrer';}
- const targets=groups.map((q,j)=>{const y=q.i*G+H*Math.sin(rad(REST)),z=H*Math.cos(rad(REST));const corners=[P(-5,y-G/2,z),P(W+5,y-G/2,z),P(W+5,y+G/2,z),P(-5,y+G/2,z)];const target=el('path',{class:'file-target',d:poly(corners),tabindex:0,role:'button','aria-label':`${papers[j].authors}, ${papers[j].year}: ${papers[j].title}`},svg);target.addEventListener('pointerenter',()=>select(j));target.addEventListener('focus',()=>select(j));target.addEventListener('click',()=>select(j));target.addEventListener('keydown',(e:KeyboardEvent)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(j);}});return target;});
+ function select(j:number){if(j===active)return;active=j;stop();const starts=groups.map(q=>[q.angle,q.lift]);const targets=groups.map((q,k)=>[j<0?REST:k<j?-24:k>j?20:0,k===j?LIFT:0]);stop=tween(0,1,f=>{groups.forEach((q,k)=>{q.angle=starts[k][0]+(targets[k][0]-starts[k][0])*f;q.lift=starts[k][1]+(targets[k][1]-starts[k][1])*f;q.face.classList.toggle('hi',k===j);});draw();});}
+
+ function navigate(j:number){
+  select(j);
+  const article=document.getElementById(`paper-${papers[j].slug}`);
+  if(!article)return;
+  const header=document.querySelector('.site-identity'),rect=header?.getBoundingClientRect();
+  const fixed=header&&getComputedStyle(header).position==='fixed'&&rect!.width>innerWidth*.7;
+  const offset=fixed?rect!.bottom+18:18;
+  article.style.scrollMarginTop=`${offset}px`;
+  // Leave enough scroll range to align even the final record below the header.
+  const page=document.querySelector<HTMLElement>('.favorite-papers-page')!;
+  const previousPadding=parseFloat(page.style.paddingBottom)||0;
+  const remaining=document.documentElement.scrollHeight-previousPadding-(article.getBoundingClientRect().top+scrollY);
+  page.style.paddingBottom=`${Math.max(0,innerHeight-offset-remaining)}px`;
+  document.querySelectorAll('.favorite-paper').forEach(p=>p.classList.toggle('is-paper-selected',p===article));
+  history.replaceState(null,'',`#${article.id}`);
+  article.focus({preventScroll:true});
+  document.documentElement.style.scrollBehavior=reduced.matches?'auto':'';
+  article.scrollIntoView({behavior:reduced.matches?'auto':'smooth',block:'start'});
+ }
+ const targets=groups.map((q,j)=>{const y=q.i*G+H*Math.sin(rad(REST)),z=H*Math.cos(rad(REST));const corners=[P(-5,y-G/2,z),P(W+5,y-G/2,z),P(W+5,y+G/2,z),P(-5,y+G/2,z)];const target=el('path',{class:'file-target',d:poly(corners),tabindex:0,role:'button','aria-label':`${papers[j].authors}, ${papers[j].year}: ${papers[j].title}`},svg);target.addEventListener('pointerenter',()=>select(j));target.addEventListener('focus',()=>select(j));target.setAttribute('aria-controls',`paper-${papers[j].slug}`);target.addEventListener('click',()=>navigate(j));target.addEventListener('keydown',(e:KeyboardEvent)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();navigate(j);}});return target;});
  s.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();const step=['ArrowLeft','ArrowUp'].includes(e.key)?-1:1;const next=Math.max(0,Math.min(papers.length-1,active<0?0:active+step));targets[next].focus();}if(e.key==='Escape'){select(-1);s.focus();}});
  draw();
  return ()=>{stop();box.remove();};
 }
 const paperRoot=document.querySelector<HTMLElement>('[data-paper-files]');
-if(paperRoot){const papers:Paper[]=JSON.parse(document.querySelector('#paper-files-data')!.textContent!);fileBox(paperRoot,'Favorite Papers',papers);const listing=document.querySelector<HTMLDetailsElement>('.paper-list-disclosure');if(listing)listing.open=false;}
+if(paperRoot){const papers:Paper[]=JSON.parse(document.querySelector('#paper-files-data')!.textContent!);fileBox(paperRoot,'Favorite Papers',papers);}
 
-// Two freestanding double-sided bookcases in a shared scene.
+// Sort individual visible faces by camera depth; keep interaction nodes stable.
 function shelfScene(parent:Element){
- const {s,svg}=stage(parent,'Read and Reading; All and Wishlist');svg.setAttribute('viewBox','0 0 800 440');
- let selected=-1, angle=35, last=0, hovering=false, drag:any=null;
- const names=[['Read','Reading'],['All','Wishlist']];
- function draw(){
-  svg.replaceChildren();
-  names.forEach((pair,index)=>{
-   if(selected>=0&&selected!==index)return;
-   const C=Cam(angle+index*18,.28,selected<0?2.1:2.7);C.ox=selected<0?210+index*380:400;C.oy=365;
-   const P=proj(C),g=el('g',{'data-shelf':index},svg);
-   const face=Math.cos(C.az)>=0?1:-1;
-   el('rect',{x:C.ox-83,y:10,width:166,height:32,rx:2,fill:'#fff',stroke:'#c1c4ca','stroke-width':.7},g);
-   el('text',{x:C.ox,y:32,'text-anchor':'middle',class:'shelf-sign'},g,pair.join(' / '));
-   function solid(x0:number,y0:number,z0:number,x1:number,y1:number,z1:number){
-    const pts=[[x0,y0,z0],[x1,y0,z0],[x1,y1,z0],[x0,y1,z0],[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1]];
-    const faces=[[4,5,6,7],face>0?[2,3,7,6]:[0,1,5,4],Math.sin(C.az)>0?[1,2,6,5]:[0,3,7,4]];
-    faces.forEach(f=>el('path',{d:poly(f.map(i=>P(...pts[i] as [number,number,number]))),class:'sil'},g));
+ const {s,svg}=stage(parent,'Open the library');
+ svg.setAttribute('viewBox','0 36 400 252');
+ s.style.cursor='pointer';
+ type V3=[number,number,number];
+ type Solid={v:V3[],kind:string,side:number};
+ const solids:Solid[]=[];
+ function solid(x:number,y:number,z:number,w:number,d:number,h:number,kind='shelf-frame',side=0){
+  if(w>12){for(let offset=0;offset<w;offset+=8)solid(x+offset,y,z,Math.min(8,w-offset),d,h,kind+' shelf-panel',side);return;}
+  if(h>30){for(let offset=0;offset<h;offset+=29)solid(x,y,z+offset,w,d,Math.min(29,h-offset),kind+' shelf-panel',side);return;}
+  solids.push({v:[[x,y,z],[x+w,y,z],[x+w,y+d,z],[x,y+d,z],[x,y,z+h],[x+w,y,z+h],[x+w,y+d,z+h],[x,y+d,z+h]],kind,side});
+ }
+ solid(-88,-34,0,176,68,4);solid(-83,-29,4,166,58,4);
+ solid(-84,-29,8,4,58,122);solid(80,-29,8,4,58,122);
+ solid(-80,-1,8,160,2,122,'shelf-divider');
+ for(let row=0;row<4;row++){
+  const z=9+row*29;solid(-80,-29,z,160,58,3);
+  for(const side of [-1,1]){
+   let x=-77,book=0;
+   while(x<75){
+    const width=Math.min(4.6+(book*7+row*3)%5,77-x);
+    const height=19+(book*5+row*3)%7;
+    const depth=21+(book+row)%4;
+    solid(x,side>0?4:-(4+depth),z+3,width-.6,depth,height,'shelf-book',side);
+    x+=width;book++;
    }
-   solid(-62,-35,0,62,35,5);
-   solid(-58,-31,5,-54,31,139);solid(54,-31,5,58,31,139);
-   for(let row=0;row<5;row++){
-    const z=8+row*26;solid(-54,-31,z,54,31,z+3);
-    for(let side of [-face,face])for(let k=0;k<23;k++){
-     const i=Math.sin(C.az)>0?k:22-k;
-     const x=-51+i*4.45,h=17+(i*7+row*3)%7;
-     solid(x,side>0?4:-29,z+3,x+3.6,side>0?29:-4,z+3+h);
-     const y=side*29;
-     el('path',{d:seg(P(x+.8,y,z+6),P(x+2.8,y,z+6)),class:'nf lo'},g);
-    }
-   }
-   solid(-58,-33,138,58,33,142);
-   const y=face*32,category=pair[face>0?0:1];
-   const target=el('path',{d:poly([P(-62,y,0),P(62,y,0),P(62,y,145),P(-62,y,145)]),class:'file-target',role:'button',tabindex:0,'aria-label':selected<0?`Select ${pair.join(' / ')}`:`Open ${category}`},g);
-   function activate(){if(drag?.moved)return;if(selected<0){selected=index;draw();}else parent.dispatchEvent(new CustomEvent('library-category',{bubbles:true,detail:{category}}));}
-   target.addEventListener('click',activate);target.addEventListener('keydown',(e:KeyboardEvent)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
-   el('text',{x:C.ox,y:410,'text-anchor':'middle',class:'shelf-face-label'},g,category);
+  }
+ }
+ solid(-86,-31,128,172,62,4);
+ for(const x of [-74,65])solid(x,-37,-4,9,74,4);
+ // A small rolling ladder is part of the fixed entrance illustration.
+ for(const x of [26,48])for(let step=0;step<6;step++){
+  const t0=step/6,t1=(step+1)/6,w=2;
+  const a=[x+10*(1-t0),31+14*(1-t0),-4+136*t0] as V3;
+  const b=[x+10*(1-t1),31+14*(1-t1),-4+136*t1] as V3;
+  solids.push({v:[[a[0],a[1],a[2]],[a[0]+w,a[1],a[2]],[a[0]+w,a[1]+w,a[2]],[a[0],a[1]+w,a[2]],[b[0],b[1],b[2]],[b[0]+w,b[1],b[2]],[b[0]+w,b[1]+w,b[2]],[b[0],b[1]+w,b[2]]],kind:'shelf-ladder',side:0});
+ }
+ for(let step=0;step<9;step++){
+  const t=(step+1)/10;
+  solid(26+10*(1-t),31+14*(1-t),-4+136*t,24,2,2,'shelf-ladder');
+ }
+ let mix=0,opening=false,stop=()=>{};
+ const g=el('g',{'data-shelf':0},svg),art=el('g',{'aria-hidden':'true'},g);
+ const pool=Array.from({length:solids.length*3},()=>el('path',{},art));
+ const roof=el('path',{'aria-hidden':'true',class:'shelf-roof-cap'},g);
+ const outline=el('path',{'aria-hidden':'true',class:'shelf-outline'},g);
+ const target=el('path',{class:'file-target shelf-target',role:'button',tabindex:0,'aria-label':'Open the library'},g);
+ function activate(){
+  if(opening)return;opening=true;s.dataset.state='opening';
+  stop=tween(0,1,v=>{mix=v;draw();},620,()=>{
+   s.dataset.state='open';
+   parent.dispatchEvent(new CustomEvent('library-category',{bubbles:true,detail:{category:'All'}}));
   });
  }
- s.addEventListener('pointerenter',()=>hovering=true);s.addEventListener('pointerleave',()=>hovering=false);
- s.addEventListener('keydown',e=>{if(e.key==='Escape'){selected=-1;draw();}if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();angle+=e.key==='ArrowRight'?45:-45;draw();}});
- s.addEventListener('pointerdown',e=>{drag={x:e.clientX,angle,moved:false};});
- s.addEventListener('pointermove',e=>{if(drag&&Math.abs(e.clientX-drag.x)>6){drag.moved=true;angle=drag.angle+(e.clientX-drag.x)*.6;draw();}});
- s.addEventListener('pointerup',()=>{setTimeout(()=>drag=null,0);});s.addEventListener('pointercancel',()=>drag=null);
- function animate(t:number){if(last&&!drag&&!hovering&&!s.contains(document.activeElement)&&!reduced.matches){angle+=(t-last)*.007;draw();}last=t;requestAnimationFrame(animate);}draw();requestAnimationFrame(animate);
+ target.addEventListener('click',activate);
+ target.addEventListener('keydown',(e:KeyboardEvent)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
+ const corners=[[-89,-37,-4],[89,-37,-4],[89,37,-4],[-89,37,-4],[-89,-37,132],[89,-37,132],[89,37,132],[-89,37,132]] as V3[];
+ function draw(){
+  const angle=45*(1-mix),cos=Math.cos(rad(angle)),sin=Math.sin(rad(angle)),side=1;
+  const C=Cam(angle,.5-.4*mix,1.16+.54*mix);
+  fit(C,corners,200,162);const P=proj(C);
+  g.style.opacity=String(1-Math.max(0,(mix-.55)/.45));
+   const depth=(p:V3)=>(p[0]*sin+p[1]*cos)*Math.sqrt(1-C.k*C.k)+p[2]*C.k;
+   const faces:{v:V3[],kind:string,depth:number}[]=[];
+   for(const box of solids){
+    if(box.side&&box.side!==side)continue;
+    const indices=[[4,5,6,7],side>0?[2,3,7,6]:[0,1,5,4],sin>=0?[1,2,6,5]:[0,3,7,4]];
+    indices.forEach((ids,f)=>{const v=ids.map(i=>box.v[i]);faces.push({v,kind:box.kind+(f===0?' shelf-top':f===2?' shelf-end':''),depth:v.reduce((sum,p)=>sum+depth(p),0)/4});});
+   }
+   faces.sort((a,b)=>a.depth-b.depth);
+   const fragment=document.createDocumentFragment();
+   faces.forEach((face,i)=>{const path=pool[i];path.setAttribute('d',poly(face.v.map(v=>P(...v))));path.setAttribute('class',face.kind);path.style.display='';fragment.append(path);});
+   for(let i=faces.length;i<pool.length;i++)pool[i].style.display='none';
+   art.append(fragment);
+   roof.setAttribute('d',poly([P(-86,-31,132),P(86,-31,132),P(86,31,132),P(-86,31,132)]));
+   let edges=poly([P(-86,-31,132),P(86,-31,132),P(86,31,132),P(-86,31,132)]);
+   for(const x of [-84,84])edges+=seg(P(x,side*29,8),P(x,side*29,128));
+   for(let row=0;row<4;row++){
+    const z=9+row*29;
+    edges+=seg(P(-80,side*29,z),P(80,side*29,z));
+    edges+=seg(P(-80,side*29,z+3),P(80,side*29,z+3));
+   }
+   edges+=seg(P(-86,side*31,128),P(86,side*31,128));
+   edges+=seg(P(-88,side*34,4),P(88,side*34,4));
+   const nearX=sin>=0?88:-88;
+   edges+=seg(P(nearX,-34,4),P(nearX,34,4));
+   outline.setAttribute('d',edges);
+   target.setAttribute('d',poly(hull(corners.map(v=>P(...v)))));
+   g.setAttribute('data-angle',String(angle));
+   s.dataset.zoom=String(mix);
+ }
+ window.addEventListener('resize',draw);
+ parent.closest('.library-page')?.addEventListener('library-reset',()=>{
+  stop();mix=0;opening=false;s.dataset.state='preview';draw();target.focus();
+ });
+ s.dataset.state='preview';draw();
 }
 document.querySelectorAll('[data-rotating-library]').forEach(shelfScene);
 const library=document.querySelector<HTMLElement>('.library-page');
 if(library){
- const collection=library.querySelector<HTMLElement>('.library-collection')!,frame=library.querySelector<HTMLIFrameElement>('.library-shelf')!,filters=library.querySelector<HTMLElement>('.library-filters')!,heading=library.querySelector<HTMLElement>('.library-active-category')!,empty=library.querySelector<HTMLElement>('.library-category-empty')!;
- collection.hidden=true;filters.hidden=true;let category='Read';
- function apply(){const unknown=category==='Reading'||category==='Wishlist';heading.hidden=false;heading.textContent=category;empty.hidden=!unknown;empty.textContent=category==='Reading'?'Reading status is not recorded yet.':'Wishlist information is not recorded yet.';frame.hidden=unknown;const doc=frame.contentDocument;if(!unknown&&doc){const radio=doc.getElementById(category==='All'?'view-all':'view-read') as HTMLInputElement;if(radio)radio.checked=true;doc.querySelectorAll<HTMLInputElement>('.book-radio:checked').forEach(b=>b.checked=false);frame.contentWindow!.location.hash='top';frame.contentWindow!.scrollTo({top:0,behavior:'instant'});}}
- library.addEventListener('library-category',((e:CustomEvent)=>{category=e.detail.category;collection.hidden=false;apply();}) as EventListener);frame.addEventListener('load',()=>{if(!collection.hidden)apply();});
+ const collection=library.querySelector<HTMLElement>('.library-collection')!,frame=library.querySelector<HTMLIFrameElement>('.library-shelf')!,preview=library.querySelector<HTMLElement>('[data-rotating-library]')!;
+ collection.hidden=true;
+ function apply(){
+  const doc=frame.contentDocument;if(!doc)return;
+  const radio=doc.getElementById('view-all') as HTMLInputElement;if(radio)radio.checked=true;
+  doc.querySelectorAll<HTMLInputElement>('.book-radio:checked').forEach(b=>b.checked=false);
+  frame.contentWindow!.location.hash='top';frame.contentWindow!.scrollTo({top:0,behavior:'instant'});
+ }
+ library.addEventListener('library-category',()=>{
+  apply();preview.hidden=true;collection.hidden=false;library.classList.add('catalog-open');
+ });
+ library.addEventListener('library-reset',()=>{
+  collection.hidden=true;preview.hidden=false;library.classList.remove('catalog-open');
+  preview.scrollIntoView({behavior:reduced.matches?'instant':'smooth',block:'start'});
+ });
+ library.querySelector('.catalog-back')!.addEventListener('click',()=>library.dispatchEvent(new CustomEvent('library-reset')));
+ frame.addEventListener('load',()=>{if(!collection.hidden)apply();});
 }

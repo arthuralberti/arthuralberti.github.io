@@ -57,98 +57,35 @@
 <section>
     <div class="library-page">
   <div class="library-heading">
-    <p class="library-kicker">Personal bookshelf</p>
     <h2>Library</h2>
-    <p>I hope to build a personal library that brings together books on economics, physics, philosophy, and the many other subjects that make me curious. This virtual bookshelf collects books I have read and books I would like to explore.</p>
+    <p>Books I have read and books I would like to explore.</p>
   </div>
   <div class="rotating-library" data-rotating-library></div>
   <div class="library-collection">
-    <h3 class="library-active-category" hidden></h3>
-    <p class="library-category-empty" hidden></p>
-  <div class="library-filters" role="group" aria-label="Bookshelf views">
-    <button class="button-2" data-view="read" aria-pressed="true"><strong>Read · 92</strong></button>
-    <button class="button-2" data-view="toread" aria-pressed="false"><strong>To read · 28</strong></button>
-    <button class="button-2" data-view="owned" aria-pressed="false"><strong>Owned</strong></button>
-    <button class="button-2" data-view="wishlist" aria-pressed="false"><strong>Wishlist</strong></button>
-    <button class="button-2" data-view="all" aria-pressed="false"><strong>All · 120</strong></button>
-  </div>
+    <button class="catalog-back" type="button" aria-label="Return to bookshelf">↶</button>
 
-  <iframe class="library-shelf" src="/library/books.html?v=f1e683aa3364" title="The Library — interactive bookshelf"></iframe>
+    <iframe class="library-shelf" src="/library/books.html?v=16ac9e1bea6b" title="The Library — interactive bookshelf"></iframe>
   </div>
 </div>
 
-<link rel="stylesheet" href="/library/objects.css?v=edeca28d92d9">
-<script type="module" src="/library/objects.js?v=edeca28d92d9"></script>
+<link rel="stylesheet" href="/library/objects.css?v=a199fbb888b8">
+<script type="module" src="/library/objects.js?v=a199fbb888b8"></script>
 
-<noscript><style>.library-filters { display: none; }</style></noscript>
-<script>
-  (() => {
-    const shelf = document.querySelector('.library-shelf');
-    const buttons = document.querySelectorAll('.library-filters button');
-    buttons.forEach(button => button.addEventListener('click', () => {
-      const document = shelf.contentDocument;
-      const radio = document && document.getElementById('view-' + button.dataset.view);
-      if (!radio) return;
-      radio.checked = true;
-      document.querySelectorAll('.book-radio:checked').forEach(book => { book.checked = false; });
-      shelf.contentWindow.location.hash = 'top';
-      shelf.contentWindow.scrollTo({ top: 0, behavior: 'instant' });
-      buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-    }));
-  })();
-</script>
+<noscript><style>.catalog-back { display: none; }</style></noscript>
 <style>
-  .library-collection[hidden], .library-category-empty[hidden], .library-active-category[hidden], .library-filters[hidden], .library-shelf[hidden] { display: none; }
-  .library-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
-  .library-filters .button-2 {
-    background-color: rgba(51, 51, 51, 0.05);
-    border-radius: 8px;
-    border-width: 0;
-    color: #333333;
-    cursor: pointer;
-    display: inline-block;
-    font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 13.5px;
-    font-weight: 500;
-    line-height: normal;
-    margin: 0;
-    padding: 10px 12px;
-    text-align: center;
-    transition: all 200ms;
-    vertical-align: baseline;
-    white-space: nowrap;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-  }
-  .library-filters .button-2[aria-pressed="true"] { outline: 1px solid #aaa; outline-offset: -1px; }
-  .library-filters .button-2:focus-visible { outline: 2px solid #267CB9; outline-offset: 3px; }
   .library-heading {
     border-bottom: 1px solid #e5e5e5;
     margin-bottom: 18px;
     padding-bottom: 16px;
   }
-  .library-kicker {
-    color: #816a35;
-    font-size: 12px;
-    font-weight: 700;
-    margin: 0 0 8px;
-    text-transform: uppercase;
-  }
   .library-heading h2 { margin-bottom: 10px; }
-  .library-heading > p:not(.library-kicker) {
+  .library-heading > p {
     color: #555;
     font-size: 16px;
     line-height: 1.55;
     margin: 0 0 12px;
-    max-width: 660px;
   }
-  .library-shelf {
-    border: 0;
-    display: block;
-    height: 800px;
-    width: 100%;
-  }
+  .library-shelf { border: 0; display: block; height: 800px; width: 100%; }
   @media (max-width: 720px) {
     .library-shelf { height: 75vh; min-height: 500px; }
   }

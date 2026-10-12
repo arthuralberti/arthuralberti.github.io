@@ -21,3 +21,10 @@ defaultContentLanguage = "en"
     instagram = "https://www.instagram.com/arthuralberti/"
     substack = "https://arthuralberti.substack.com/"
     goodreads = "https://www.goodreads.com/user/show/128148581-arthur-alberti"
+
+# Preserve this unused legacy image locally; macOS denies its file read.
+[module]
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+    files = ["! profile_ArthurAlberti_3.jpeg"]
