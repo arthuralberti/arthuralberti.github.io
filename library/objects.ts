@@ -18,18 +18,22 @@ function fileBox(parent:Element,label:string,papers:Paper[]){
  svg.setAttribute('viewBox','0 36 400 252');
  const {P,front,outer,inner}=scene(),body=tray(P,front,outer,inner);paths(svg,body.far);
  const groups=papers.map((paper,j)=>{const i=N-papers.length+j,shape=card(i),g=el('g',{class:'folder-art'},svg);const back=el('path',{class:'sil lo'},g),face=el('path',{class:'sil'},g),head=el('path',{class:'nf'},g),rules=el('path',{class:'nf lo'},g),label=el('g',{class:'file-face-label','aria-hidden':'true'},g);
-  // Wrap in the file's own plane, so the lettering follows its lift and lean.
+  // One type size for every title; wrap by measured width in world units.
+  const measure=document.createElement('canvas').getContext('2d')!;
+  measure.font='6px Montserrat';
   const lines:string[]=[];let line='';
-  for(const word of paper.title.split(/\s+/)){if(line&&(line+' '+word).length>20){lines.push(line);line=word;}else line+=(line?' ':'')+word;}if(line)lines.push(line);
-  const size=Math.min(6,26/(lines.length*1.15));
-  lines.forEach((text,k)=>el('text',{x:0,y:k*size*1.15,'font-size':size},label,text));
-  el('text',{x:0,y:lines.length*size*1.15+4,'font-size':4.5,class:'file-face-year'},label,String(paper.year));
-  return {i,shape,g,back,face,head,rules,label,angle:REST,lift:0};});
+  for(const word of paper.title.split(/\s+/)){if(line&&measure.measureText(line+' '+word).width>72){lines.push(line);line=word;}else line+=(line?' ':'')+word;}if(line)lines.push(line);
+  lines.forEach((text,k)=>el('text',{x:0,y:k*6.9,'font-size':6},label,text));
+  const year=el('g',{class:'file-tab-label','aria-hidden':'true'},g);
+  el('text',{x:11,y:0,'text-anchor':'middle','font-size':4.5,class:'file-face-year'},year,String(paper.year));
+  return {i,shape,g,back,face,head,rules,label,year,angle:REST,lift:0};});
  paths(svg,body.near);
  let active=-1,stop=()=>{};
  function draw(){groups.forEach((q,j)=>{const p=pose(P,q.i,q.shape.t0,q.shape.shape,q.angle,q.lift);q.back.setAttribute('d',p.back);q.face.setAttribute('d',p.face);q.head.setAttribute('d',p.head);q.rules.setAttribute('d',p.rules);
   const w=(u:number,v:number)=>P(u,q.i*G+v*Math.sin(rad(q.angle)),v*Math.cos(rad(q.angle))+q.lift),o=w(6,H-12),x=w(7,H-12),y=w(6,H-13);
   q.label.setAttribute('transform',`matrix(${x[0]-o[0]} ${x[1]-o[1]} ${y[0]-o[0]} ${y[1]-o[1]} ${o[0]} ${o[1]})`);
+  const yo=w(q.shape.t0,H+5.5),yx=w(q.shape.t0+1,H+5.5),yy=w(q.shape.t0,H+4.5);
+  q.year.setAttribute('transform',`matrix(${yx[0]-yo[0]} ${yx[1]-yo[1]} ${yy[0]-yo[0]} ${yy[1]-yo[1]} ${yo[0]} ${yo[1]})`);
   q.label.style.display=j===active?'':'none';q.head.style.display=q.rules.style.display=j===active?'none':'';
  });}
  function select(j:number){if(j===active)return;active=j;stop();const starts=groups.map(q=>[q.angle,q.lift]);const targets=groups.map((q,k)=>[j<0?REST:k<j?-24:k>j?20:0,k===j?LIFT:0]);stop=tween(0,1,f=>{groups.forEach((q,k)=>{q.angle=starts[k][0]+(targets[k][0]-starts[k][0])*f;q.lift=starts[k][1]+(targets[k][1]-starts[k][1])*f;q.face.classList.toggle('hi',k===j);});draw();});}
@@ -59,7 +63,7 @@ function fileBox(parent:Element,label:string,papers:Paper[]){
  return ()=>{stop();box.remove();};
 }
 const paperRoot=document.querySelector<HTMLElement>('[data-paper-files]');
-if(paperRoot){const papers:Paper[]=JSON.parse(document.querySelector('#paper-files-data')!.textContent!);fileBox(paperRoot,'Favorite Papers',papers);}
+if(paperRoot){const papers:Paper[]=JSON.parse(document.querySelector('#paper-files-data')!.textContent!);document.fonts.ready.then(()=>fileBox(paperRoot,'Favorite Papers',papers));}
 
 // Sort individual visible faces by camera depth; keep interaction nodes stable.
 function shelfScene(parent:Element){

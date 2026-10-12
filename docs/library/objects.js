@@ -246,19 +246,21 @@ function fileBox(parent, label, papers) {
   const groups = papers.map((paper, j) => {
     const i = N - papers.length + j, shape = card(i), g = el("g", { class: "folder-art" }, svg);
     const back = el("path", { class: "sil lo" }, g), face = el("path", { class: "sil" }, g), head = el("path", { class: "nf" }, g), rules = el("path", { class: "nf lo" }, g), label2 = el("g", { class: "file-face-label", "aria-hidden": "true" }, g);
+    const measure = document.createElement("canvas").getContext("2d");
+    measure.font = "6px Montserrat";
     const lines = [];
     let line = "";
     for (const word of paper.title.split(/\s+/)) {
-      if (line && (line + " " + word).length > 20) {
+      if (line && measure.measureText(line + " " + word).width > 72) {
         lines.push(line);
         line = word;
       } else line += (line ? " " : "") + word;
     }
     if (line) lines.push(line);
-    const size = Math.min(6, 26 / (lines.length * 1.15));
-    lines.forEach((text, k) => el("text", { x: 0, y: k * size * 1.15, "font-size": size }, label2, text));
-    el("text", { x: 0, y: lines.length * size * 1.15 + 4, "font-size": 4.5, class: "file-face-year" }, label2, String(paper.year));
-    return { i, shape, g, back, face, head, rules, label: label2, angle: REST, lift: 0 };
+    lines.forEach((text, k) => el("text", { x: 0, y: k * 6.9, "font-size": 6 }, label2, text));
+    const year = el("g", { class: "file-tab-label", "aria-hidden": "true" }, g);
+    el("text", { x: 11, y: 0, "text-anchor": "middle", "font-size": 4.5, class: "file-face-year" }, year, String(paper.year));
+    return { i, shape, g, back, face, head, rules, label: label2, year, angle: REST, lift: 0 };
   });
   paths(svg, body.near);
   let active = -1, stop = () => {
@@ -272,6 +274,8 @@ function fileBox(parent, label, papers) {
       q.rules.setAttribute("d", p.rules);
       const w = (u, v) => P(u, q.i * G + v * Math.sin(rad(q.angle)), v * Math.cos(rad(q.angle)) + q.lift), o = w(6, H - 12), x = w(7, H - 12), y = w(6, H - 13);
       q.label.setAttribute("transform", `matrix(${x[0] - o[0]} ${x[1] - o[1]} ${y[0] - o[0]} ${y[1] - o[1]} ${o[0]} ${o[1]})`);
+      const yo = w(q.shape.t0, H + 5.5), yx = w(q.shape.t0 + 1, H + 5.5), yy = w(q.shape.t0, H + 4.5);
+      q.year.setAttribute("transform", `matrix(${yx[0] - yo[0]} ${yx[1] - yo[1]} ${yy[0] - yo[0]} ${yy[1] - yo[1]} ${yo[0]} ${yo[1]})`);
       q.label.style.display = j === active ? "" : "none";
       q.head.style.display = q.rules.style.display = j === active ? "none" : "";
     });
@@ -346,7 +350,7 @@ function fileBox(parent, label, papers) {
 var paperRoot = document.querySelector("[data-paper-files]");
 if (paperRoot) {
   const papers = JSON.parse(document.querySelector("#paper-files-data").textContent);
-  fileBox(paperRoot, "Favorite Papers", papers);
+  document.fonts.ready.then(() => fileBox(paperRoot, "Favorite Papers", papers));
 }
 function shelfScene(parent) {
   const { s, svg } = stage(parent, "Open the library");

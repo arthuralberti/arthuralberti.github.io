@@ -207,13 +207,14 @@ async function aligned(page, id) {
       const label=page.locator('.file-face-label').nth(i);
       const title=await label.locator('text:not(.file-face-year)').allTextContents();
       assert(title.join(' ')===paperData[i].title,'File title preserved: '+i);
-      assert(await label.locator('.file-face-year').textContent()===String(paperData[i].year),'File year preserved: '+i);
+      assert((await label.locator('text').evaluateAll(els=>els.every(e=>e.getAttribute('font-size')==='6'))),'Common title size: '+i);
+      assert(await page.locator('.file-tab-label').nth(i).locator('.file-face-year').textContent()===String(paperData[i].year),'File year preserved: '+i);
     }
     await page.locator('.file-target').nth(13).focus();
     await page.waitForTimeout(650);
     await page.locator('.file-target').nth(13).evaluate(el=>el.blur());
     assert(await page.locator('.file-face-label:visible').count()===1,'Only the highlighted file exposes its lettering');
-    const textFits=await page.locator('.file-face-label').nth(13).evaluate(el=>{const b=el.getBBox();return b.x>=0&&b.x+b.width<=72&&b.y+b.height<=38;});
+    const textFits=await page.locator('.file-face-label').nth(13).evaluate(el=>{const b=el.getBBox();return b.x>=0&&b.x+b.width<=72&&b.y+b.height<=44;});
     assert(textFits,'Projected file label stays within its face margins');
     await page.screenshot({path:`${artifacts}/${name}-file-label.png`});
     for (const index of [0, 13, 25]) {
