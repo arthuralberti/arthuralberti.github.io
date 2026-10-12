@@ -1,0 +1,14 @@
+{
+  "name": "library-room-model",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

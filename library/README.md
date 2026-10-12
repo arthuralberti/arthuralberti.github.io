@@ -1,36 +1,57 @@
 # Library integration
 
-## Current: isometric room — October 12, 2026
+## Current: architectural room — October 12, 2026
 
-The Library now opens directly into an original SVG room: a continuous curved
-shelving wall, a low curved island, a rounded desk, lounge chair and ottoman,
-and two simplified plants. Fine outlines and flat fills follow Arthur's
-approved concept; there are no textures, visible lamps, top-cap joints, or
-frontal-shelf transition. Earlier implementations below are historical.
+The room is now a dimensioned 3D model with a fixed orthographic camera. This
+supersedes the SVG sketch, search, zoom, panning and Open book controls below.
+The title/author readout lives above the room. Pointer hover pulls a book along
+its shelf normal; clicking opens the existing details dialog. Touch selects a
+book, and a second tap opens it. Arrow keys browse, Enter opens and Escape closes.
+The complete server-rendered list remains available below the drawing.
 
-`static/library/room.js` draws the room and places all 120 existing catalog
-records once (100 on the wall, 20 in the island). `room.css` supplies responsive
-controls, selection and the accessible book dialog. `layouts/_default/library.html`
-embeds the canonical catalog and preserves the complete server-rendered list.
-No raster concept image is published. Papers keeps its existing Hairline module.
+Canonical sources are in `library/room3d/`:
 
-Hover identifies a volume and gently pulls it out; desktop click or keyboard
-Enter opens its metadata. On touch, tap selects and the Open book control opens
-the dialog. Escape closes it. Search matches title/author without accent or case
-sensitivity. Zoom controls retain the isometric camera; dragging pans only when
-magnified, leaving normal touch page scrolling available at 1×. Reset restores
-the full room. Reduced motion removes the pull transition. Without JavaScript,
-the complete book list remains available.
+- `model.js`: centimetre dimensions, wall/island routes, shelf bays and catalog
+  placement; geometry and checks share the same coordinates.
+- `geometry.js`: solid slabs, curved caps, dividers, lounge-chair components,
+  furniture and botanically structured Ficus/Monstera illustrations.
+- `main.js`: layer assembly, fixed camera, depth-tested picking, readout and dialog.
+- `check-model.js`: dimensional, oriented-box collision and floor-bound checks.
+- `package.json` / lockfile: pinned Three.js and esbuild development dependencies.
 
-Physical ownership and original reading dates remain unverified. Placement uses
-catalog order and does not assert reading status, purchase status, or an exact
-1,000-volume architectural capacity. Only supplied metadata appears in details.
-The existing date importer remains the path for confirmed Goodreads dates.
+Build from `library/room3d` with `npm ci --ignore-scripts` and `npm run build`.
+The result is bundled locally into `static/library/room.js`. No CDN, remote
+runtime or account is needed. The public Three.js MIT license is at
+`static/library/THREE-LICENSE.txt`. `room.css` provides restrained readout/dialog
+motion and reduced-motion behavior. The module draws only on resize or deliberate
+selection; no idle animation. Offscreen motion stops.
 
-Run `node library/check-room.cjs` with Playwright available, `ROOM_BASE_URL`
-(default `http://127.0.0.1:8770`) and optional `ROOM_ARTIFACTS` (default
-`/tmp/library-room-review`). This replaces the old entrance-specific browser
-suite for the current Library while also checking the Papers destination.
+The floor footprint ends at the shelving wing endpoints. The curved wall cap
+is a continuous solid. Each of the 120 real catalog records has the same book
+bounding dimensions, fitted into a measured niche with clearance from the back,
+next shelf and dividers. No fictitious books or new bibliographic metadata were
+introduced. The stylized Eames-inspired model uses independently modeled shells,
+padded cushions, piping, arm supports, pedestal and ottoman; it is not an official
+manufacturer CAD asset. Plants use modeled stems, curved blades, midribs and
+Monstera splits/fenestrations. The room palette is grayscale.
+
+The original dates and physical ownership inventory remain unverified. Placement
+does not assign reading/purchase status or certify a 1,000-book capacity. The
+existing Goodreads importer remains the path for verified reading dates.
+
+Run `node library/room3d/check-model.js`, then `node library/check-room3d.cjs` with
+Playwright available and docs served at `ROOM_BASE_URL` (default localhost:8770).
+Browser artifacts stay in `/tmp/library-room3d-review`. The old entrance and SVG
+checks remain historical. No-JavaScript users retain the complete list; browsers
+without WebGL also see `room-preview.webp`, a still of this exact model.
+
+Design sources: [Hairline](https://github.com/lucasmarkes/hairline),
+[Anatomy](https://github.com/wheresryan22/anatomy),
+[Transitions.dev](https://transitions.dev/),
+[Herman Miller product sheet](https://www.hermanmiller.com/content/dam/hermanmiller/documents/product_literature/product_sheets/eames_lounge_chair_and_ottoman_product_sheet.pdf),
+and [RHS Monstera profile](https://www.rhs.org.uk/plants/11192/monstera-deliciosa-f/details).
+Transitions.dev informs restrained text changes and dialog motion; no Pro code
+or animation agent was acquired. Papers retains its existing Hairline module.
 
 ## Historical implementations
 

@@ -4,13 +4,11 @@
     <h2>Library</h2>
   </div>
   <div class="library-room" aria-label="Explore the library" hidden>
-    <div class="room-toolbar">
-      <label class="room-search"><span class="room-sr-only">Find a book by title or author</span><input type="search" placeholder="Find a book" autocomplete="off" aria-controls="room-results"></label>
-      <div class="room-zoom"><button type="button" data-room-minus aria-label="Zoom out">−</button><button type="button" data-room-reset aria-label="Reset room view">1×</button><button type="button" data-room-plus aria-label="Zoom in">+</button></div>
+    <div class="room-readout" aria-live="polite"><span class="room-selection-label"></span></div>
+    <div class="room-viewport">
+      <img class="room-still" src="{{ "library/room-preview.webp" | relURL }}" alt="A curved library with fitted bookshelves, a reading chair, a desk and plants." width="1400" height="1148">
+      <div class="room-hit-layer" role="group" aria-label="Books in the library; arrow keys browse, Enter opens"></div>
     </div>
-    <div id="room-results" class="room-results" hidden></div>
-    <div class="room-viewport"></div>
-    <div class="room-selection" aria-live="polite"><span class="room-selection-label"></span><button type="button" class="button-2" data-room-open hidden>Open book</button></div>
   </div>
   <dialog class="room-dialog" aria-labelledby="room-book-title">
     <button type="button" class="room-close" aria-label="Close book">×</button>

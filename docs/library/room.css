@@ -1,15 +1,22 @@
-.library-room{margin:0 0 28px;color:#555}.library-room[hidden],.room-results[hidden],.room-selection button[hidden]{display:none}
-.room-toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:4px}
-.room-search{flex:1;max-width:320px}.room-search input{box-sizing:border-box;width:100%;font:14px Montserrat,Arial,sans-serif;border:0;border-bottom:1px solid #e5e5e5;padding:10px 2px;background:#fff;color:#393939;border-radius:0}
-.room-search input:focus{outline:none;border-color:#777}.room-zoom{display:flex;gap:5px}.room-zoom button,.room-close{font:18px 'Noto Sans',sans-serif;color:#555;background:rgba(51,51,51,.05);border:0;border-radius:8px;min-width:40px;min-height:40px;cursor:pointer}.room-zoom button:disabled{opacity:.35;cursor:default}.room-zoom button[data-room-reset]{font-size:13px}
-.room-viewport{width:100%;overflow:hidden;touch-action:pan-y;user-select:none;-webkit-tap-highlight-color:transparent}.room-viewport.is-zoomed{touch-action:none;cursor:grab}.room-viewport.is-zoomed:active{cursor:grabbing}
-.room-viewport svg{width:100%;height:auto;display:block;stroke:#96958e;stroke-width:.7;stroke-linejoin:round;stroke-linecap:round}
-.room-volume{transition:transform 180ms ease;pointer-events:none}.room-book-target{cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent}.room-book-target.is-selected{stroke:#45453f;stroke-width:1.2}.room-book-target:focus-visible{stroke:#222;stroke-width:2}
-.room-selection{min-height:62px;display:flex;align-items:center;gap:12px;justify-content:space-between;border-top:1px solid #eee;padding:8px 0;font:12px/1.5 Montserrat,Arial,sans-serif}.room-selection-label{max-width:78%;overflow-wrap:anywhere}.room-selection .button-2{flex-shrink:0;margin:0;cursor:pointer}
-.room-results{max-height:240px;overflow:auto;border-bottom:1px solid #e5e5e5;font:13px/1.5 Montserrat,sans-serif}.room-results button{display:block;text-align:left;width:100%;padding:12px 8px;background:#fff;border:0;border-bottom:1px solid #eee;font:inherit;color:#555;cursor:pointer}.room-results button:hover,.room-results button:focus-visible{background:#f4f4f2}
+.library-room{margin:0 0 28px;color:#555}.library-room[hidden]{display:none}
+.room-readout{min-height:52px;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 14px;font:13px/1.5 Montserrat,Arial,sans-serif;overflow-wrap:anywhere}
+.room-selection-label.is-changing{animation:room-label-in 160ms ease-out}
+@keyframes room-label-in{from{opacity:.25;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+.room-viewport{position:relative;width:100%;aspect-ratio:1/.82;touch-action:pan-y;user-select:none;-webkit-tap-highlight-color:transparent;overflow:hidden}
+.room-viewport canvas{display:block;width:100%;height:100%}
+.room-hit-layer{position:absolute;inset:0;pointer-events:none;z-index:1}
+.room-book-target{position:absolute;width:7px;height:14px;transform:translate(-50%,-50%);padding:0;border:0;border-radius:1px;background:transparent;pointer-events:none;outline:none;color:transparent}
+.room-book-target:focus-visible{outline:1px solid #555;outline-offset:3px}
+.library-room[data-render="fallback"] .room-viewport{display:none}
+.library-room[data-render="fallback"] .room-readout{display:none}
 .room-dialog{box-sizing:border-box;width:min(640px,calc(100% - 32px));max-height:85dvh;overflow:auto;padding:44px 28px 28px;border:1px solid #ddd;border-radius:8px;background:#fff;color:#555}.room-dialog[open]{display:grid;grid-template-columns:170px 1fr;gap:26px;align-items:center}.room-dialog::backdrop{background:rgba(255,255,255,.88)}.room-close{position:absolute;right:8px;top:8px}.room-cover{aspect-ratio:2/3;padding:18px 15px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;text-align:center;border-radius:1px 4px 4px 1px;border-left:5px solid #0002;gap:20px}.room-cover-title{font:20px/1.15 'adobe-caslon-pro',Georgia,serif;overflow-wrap:anywhere}.room-cover-author{font:11px/1.4 Montserrat,sans-serif}.room-book-details h3{font-size:25px;line-height:1.2;margin-bottom:14px}.room-book-details p{font:14px/1.6 Montserrat,sans-serif;margin:10px 0}.room-book-metadata p{white-space:pre-line}.room-sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
-@media(max-width:480px){.room-toolbar{gap:8px}.room-search input{font-size:16px}.room-zoom{gap:3px}.room-zoom button{min-width:36px;min-height:42px}.room-selection{font-size:11px}.room-selection-label{max-width:65%}.room-dialog[open]{grid-template-columns:1fr;gap:20px;padding:48px 24px 24px}.room-cover{width:130px;margin:auto}.room-cover-title{font-size:17px}.room-book-details h3{font-size:23px}}
-@media(prefers-reduced-motion:reduce){.room-volume{transition:none}}
-.room-scene>path,.room-lounge,.room-ottoman,.room-plant{pointer-events:none}.room-scene>.room-book-target{pointer-events:all}
 
-.room-dialog:focus,.room-close:focus:not(:focus-visible){outline:none}.room-close:focus-visible,.room-zoom button:focus-visible{outline:1px solid #777;outline-offset:2px}
+.room-cover{background:#d2d3cf;color:#393b37;border-left-color:#a9aba4}
+.room-dialog[open]{animation:room-dialog-in 170ms ease-out}
+@keyframes room-dialog-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.room-close{position:absolute;right:8px;top:8px;font:24px 'Noto Sans',sans-serif;border:0;border-radius:8px;color:#555;background:rgba(51,51,51,.05);width:40px;height:40px;cursor:pointer}
+.room-close:focus:not(:focus-visible){outline:none}.room-close:focus-visible{outline:1px solid #777;outline-offset:2px}
+@media(max-width:480px){.room-readout{font-size:11px;min-height:58px;padding:0 4px}.room-dialog[open]{grid-template-columns:1fr;gap:20px;padding:48px 24px 24px}.room-cover{width:130px;margin:auto}.room-cover-title{font-size:17px}.room-book-details h3{font-size:23px}}
+@media(prefers-reduced-motion:reduce){.room-selection-label.is-changing,.room-dialog[open]{animation:none}}
+.room-still{display:none;width:100%;height:auto}.library-room[data-render="fallback"] .room-viewport{display:block}.library-room[data-render="fallback"] .room-still{display:block}.library-room[data-render="fallback"] canvas,.library-room[data-render="fallback"] .room-hit-layer{display:none}
+.room-readout{height:64px;box-sizing:border-box}.room-selection-label{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}

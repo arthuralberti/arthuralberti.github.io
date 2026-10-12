@@ -1,6 +1,6 @@
 # Arthur Alberti Personal Page
 
-The [Library](https://arthuralberti.github.io/library/) is linked from Personal and uses the site's page shell, like Favorite Papers. An interactive isometric room displays the 120-book catalog with search, magnification and book details; the complete list remains available below. The original Books v6 prototype remains in `static/library/books.html`; see [integration and checks](library/README.md).
+The [Library](https://arthuralberti.github.io/library/) is linked from Personal and uses the site's page shell, like Favorite Papers. An interactive isometric room displays the 120-book catalog with depth-correct book selection and details; the complete list remains available below. The original Books v6 prototype remains in `static/library/books.html`; see [integration and checks](library/README.md).
 
 Hugo version of Arthur Alberti's personal academic page, inspired by Gautam
 Rao's website.
