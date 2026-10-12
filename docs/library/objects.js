@@ -94,16 +94,6 @@ function run(ring, keep) {
   for (let k = 0; k < n && keep(ring[(s + k) % n]); k++) out.push(ring[(s + k) % n]);
   return out;
 }
-function prism(P, front, ring, inner, z0, z1) {
-  return {
-    sil: poly(hull(ringAt(P, ring, z1).concat(ringAt(P, ring, z0)))),
-    crease: inner ? open(ringAt(P, run(inner, front), z1)) : ""
-  };
-}
-var rings = (x0, y0, x1, y1, r, b) => [
-  rrect(x0, y0, x1, y1, r),
-  rrect(x0 + b, y0 + b, x1 - b, y1 - b, Math.max(0.3, r - b))
-];
 function fillet(pts, rs, n = 4) {
   const m = pts.length, out = [];
   for (let i = 0; i < m; i++) {
@@ -121,10 +111,10 @@ function fillet(pts, rs, n = 4) {
 }
 
 // library/hairline/figures/riffle-geometry.ts
-var N = 10;
+var N = 26;
 var W = 84;
 var H = 54;
-var G = 13;
+var G = 5;
 var TW = 22;
 var TH = 7;
 var TABS = [6, 31, 56];
@@ -139,7 +129,7 @@ var WH = 20;
 var WR = 6;
 var WT = 2.4;
 function camera() {
-  const C = Cam(45, 0.5, 1.62);
+  const C = Cam(45, 0.5, 1.45);
   fit(C, [[X0, Y0, 0], [X1, Y1, -8], [X1, Y0, 0], [X0, Y1, 0], [X0, Y0, H + TH], [X1, Y0, H + TH + LIFT]], 200, 166);
   return C;
 }
@@ -239,7 +229,6 @@ function tween(from, to, draw, duration = 600) {
 }
 function fileBox(parent, label, papers) {
   const box = html("section", "collection-object", parent);
-  html("h3", "", box, label);
   html("p", "paper-box-count", box, `${papers.length} ${papers.length === 1 ? "paper" : "papers"}`);
   const { s, svg } = stage(box, `${label}: use arrow keys to browse papers; Enter selects a paper`);
   s.style.cursor = "default";
@@ -280,20 +269,16 @@ function fileBox(parent, label, papers) {
     });
     read.replaceChildren();
     if (j < 0) {
-      html("p", "", read, "Move across the files to reveal a paper, or use the arrow keys.");
       return;
     }
     const paper = papers[j];
     html("h4", "", read, paper.title);
-    html("p", "", read, `${paper.authors} \xB7 ${paper.year}`);
+    html("p", "", read, paper.authors);
     html("p", "", read, paper.venue);
     const link = html("a", "", read, "Open paper");
     link.href = paper.paper_url;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
-    const note = html("details", "paper-file-note", read);
-    html("summary", "", note, "Why I return to it");
-    html("p", "", note, paper.note);
   }
   const targets = groups.map((q, j) => {
     const y = q.i * G + H * Math.sin(rad(REST)), z = H * Math.cos(rad(REST));
@@ -323,7 +308,6 @@ function fileBox(parent, label, papers) {
     }
   });
   draw();
-  html("p", "", read, "Move across the files to reveal a paper, or use the arrow keys.");
   return () => {
     stop();
     box.remove();
@@ -331,152 +315,105 @@ function fileBox(parent, label, papers) {
 }
 var paperRoot = document.querySelector("[data-paper-files]");
 if (paperRoot) {
-  let render = function(mode) {
-    cleanups.forEach((f) => f());
-    cleanups = [];
-    let groups = [];
-    if (mode === "journal") {
-      const by = /* @__PURE__ */ new Map();
-      papers.forEach((p) => {
-        if (!by.has(p.venue)) by.set(p.venue, []);
-        by.get(p.venue).push(p);
-      });
-      groups = [...by].sort((a, b) => a[0].localeCompare(b[0]));
-    } else {
-      for (let i = 0; i < papers.length; i += 10) groups.push([`Collection ${String(i / 10 + 1).padStart(2, "0")}`, papers.slice(i, i + 10)]);
-    }
-    for (const [label, items] of groups) {
-      for (let i = 0; i < items.length; i += 10) cleanups.push(fileBox(paperRoot, items.length > 10 ? `${label} \xB7 ${i / 10 + 1}` : label, items.slice(i, i + 10)));
-    }
-    controls.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === mode)));
-  };
-  const data = document.querySelector("#paper-files-data");
-  const papers = JSON.parse(data.textContent);
-  const controls = document.querySelector(".paper-box-mode");
-  controls.classList.add("is-ready");
-  let cleanups = [];
-  controls.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => render(b.dataset.mode)));
-  render("collection");
+  const papers = JSON.parse(document.querySelector("#paper-files-data").textContent);
+  fileBox(paperRoot, "Favorite Papers", papers);
   const listing = document.querySelector(".paper-list-disclosure");
   if (listing) listing.open = false;
 }
-function shelfObject(parent, index, names) {
-  const box = html("section", "collection-object", parent);
-  html("h3", "", box, `0${index + 1} \u2014 ${names[0]} / ${names[1]}`);
-  const { s, svg } = stage(box, `${names.join(" and ")}: drag to turn, arrow keys rotate, Enter opens the visible collection`);
-  const actions = html("div", "object-actions", box);
-  const status = html("span", "object-status", actions, names[0]);
-  status.setAttribute("aria-live", "polite");
-  const button = html("button", "object-button", actions, "Turn to the other side");
-  let angle = 45, stop = () => {
-  }, drag = null;
-  function choose(category) {
-    parent.dispatchEvent(new CustomEvent("library-category", { bubbles: true, detail: { category } }));
-  }
+function shelfScene(parent) {
+  const { s, svg } = stage(parent, "Read and Reading; All and Wishlist");
+  svg.setAttribute("viewBox", "0 0 800 440");
+  let selected = -1, angle = 35, last = 0, hovering = false, drag = null;
+  const names = [["Read", "Reading"], ["All", "Wishlist"]];
   function draw() {
     svg.replaceChildren();
-    const C = Cam(angle, 0.5, 2.2);
-    C.ox = 200;
-    C.oy = 255;
-    const P = proj(C), front = facing(C);
-    const base = el("g", {}, svg);
-    const [rr, ri] = rings(-54, -32, 54, 32, 3, 1.2);
-    const plinth = prism(P, front, rr, ri, 0, 5);
-    el("path", { d: plinth.sil, class: "sil" }, base);
-    el("path", { d: plinth.crease, class: "nf lo" }, base);
-    const sides = [{ side: -1, category: names[1] }, { side: 1, category: names[0] }].sort((a, b) => a.side * Math.cos(C.az) - b.side * Math.cos(C.az));
-    for (const { side, category } of sides) {
-      const y = side * 22, visible = side * Math.cos(C.az) > 0;
-      const surface = el("g", {}, svg);
-      for (const x of [-50, 50]) {
-        const a = P(x, -28, 5), b = P(x, -28, 104), c = P(x, 28, 104), d = P(x, 28, 5);
-        el("path", { d: `${poly([a, b, c, d])}`, class: "nf lo" }, surface);
+    names.forEach((pair, index) => {
+      if (selected >= 0 && selected !== index) return;
+      const C = Cam(angle + index * 18, 0.28, selected < 0 ? 2.1 : 2.7);
+      C.ox = selected < 0 ? 210 + index * 380 : 400;
+      C.oy = 365;
+      const P = proj(C), g = el("g", { "data-shelf": index }, svg);
+      const face = Math.cos(C.az) >= 0 ? 1 : -1;
+      el("rect", { x: C.ox - 83, y: 10, width: 166, height: 32, rx: 2, fill: "#fff", stroke: "#c1c4ca", "stroke-width": 0.7 }, g);
+      el("text", { x: C.ox, y: 32, "text-anchor": "middle", class: "shelf-sign" }, g, pair.join(" / "));
+      function solid(x0, y0, z0, x1, y1, z1) {
+        const pts = [[x0, y0, z0], [x1, y0, z0], [x1, y1, z0], [x0, y1, z0], [x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]];
+        const faces = [[4, 5, 6, 7], face > 0 ? [2, 3, 7, 6] : [0, 1, 5, 4], Math.sin(C.az) > 0 ? [1, 2, 6, 5] : [0, 3, 7, 4]];
+        faces.forEach((f) => el("path", { d: poly(f.map((i) => P(...pts[i]))), class: "sil" }, g));
       }
-      const x0 = -25, x1 = 25, z0 = 9, z1 = 84;
-      const facePoints = side === 1 ? [P(x0, y, z0), P(x1, y, z0), P(x1, y, z1), P(x0, y, z1)] : [P(x1, y, z0), P(x0, y, z0), P(x0, y, z1), P(x1, y, z1)];
-      const book = el("g", { "data-cover-category": category }, surface);
-      const innerY = y - side * 4;
-      el("path", { d: poly([P(x0, innerY, z1), P(x1, innerY, z1), P(x1, y, z1), P(x0, y, z1)]), class: "sil lo" }, book);
-      el("path", { d: poly(facePoints), class: "book-cover" }, book);
-      el("path", { d: seg(P(x0 + 3, y, z0), P(x0 + 3, y, z1)), class: "cover-detail" }, book);
-      if (visible) {
-        const origin = P(side === 1 ? x0 : x1, y, z1), u = P(side === 1 ? x1 : x0, y, z1), v = P(side === 1 ? x0 : x1, y, z0);
-        const matrix = `matrix(${(u[0] - origin[0]) / 50} ${(u[1] - origin[1]) / 50} ${(v[0] - origin[0]) / 75} ${(v[1] - origin[1]) / 75} ${origin[0]} ${origin[1]})`;
-        const cover = el("g", { transform: matrix }, book);
-        el("path", { d: "M12 12h26v23H12z M18 12v23 M12 23h26", class: "cover-detail" }, cover);
-        el("text", { x: 25, y: 51, "text-anchor": "middle", class: "cover-word" }, cover, category);
-        el("path", { d: "M17 60h16", class: "cover-detail" }, cover);
-        const target = el("path", { d: poly(facePoints), class: "file-target shelf-target", role: "button", "aria-label": `Open ${category}` }, book);
-        target.addEventListener("click", () => {
-          if (!drag?.moved) choose(category);
-        });
+      solid(-62, -35, 0, 62, 35, 5);
+      solid(-58, -31, 5, -54, 31, 139);
+      solid(54, -31, 5, 58, 31, 139);
+      for (let row = 0; row < 5; row++) {
+        const z = 8 + row * 26;
+        solid(-54, -31, z, 54, 31, z + 3);
+        for (let side of [-face, face]) for (let k = 0; k < 23; k++) {
+          const i = Math.sin(C.az) > 0 ? k : 22 - k;
+          const x = -51 + i * 4.45, h = 17 + (i * 7 + row * 3) % 7;
+          solid(x, side > 0 ? 4 : -29, z + 3, x + 3.6, side > 0 ? 29 : -4, z + 3 + h);
+          const y2 = side * 29;
+          el("path", { d: seg(P(x + 0.8, y2, z + 6), P(x + 2.8, y2, z + 6)), class: "nf lo" }, g);
+        }
       }
-    }
-    const [top, topIn] = rings(-54, -32, 54, 32, 3, 1.2);
-    const roof = prism(P, front, top, topIn, 104, 108);
-    el("path", { d: roof.sil, class: "sil" }, svg);
-    el("path", { d: roof.crease, class: "nf lo" }, svg);
-    const ground = [P(-68, 40, 0), P(68, 40, 0)];
-    el("path", { d: seg(ground[0], ground[1]), class: "nf lo" }, svg);
-    const face = Math.cos(C.az) >= 0 ? names[0] : names[1];
-    status.textContent = face;
-    box.dataset.angle = String(Math.round(angle));
-    box.dataset.facing = face;
-  }
-  function rotate(to) {
-    stop();
-    stop = tween(angle, to, (v) => {
-      angle = v;
-      draw();
+      solid(-58, -33, 138, 58, 33, 142);
+      const y = face * 32, category = pair[face > 0 ? 0 : 1];
+      const target = el("path", { d: poly([P(-62, y, 0), P(62, y, 0), P(62, y, 145), P(-62, y, 145)]), class: "file-target", role: "button", tabindex: 0, "aria-label": selected < 0 ? `Select ${pair.join(" / ")}` : `Open ${category}` }, g);
+      function activate() {
+        if (drag?.moved) return;
+        if (selected < 0) {
+          selected = index;
+          draw();
+        } else parent.dispatchEvent(new CustomEvent("library-category", { bubbles: true, detail: { category } }));
+      }
+      target.addEventListener("click", activate);
+      target.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activate();
+        }
+      });
+      el("text", { x: C.ox, y: 410, "text-anchor": "middle", class: "shelf-face-label" }, g, category);
     });
   }
-  button.addEventListener("click", () => rotate(angle + 180));
+  s.addEventListener("pointerenter", () => hovering = true);
+  s.addEventListener("pointerleave", () => hovering = false);
   s.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      selected = -1;
+      draw();
+    }
     if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
       e.preventDefault();
-      rotate(angle + (e.key === "ArrowRight" ? 45 : -45));
-    }
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      choose(Math.cos(rad(angle)) >= 0 ? names[0] : names[1]);
+      angle += e.key === "ArrowRight" ? 45 : -45;
+      draw();
     }
   });
   s.addEventListener("pointerdown", (e) => {
-    if (e.button !== 0) return;
-    stop();
-    drag = { x: e.clientX, y: e.clientY, angle, moved: false, id: e.pointerId };
+    drag = { x: e.clientX, angle, moved: false };
   });
   s.addEventListener("pointermove", (e) => {
-    if (!drag) return;
-    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
-    if (!drag.moved && Math.abs(dx) > 6 && Math.abs(dx) > Math.abs(dy)) {
+    if (drag && Math.abs(e.clientX - drag.x) > 6) {
       drag.moved = true;
-      s.setPointerCapture(e.pointerId);
-    }
-    if (drag.moved) {
-      angle = drag.angle + dx * 0.75;
+      angle = drag.angle + (e.clientX - drag.x) * 0.6;
       draw();
     }
   });
-  s.addEventListener("pointerup", (e) => {
-    const wasDragged = drag?.moved;
-    if (wasDragged) {
-      rotate(45 + 180 * Math.round((angle - 45) / 180));
-      if (s.hasPointerCapture(e.pointerId)) s.releasePointerCapture(e.pointerId);
+  s.addEventListener("pointerup", () => {
+    setTimeout(() => drag = null, 0);
+  });
+  s.addEventListener("pointercancel", () => drag = null);
+  function animate(t) {
+    if (last && !drag && !hovering && !s.contains(document.activeElement) && !reduced.matches) {
+      angle += (t - last) * 7e-3;
+      draw();
     }
-    setTimeout(() => {
-      drag = null;
-    }, 0);
-  });
-  s.addEventListener("pointercancel", () => {
-    drag = null;
-  });
+    last = t;
+    requestAnimationFrame(animate);
+  }
   draw();
+  requestAnimationFrame(animate);
 }
-document.querySelectorAll("[data-rotating-library]").forEach((shelves) => {
-  shelfObject(shelves, 0, ["Read", "Reading"]);
-  shelfObject(shelves, 1, ["All", "Wishlist"]);
-});
+document.querySelectorAll("[data-rotating-library]").forEach(shelfScene);
 var library = document.querySelector(".library-page");
 if (library) {
   let apply = function() {

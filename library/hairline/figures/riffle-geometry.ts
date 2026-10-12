@@ -9,13 +9,13 @@ import {
  * frame.
  */
 
-export const N = 10, W = 84, H = 54, G = 13, TW = 22, TH = 7, TABS = [6, 31, 56], TK = 1.4;
+export const N = 26, W = 84, H = 54, G = 5, TW = 22, TH = 7, TABS = [6, 31, 56], TK = 1.4;
 export const REST = -12, BACK = -24, FWD = 20, LIFT = 16;
 export const X0 = -5, X1 = W + 5, Y0 = -9, Y1 = (N - 1) * G + 9, WH = 20, WR = 6, WT = 2.4;
 
 /** The camera, fitted to the tray with a card lifted, so nothing leaves the frame in any pose. */
 export function camera(): Camera {
-  const C = Cam(45, 0.5, 1.62);
+  const C = Cam(45, 0.5, 1.45);
   fit(C, [[X0, Y0, 0], [X1, Y1, -8], [X1, Y0, 0], [X0, Y1, 0], [X0, Y0, H + TH], [X1, Y0, H + TH + LIFT]], 200, 166);
   return C;
 }
