@@ -16,6 +16,7 @@
         <h3>{{ $book.title }}</h3>
         <p class="favorite-paper-authors">{{ $book.author }}</p>
 {{ with $book.year }}<p class="favorite-paper-venue">{{ . }}</p>{{ end }}
+{{ with $book.read_month }}<p class="favorite-paper-venue book-read-month">Read in {{ . }}</p>{{ end }}
 {{ with $book.rating }}<p class="favorite-paper-venue book-rating" aria-label="My rating: {{ . }} out of 5">{{ strings.Repeat . "★" }}{{ strings.Repeat (sub 5 .) "☆" }}</p>{{ end }}
 {{ with $book.review }}<p class="book-review">{{ . }}</p>{{ end }}
       </div>

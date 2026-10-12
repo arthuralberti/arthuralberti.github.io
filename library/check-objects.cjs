@@ -47,14 +47,29 @@ async function aligned(page, id) {
     const handle = preview.getByRole('slider', { name: 'Move library ladder' });
     await handle.press('Home');
     assert(await handle.getAttribute('aria-valuenow') === '0', 'Hairline ladder left stop');
+    const leftGrip = await handle.boundingBox();
     await handle.press('End');
     assert(await handle.getAttribute('aria-valuenow') === '100', 'Hairline ladder right stop');
     const grip = await handle.boundingBox();
+    const projectedTravel=await preview.locator('svg').evaluate(el=>116*1.38*Math.cos(Math.PI/4)*el.getScreenCTM().a);
+    assert(Math.abs(grip.x-leftGrip.x-projectedTravel)<2, 'Ladder crosses the full shelf, beyond the former half-width stop');
+    const staticGeometry = await preview.locator('[data-shelf] > g').first().innerHTML();
     await page.mouse.move(grip.x + grip.width / 2, grip.y + grip.height / 2);
     await page.mouse.down();
     await page.mouse.move(grip.x - 50, grip.y + grip.height / 2, { steps: 8 });
     await page.mouse.up();
+    await page.waitForTimeout(40);
     assert(Number(await handle.getAttribute('aria-valuenow')) < 90, 'Hairline ladder pointer drag');
+    assert(await preview.locator('[data-shelf] > g').first().innerHTML() === staticGeometry, 'Drag updates ladder only');
+    assert(await stage.getAttribute('data-dragging') === null, 'Pointer release ends drag');
+    const reverseGrip=await handle.boundingBox();
+    await page.mouse.move(reverseGrip.x+reverseGrip.width/2,reverseGrip.y+reverseGrip.height/2);
+    await page.mouse.down();
+    await page.mouse.move(reverseGrip.x+reverseGrip.width/2+180,reverseGrip.y+reverseGrip.height/2,{steps:12});
+    await page.mouse.up();
+    await page.waitForTimeout(40);
+    assert(await handle.getAttribute('aria-valuenow') === '100', 'Reverse drag reaches right edge');
+    assert(await handle.evaluate(el=>getComputedStyle(el).touchAction)==='pan-y','Vertical scrolling remains available on ladder');
     assert(await preview.isVisible(), 'Dragging ladder does not open catalog');
     if (options.hasTouch && engine === chromium) {
       await handle.press('End');
@@ -64,7 +79,22 @@ async function aligned(page, id) {
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y }] });
       for (let step = 1; step <= 10; step++) await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x - 4 * step, y }] });
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+      await page.waitForTimeout(40);
       assert(Number(await handle.getAttribute('aria-valuenow')) < 90, 'Hairline ladder touch drag');
+      assert(await stage.getAttribute('data-dragging') === null,'Touch release ends drag');
+      const scrollGrip=await handle.boundingBox();
+      const sx=scrollGrip.x+scrollGrip.width/2,sy=scrollGrip.y+scrollGrip.height/2;
+      const beforeSwipe=await page.evaluate(()=>scrollY);
+      await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:sx,y:sy}]});
+      for(let n=1;n<=12;n++){
+        await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:sx,y:sy-n*9}]});
+        await page.waitForTimeout(16);
+      }
+      await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+      await page.waitForTimeout(150);
+      assert(await page.evaluate(()=>scrollY)>beforeSwipe+30,'Page swipes vertically after ladder drag, even from its rails');
+      assert(await stage.getAttribute('data-dragging')===null,'Browser gesture cancellation releases drag');
+      await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
       await cdp.detach();
     }
     await handle.press('End');
@@ -172,6 +202,20 @@ async function aligned(page, id) {
     assert(await page.locator('.paper-box-count,.paper-list-disclosure,.paper-file-readout').count() === 0, 'No counter, disclosure or duplicate readout');
     assert(await page.locator('.favorite-paper:visible').count() === 26, 'All papers always visible');
     const ids = await page.locator('.favorite-paper').evaluateAll(nodes => nodes.map(n => n.id));
+    const paperData=await page.locator('#paper-files-data').evaluate(el=>JSON.parse(el.textContent));
+    for(let i=0;i<paperData.length;i++){
+      const label=page.locator('.file-face-label').nth(i);
+      const title=await label.locator('text:not(.file-face-year)').allTextContents();
+      assert(title.join(' ')===paperData[i].title,'File title preserved: '+i);
+      assert(await label.locator('.file-face-year').textContent()===String(paperData[i].year),'File year preserved: '+i);
+    }
+    await page.locator('.file-target').nth(13).focus();
+    await page.waitForTimeout(650);
+    await page.locator('.file-target').nth(13).evaluate(el=>el.blur());
+    assert(await page.locator('.file-face-label:visible').count()===1,'Only the highlighted file exposes its lettering');
+    const textFits=await page.locator('.file-face-label').nth(13).evaluate(el=>{const b=el.getBBox();return b.x>=0&&b.x+b.width<=72&&b.y+b.height<=38;});
+    assert(textFits,'Projected file label stays within its face margins');
+    await page.screenshot({path:`${artifacts}/${name}-file-label.png`});
     for (const index of [0, 13, 25]) {
       const file = page.locator('.file-target').nth(index);
       if (options.hasTouch) await file.tap(); else await file.click();

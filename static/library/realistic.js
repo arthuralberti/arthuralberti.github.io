@@ -38,6 +38,7 @@ if (root) {
     room.querySelector('.reading-book-author').textContent = book.author;
     for (const [selector, value] of [
       ['.reading-book-year', book.year],
+      ['.reading-book-month', book.read_month ? `Read in ${book.read_month}` : null],
       ['.reading-book-rating', book.rating ? '★'.repeat(book.rating) + '☆'.repeat(5 - book.rating) : null],
       ['.reading-book-review', book.review],
     ]) {
