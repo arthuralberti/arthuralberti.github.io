@@ -104,9 +104,9 @@
 {{ end }}
 {{ end }}
 
-{{ with hugo.Data.work_in_progress.works }}
+{{ with hugo.Data.work_in_progress.list.works }}
 <hr>
-<h2 id="workinprogress">Selected Work in Progress</h2>
+<h2 id="workinprogress">Work in Progress</h2>
 {{ range . }}
 {{ partial "publication.html" (dict "context" . "pid" ($scratch.Get "pubcnt")) }}
 {{ $scratch.Add "pubcnt" 1 }}
