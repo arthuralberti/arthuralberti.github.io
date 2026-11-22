@@ -1,5 +1,12 @@
-updated: "2026-08-28"
+updated: "2026-11-22"
 papers:
+  - slug: werning-lorenzoni-tatonnement
+    title: "Tâtonnement and Price Setting in General Equilibrium"
+    authors: "Iván Werning and Guido Lorenzoni"
+    year: "2026"
+    venue: "NBER Working Paper No. 35205"
+    doi: "10.3386/w35205"
+    paper_url: "https://www.nber.org/papers/w35205"
   - slug: fujiwara-voting-technology
     title: "Voting Technology, Political Responsiveness, and Infant Health: Evidence from Brazil"
     authors: "Thomas Fujiwara"
